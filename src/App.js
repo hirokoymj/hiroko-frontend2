@@ -4,8 +4,8 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { ReduxProvider } from "./Redux/ReduxProvider";
-import { TopicFormPage } from "./Components/Tech/TopicFormPage";
-import { TopicEditFormPage } from "./Components/Tech/TopicEditFormPage";
+// import { TopicFormPage } from "./Components/Tech/TopicFormPage";
+// import { TopicEditFormPage } from "./Components/Tech/TopicEditFormPage";
 import { ThemeProvider } from "./Styles/ThemeProvider";
 import { CategoryTable } from "./Components/Tech/CategoryTable";
 

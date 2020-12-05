@@ -11,3 +11,6 @@ yarn start
 ```text
 https://hirokoymj-backend.herokuapp.com/
 ```
+
+
+**Deploying with Heroku**
