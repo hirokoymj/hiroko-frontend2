@@ -1,16 +1,24 @@
 # hirokoymj.com React front-end
 
-**Start React app**
+### Start this app in development
 
 ```js
+yarn dev
+//http://localhost:3000/
+```
+
+### Start this app in production
+
+```js
+yarn build
 yarn start
+//http://localhost:8080/
 ```
 
-**Apollo Server Client**
+### Backend Apollo Server Client for this app
 
-```text
+
 https://hirokoymj-backend.herokuapp.com/
-```
 
 
 **Deploying with Heroku**
