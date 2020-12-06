@@ -15,10 +15,13 @@ yarn start
 ```
 http://localhost:8080/
 
-### Backend Apollo Server Client for this app
+### GraphQL Apollo Server Client 
 
 
 https://hirokoymj-backend.herokuapp.com/
 
 
-**Deploying with Heroku**
+### Deploying on Heroku
+
+- App Name: `hiroko-frontend`
+- Set up Automatic Deploys
