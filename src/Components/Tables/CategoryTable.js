@@ -3,20 +3,43 @@ import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import map from "lodash/map";
 // import Container from "@material-ui/core/Container";
+import Link from "@material-ui/core/Link";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { Link as RouterLink } from "react-router-dom";
+import EditIcon from "@material-ui/icons/Edit";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { CATEGORIES } from "Queries/Category";
 import { Table } from "Components/Tables/Table";
 
-export const CategoryTable = () => {
+const useStyles = makeStyles((theme) => ({
+  actionIcons: {
+    marginRight: theme.spacing(2),
+  },
+}));
+
+export const CategoryTable = ({ openDialog }) => {
+  const classes = useStyles();
   const { data, loading } = useQuery(CATEGORIES);
-  console.log(data);
+
   const categories = get(data, "categories");
   const mappedData = map(categories, (category) => {
     const { id, name, order } = category;
+    const actions = (
+      <>
+        <Link component={RouterLink} to={`editCategory/${id}`}>
+          <EditIcon className={classes.actionIcons} color="secondary" />
+        </Link>
+        <Link href="#" onClick={(e) => openDialog(e, id)}>
+          <DeleteIcon className={classes.actionIcons} color="secondary" />
+        </Link>
+      </>
+    );
     return {
       id,
       name,
       order,
+      actions,
     };
   });
 
@@ -40,6 +63,10 @@ export const CategoryTable = () => {
               label: "Order",
               field: "order",
               align: "right",
+            },
+            {
+              label: "Actions",
+              field: "actions",
             },
           ]}
         />

@@ -1,94 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Field, reduxForm, formValueSelector } from "redux-form";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 
 import { CategoryFormController } from "Components/FormController/CategoryFormController";
 import { FormTextField } from "../Forms/FormTextField";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { Title } from "Components/Titles/Title";
 import { CategoryTable } from "Components/Tables/CategoryTable";
+import { AlertDialog } from "Components/Dialog/AlertDialog";
+import { DELETE_CATEGORY } from "Mutations/Category";
+import { CATEGORIES } from "Queries/Category";
 
-const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: "none",
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: "hidden",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9),
-    },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: "100vh",
-    overflow: "auto",
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
   },
   paper: {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-  },
-  fixedHeight: {
-    height: 240,
   },
 }));
 
@@ -131,37 +68,76 @@ const CategoryFormFields = connect((state) => ({
 const CategoryForm = reduxForm({
   form: "Category_Form",
 })(({ handleSubmit, submitting }) => {
-  const classes = useStyles();
-
-  return (
-    <Grid container spacing={3}>
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <Title>Create Category</Title>
-          <Grid item xs={12} md={6}>
-            <CategoryFormFields
-              onSubmit={handleSubmit}
-              submitting={submitting}
-            />
-          </Grid>
-        </Paper>
-      </Grid>
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <Title>Category List</Title>
-          <CategoryTable />
-        </Paper>
-      </Grid>
-    </Grid>
-  );
+  return <CategoryFormFields onSubmit={handleSubmit} submitting={submitting} />;
 });
 
 export const CategoryView = () => {
+  const classes = useStyles();
+  const [open, setDialogOpen] = useState(false);
+  const [categoryId, setCategoryId] = useState("");
+  const [deleteCategory] = useMutation(DELETE_CATEGORY, {
+    refetchQueries: [{ query: CATEGORIES }],
+  });
+
+  const handleCloseDialog = () => setDialogOpen(false);
+
+  const handleOpenDialog = (e, id) => {
+    e.preventDefault();
+    setCategoryId(id);
+    setDialogOpen(true);
+  };
+
+  const handleDeleteCategory = async () => {
+    try {
+      console.log("handleDeleteCategory");
+      const { data } = await deleteCategory({
+        variables: {
+          id: categoryId,
+        },
+      });
+      console.log("success to delete");
+      setDialogOpen(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <DashboardLayout>
-      <CategoryFormController>
-        {(props) => <CategoryForm {...props} />}
-      </CategoryFormController>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <Title>Create Category</Title>
+            <Grid item xs={12} md={6}>
+              <CategoryFormController>
+                {(props) => <CategoryForm {...props} />}
+              </CategoryFormController>
+            </Grid>
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <Title>List Category</Title>
+            <CategoryTable openDialog={handleOpenDialog} />
+          </Paper>
+        </Grid>
+      </Grid>
+      <AlertDialog
+        open={open}
+        onClose={handleCloseDialog}
+        title="Delete Category"
+        content={
+          <>
+            <Typography component="p" variant="body1">
+              Do you want to to delete category? - id: {categoryId}
+            </Typography>
+          </>
+        }
+        actionLabel="Delete"
+        action={handleDeleteCategory}
+        cancelLabel="Cancel"
+        cancel={handleCloseDialog}
+      />
     </DashboardLayout>
   );
 };

@@ -9,17 +9,17 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 export const AlertDialog = ({
   open,
   title,
-  text,
+  content,
   action,
   actionLabel,
   onClose,
 }) => {
   return (
     <div>
-      <Dialog open={open} onClose={onClose}>
+      <Dialog open={open} onClose={onClose} fullWidth>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{text}</DialogContentText>
+          <DialogContentText>{content}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} color="primary">

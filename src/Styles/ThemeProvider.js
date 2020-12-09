@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 
 import { hirokoymjTheme } from "./hirokoymjTheme";
 
+console.log(hirokoymjTheme);
+
 export const ThemeFunctionsContext = React.createContext();
 
 export const ThemeProvider = ({ children }) => {

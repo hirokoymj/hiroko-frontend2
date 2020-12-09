@@ -6,7 +6,7 @@ export const hirokoymjTheme = createMuiTheme({
       main: "#2E7D32",
     },
     secondary: {
-      main: "#2E7D32",
+      main: "#4CAF50",
     },
     text: {
       primary: "#000",
