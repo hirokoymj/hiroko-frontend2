@@ -4,7 +4,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link as RouterLink } from "react-router-dom";
-import { connect } from "react-redux";
 
 export const ListItemLink = (props) => {
   const { icon, text, to, title } = props;
@@ -18,7 +17,7 @@ export const ListItemLink = (props) => {
           {...itemProps}
         />
       )),
-    [to]
+    [to, title]
   );
 
   return (

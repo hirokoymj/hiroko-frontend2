@@ -24,12 +24,14 @@ const useStyles = makeStyles((theme) => ({
 export const DashboardLayout = connect(null, { setTitle })(
   ({ setTitle, children }) => {
     const classes = useStyles();
-    console.log("DashboardLayout");
     const location = useLocation();
-    const title = location.state.title;
-    console.log(title);
 
-    setTitle(title);
+    if (location.state) {
+      setTitle(location.state.title);
+    } else {
+      setTitle("");
+    }
+
     return (
       <div className={classes.root}>
         <main className={classes.content}>
