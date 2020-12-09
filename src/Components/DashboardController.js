@@ -4,12 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { DashboardHeader } from "Components/Headers/DashboardHeader";
 import { MenuDrawer } from "Components/Drawers/MenuDrawer";
-import {
-  Home,
-  CategoryList,
-  SubCategoryList,
-  TopicList,
-} from "Components/Home";
+import { Home, SubCategoryList, TopicList } from "Components/Home";
+import { CategoryView } from "Components/PageView/CategoryView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +30,7 @@ export const DashboardController = () => {
         <div className={classes.appBarSpacer} />
         <Switch>
           <Route path="/" component={Home} exact={true} />
-          <Route path="/categoryList" component={CategoryList} />
+          <Route path="/categoryList" component={CategoryView} />
           <Route path="/subCategoryList" component={SubCategoryList} />
           <Route path="/topicList" component={TopicList} />
         </Switch>

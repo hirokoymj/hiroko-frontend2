@@ -44,22 +44,6 @@ export const DashboardLayout = connect(null, { setTitle })(
   }
 );
 
-// export const DashboardLayout = (props) => {
-//   const { children } = props;
-//   const classes = useStyles(props);
-
-//   return (
-//     <div className={classes.root}>
-//       <main className={classes.content}>
-//         {/* <div className={classes.appBarSpacer} /> */}
-//         <Container maxWidth="lg" className={classes.container}>
-//           {children}
-//         </Container>
-//       </main>
-//     </div>
-//   );
-// };
-
 DashboardLayout.propTypes = {
   children: PropTypes.node.isRequired,
 };

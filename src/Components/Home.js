@@ -1,20 +1,11 @@
 import React from "react";
 
-import { CategoryTable } from "./Tech/CategoryTable";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 
 export const Home = () => {
   return (
     <DashboardLayout>
       <h2>Home</h2>
-    </DashboardLayout>
-  );
-};
-
-export const CategoryList = () => {
-  return (
-    <DashboardLayout>
-      <CategoryTable />
     </DashboardLayout>
   );
 };
