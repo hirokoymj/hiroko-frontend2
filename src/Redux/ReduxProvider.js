@@ -3,8 +3,13 @@ import { Provider } from "react-redux";
 import { reducer as formReducer } from "redux-form";
 import { createStore, combineReducers } from "redux";
 
+import navigationReducer from "Redux/Navigation/Reducers";
+import titleReducer from "Redux/Title/Reducers";
+
 const reducers = combineReducers({
   form: formReducer,
+  navigation: navigationReducer,
+  pageTitle: titleReducer,
 });
 
 export const store = createStore(

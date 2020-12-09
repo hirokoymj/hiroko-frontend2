@@ -1,11 +1,12 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import lightBlue from "@material-ui/core/colors/lightBlue";
 
 export const hirokoymjTheme = createMuiTheme({
   palette: {
-    primary: lightBlue,
+    primary: {
+      main: "#2E7D32",
+    },
     secondary: {
-      main: "#26C6DA",
+      main: "#2E7D32",
     },
     text: {
       primary: "#000",
