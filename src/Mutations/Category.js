@@ -23,3 +23,15 @@ export const DELETE_CATEGORY = gql`
     }
   }
 `;
+
+export const UPDATE_CATEGORY = gql`
+  mutation UpdateCategory($id: ID!, $input: updateCategoryInput!) {
+    updateCategory(id: $id, input: $input) {
+      id
+      name
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;

@@ -2,7 +2,6 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import map from "lodash/map";
-// import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Link as RouterLink } from "react-router-dom";
@@ -27,7 +26,13 @@ export const CategoryTable = ({ openDialog }) => {
     const { id, name, order } = category;
     const actions = (
       <>
-        <Link component={RouterLink} to={`editCategory/${id}`}>
+        <Link
+          component={RouterLink}
+          to={{
+            pathname: `/editCategory/${id}`,
+            state: { title: "Edit Category" },
+          }}
+        >
           <EditIcon className={classes.actionIcons} color="secondary" />
         </Link>
         <Link href="#" onClick={(e) => openDialog(e, id)}>
@@ -67,6 +72,7 @@ export const CategoryTable = ({ openDialog }) => {
             {
               label: "Actions",
               field: "actions",
+              align: "center",
             },
           ]}
         />

@@ -11,3 +11,15 @@ export const CATEGORIES = gql`
     }
   }
 `;
+
+export const CATEGORY_BY_ID = gql`
+  query Category_By_Id($id: ID!) {
+    categoryById(id: $id) {
+      id
+      name
+      order
+      createdAt
+      updatedAt
+    }
+  }
+`;

@@ -9,6 +9,18 @@ import { setTitle } from "Redux/Title/ActionCreator";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+    },
+    "& .MuiButton-root": {
+      margin: theme.spacing(1),
+    },
+    "& .MuiPaper-root": {
+      padding: theme.spacing(2),
+      display: "flex",
+      overflow: "auto",
+      flexDirection: "column",
+    },
   },
   container: {
     paddingTop: theme.spacing(4),

@@ -3,9 +3,9 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { BrowserRouter } from "react-router-dom";
 
-import { ReduxProvider } from "./Redux/ReduxProvider";
-import { ThemeProvider } from "./Styles/ThemeProvider";
-import { DashboardController } from "./Components/DashboardController";
+import { ReduxProvider } from "Redux/ReduxProvider";
+import { ThemeProvider } from "Styles/ThemeProvider";
+import { DashboardController } from "Components/DashboardController";
 
 const client = new ApolloClient({
   uri: "https://hirokoymj-backend.herokuapp.com/",
