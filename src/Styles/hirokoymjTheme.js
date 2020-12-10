@@ -11,17 +11,9 @@ export const hirokoymjTheme = createMuiTheme({
     text: {
       primary: "#000",
     },
-    // contrastThreshold: 2,
-    // success: {
-    //   main: "#00E676",
-    //   light: "#00E676",
-    //   dark: "#00C853",
-    // },
-    // warning: {
-    //   main: "#FFA000",
-    //   light: "#FFC107",
-    //   dark: "#FFA000",
-    // },
+    background: {
+      default: "#f2f3f3",
+    },
   },
   typography: {
     fontFamily: ["proxima-nova", "sans-serif"].join(","),
