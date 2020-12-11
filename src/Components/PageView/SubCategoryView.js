@@ -37,7 +37,7 @@ const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
         component={FormTextField}
         fullWidth
         variant="outlined"
-        label="Sub Category"
+        label="Sub Category Name"
       />
       <Field
         name="order"
@@ -45,7 +45,7 @@ const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
         type="number"
         fullWidth
         variant="outlined"
-        label="Order"
+        label="Display Order"
       />
       <Button
         type="submit"

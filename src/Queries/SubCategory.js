@@ -18,9 +18,9 @@ export const SUB_CATEGORIES = gql`
   ${CategoryFragments.categoryInfo}
 `;
 
-export const SUB_CATEGORIES_By_ID = gql`
-  query SubCategoriesById($id: ID!) {
-    subCategoriesById(id: $id) {
+export const SUB_CATEGORY_BY_ID = gql`
+  query SubCategoryById($id: ID!) {
+    subCategoryById(id: $id) {
       id
       name
       order

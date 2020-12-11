@@ -11,6 +11,8 @@ import { Home, TopicList } from "Components/Home";
 import { CategoryView } from "Components/PageView/CategoryView";
 import { CategoryEditView } from "Components/PageView/CategoryEditView";
 import { SubCategoryView } from "Components/PageView/SubCategoryView";
+import { SubCategoryEditView } from "Components/PageView/SubCategoryEditView";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -50,6 +52,10 @@ export const DashboardController = () => {
             <Route path="/categoryList" component={CategoryView} />
             <Route path="/editCategory/:id" component={CategoryEditView} />
             <Route path="/subCategoryList" component={SubCategoryView} />
+            <Route
+              path="/editSubCategory/:id"
+              component={SubCategoryEditView}
+            />
             <Route path="/topicList" component={TopicList} />
           </Switch>
         </main>

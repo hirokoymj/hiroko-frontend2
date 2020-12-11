@@ -61,6 +61,7 @@ export const MenuDrawer = connect(
       open={open}
     >
       <div className={classes.toolbarIcon}>
+        hirokoymj.com
         <IconButton onClick={closeNavigation}>
           <ChevronLeftIcon />
         </IconButton>

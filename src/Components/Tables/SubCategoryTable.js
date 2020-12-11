@@ -74,7 +74,7 @@ export const SubCategoryTable = ({ openDialog }) => {
               field: "name",
             },
             {
-              label: "Display order",
+              label: "Display Order",
               field: "order",
             },
             {
