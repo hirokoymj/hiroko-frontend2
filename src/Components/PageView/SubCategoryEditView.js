@@ -50,7 +50,7 @@ const SubCategoryEditFormFields = ({
         disabled={submitting}
         onClick={onSubmit}
       >
-        {submitting ? "Submitting" : "Submit"}
+        {submitting ? "Updating" : "Update"}
       </Button>
     </>
   );
