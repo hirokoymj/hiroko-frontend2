@@ -8,28 +8,41 @@ import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 
 import { SubCategoryFormController } from "Components/FormController/SubCategoryFormController";
-import { FormTextField } from "../Forms/FormTextField";
+import { FormTextField } from "Components/Forms/FormTextField";
+import { FormSelect } from "Components/Forms/FormSelect";
+
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { Title } from "Components/Titles/Title";
 import { SubCategoryTable } from "Components/Tables/SubCategoryTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
-import { DELETE_CATEGORY } from "Mutations/Category";
-import { CATEGORIES } from "Queries/Category";
+import { DELETE_SUB_CATEGORY } from "Mutations/SubCategory";
+import { SUB_CATEGORIES } from "Queries/SubCategory";
 
-const SubCategoryFormFields = ({ onSubmit, submitting }) => {
+const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
+  console.log("SubCategoryFormFiled");
+  console.log(category_options);
   return (
     <>
+      <Field
+        name="categoryId"
+        component={FormSelect}
+        fullWidth
+        variant="outlined"
+        label="Category"
+        placeholder="Select Category"
+        options={category_options}
+      />
       <Field
         name="name"
         component={FormTextField}
         fullWidth
         variant="outlined"
-        label="Category Name"
+        label="Sub Category"
       />
       <Field
         name="order"
         component={FormTextField}
-        type="text"
+        type="number"
         fullWidth
         variant="outlined"
         label="Order"
@@ -48,38 +61,41 @@ const SubCategoryFormFields = ({ onSubmit, submitting }) => {
 };
 
 const SubCategoryForm = reduxForm({
-  form: "Category_Form",
-})(({ handleSubmit, submitting }) => {
+  form: "Sub_Category_Form",
+})(({ handleSubmit, submitting, category_options }) => {
   return (
-    <SubCategoryFormFields onSubmit={handleSubmit} submitting={submitting} />
+    <SubCategoryFormFields
+      onSubmit={handleSubmit}
+      submitting={submitting}
+      category_options={category_options}
+    />
   );
 });
 
 export const SubCategoryView = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
-  const [categoryId, setCategoryId] = useState("");
-  const [deleteCategory] = useMutation(DELETE_CATEGORY, {
-    refetchQueries: [{ query: CATEGORIES }],
+  const [subCategoryId, setSubCategoryId] = useState("");
+  const [deleteSubCategory] = useMutation(DELETE_SUB_CATEGORY, {
+    refetchQueries: [{ query: SUB_CATEGORIES }],
   });
 
   const handleClose = () => setOpen(false);
 
   const handleOpen = (e, id) => {
     e.preventDefault();
-    setCategoryId(id);
+    setSubCategoryId(id);
     setOpen(true);
   };
 
-  const handleDeleteCategory = async () => {
+  const handleDeleteSubCategory = async () => {
     try {
-      console.log("handleDeleteCategory");
-      await deleteCategory({
+      await deleteSubCategory({
         variables: {
-          id: categoryId,
+          id: subCategoryId,
         },
       });
-      enqueueSnackbar("Category successfully deleted!", {
+      enqueueSnackbar("Sub Category successfully deleted!", {
         variant: "success",
       });
       handleClose();
@@ -93,7 +109,7 @@ export const SubCategoryView = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper>
-            <Title>Create Category</Title>
+            <Title>Create Sub Category</Title>
             <Grid item xs={12} md={6}>
               <SubCategoryFormController>
                 {(props) => <SubCategoryForm {...props} />}
@@ -111,16 +127,16 @@ export const SubCategoryView = () => {
       <AlertDialog
         open={open}
         onClose={handleClose}
-        title="Delete Category"
+        title="Delete Sub Category"
         content={
           <>
             <Typography component="p" variant="body1">
-              Do you want to to delete category? - id: {categoryId}
+              Do you want to to delete sub category?
             </Typography>
           </>
         }
         actionLabel="Delete"
-        action={handleDeleteCategory}
+        action={handleDeleteSubCategory}
         cancelLabel="Cancel"
         cancel={handleClose}
       />

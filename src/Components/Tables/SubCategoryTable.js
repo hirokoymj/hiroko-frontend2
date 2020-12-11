@@ -27,16 +27,16 @@ export const SubCategoryTable = ({ openDialog }) => {
 
   const mappedData = map(subCategories, (subCategory) => {
     const { id, name, order, category } = subCategory;
-    const categoryId = category.id;
-    const categoryName = category.name;
-    const categoryOrder = category.order;
+    const categoryId = get(category, "id", "");
+    const categoryName = get(category, "name", "");
+    const categoryOrder = get(category, "order", 0);
     const actions = (
       <>
         <Link
           component={RouterLink}
           to={{
-            pathname: `/editCategory/${id}`,
-            state: { title: "Edit Category" },
+            pathname: `/editSubCategory/${id}`,
+            state: { title: "Edit Sub Category" },
           }}
         >
           <EditIcon className={classes.actionIcons} color="secondary" />
@@ -74,7 +74,7 @@ export const SubCategoryTable = ({ openDialog }) => {
               field: "name",
             },
             {
-              label: "Order",
+              label: "Display order",
               field: "order",
             },
             {

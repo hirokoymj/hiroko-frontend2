@@ -1,25 +1,49 @@
 import { destroy } from "redux-form";
-import { useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import get from "lodash/get";
 
-import { CREATE_CATEGORY } from "Mutations/Category";
-// import { CATEGORIES } from "Queries/Category";
+import { CREATE_SUB_CATEGORY } from "Mutations/SubCategory";
+import { SUB_CATEGORIES } from "Queries/SubCategory";
+import { CATEGORIES } from "Queries/Category";
 
 export const SubCategoryFormController = ({ children }) => {
-  const [createCategory] = useMutation(CREATE_CATEGORY);
+  const [createSubCategory] = useMutation(CREATE_SUB_CATEGORY, {
+    refetchQueries: [{ query: SUB_CATEGORIES }],
+  });
+
+  const { data, loading } = useQuery(CATEGORIES);
+  let category_options = [];
+  console.log(data);
+  // const categories = !loading && get(data, "categories");
+  // console.log(categories);
+
+  if (!loading) {
+    const categories = get(data, "categories");
+    console.log(categories);
+    category_options = categories.map(({ id, name }) => {
+      return {
+        value: id,
+        label: name,
+      };
+    });
+  }
+  console.log("SubCategoryFormController");
+  console.log(category_options);
 
   const onSubmit = async (values, dispatch) => {
     try {
-      const { name, order } = values;
-      await createCategory({
+      const { name, order, categoryId } = values;
+      await createSubCategory({
         variables: {
           input: {
             name,
             order: parseInt(order),
+            category: categoryId,
           },
         },
       });
       console.log("Success");
-      dispatch(destroy("Category_Form"));
+      dispatch(destroy("Sub_Category_Form"));
     } catch (e) {
       console.error(e);
     }
@@ -27,8 +51,9 @@ export const SubCategoryFormController = ({ children }) => {
 
   const validate = (values) => {
     const errors = {};
-    if (!values.categoryName) errors.categoryName = "Required";
-    if (!values.categoryOrder) errors.categoryOrder = "Required";
+    if (!values.name) errors.name = "Required";
+    if (!values.order) errors.order = "Required";
+    if (!values.categoryId) errors.categoryId = "Required";
 
     return errors;
   };
@@ -36,5 +61,6 @@ export const SubCategoryFormController = ({ children }) => {
   return children({
     onSubmit,
     validate,
+    category_options,
   });
 };

@@ -11,12 +11,14 @@ export const FormSelect = ({
   meta: { touched, error },
   options,
   defaultValue,
+  variant,
   ...custom
 }) => {
   return (
-    <FormControl error={touched && error} fullWidth>
-      <InputLabel htmlFor={input.name}>{label}</InputLabel>
+    <FormControl error={touched && error} fullWidth variant={variant}>
+      <InputLabel id={input.name}>{label}</InputLabel>
       <Select
+        labelId={input.name}
         value={input.value}
         onChange={input.onChange}
         inputProps={{

@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { CategoryFragments } from "./CategoryFragments";
+import { CategoryFragments } from "../Queries/CategoryFragments";
 
 export const CREATE_SUB_CATEGORY = gql`
   mutation CreateSubCategory($input: createSubCategoryInput!) {
@@ -7,17 +7,14 @@ export const CREATE_SUB_CATEGORY = gql`
       id
       name
       order
-      category {
-        id
-        name
-        order
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
+      category {
+        ...CategoryInfo
+      }
     }
   }
+  ${CategoryFragments.categoryInfo}
 `;
 
 export const DELETE_SUB_CATEGORY = gql`
@@ -38,15 +35,12 @@ export const UPDATE_SUB_CATEGORY = gql`
       id
       name
       order
-      category {
-        id
-        name
-        order
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
+      category {
+        ...CategoryInfo
+      }
     }
   }
+  ${CategoryFragments.categoryInfo}
 `;
