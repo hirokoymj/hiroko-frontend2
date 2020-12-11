@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
       overflow: "auto",
       flexDirection: "column",
     },
+    "& .MuiTableCell-head": {
+      fontWeight: 600,
+    },
   },
   container: {
     paddingTop: theme.spacing(4),

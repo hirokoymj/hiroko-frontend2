@@ -7,10 +7,10 @@ import { useTheme } from "@material-ui/core/styles";
 
 import { DashboardHeader } from "Components/Headers/DashboardHeader";
 import { MenuDrawer } from "Components/Drawers/MenuDrawer";
-import { Home, SubCategoryList, TopicList } from "Components/Home";
+import { Home, TopicList } from "Components/Home";
 import { CategoryView } from "Components/PageView/CategoryView";
 import { CategoryEditView } from "Components/PageView/CategoryEditView";
-
+import { SubCategoryView } from "Components/PageView/SubCategoryView";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -49,7 +49,7 @@ export const DashboardController = () => {
             <Route path="/" component={Home} exact={true} />
             <Route path="/categoryList" component={CategoryView} />
             <Route path="/editCategory/:id" component={CategoryEditView} />
-            <Route path="/subCategoryList" component={SubCategoryList} />
+            <Route path="/subCategoryList" component={SubCategoryView} />
             <Route path="/topicList" component={TopicList} />
           </Switch>
         </main>

@@ -7,16 +7,16 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 
-import { CategoryFormController } from "Components/FormController/CategoryFormController";
+import { SubCategoryFormController } from "Components/FormController/SubCategoryFormController";
 import { FormTextField } from "../Forms/FormTextField";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { Title } from "Components/Titles/Title";
-import { CategoryTable } from "Components/Tables/CategoryTable";
+import { SubCategoryTable } from "Components/Tables/SubCategoryTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_CATEGORY } from "Mutations/Category";
 import { CATEGORIES } from "Queries/Category";
 
-const CategoryFormFields = ({ onSubmit, submitting }) => {
+const SubCategoryFormFields = ({ onSubmit, submitting }) => {
   return (
     <>
       <Field
@@ -47,13 +47,15 @@ const CategoryFormFields = ({ onSubmit, submitting }) => {
   );
 };
 
-const CategoryForm = reduxForm({
+const SubCategoryForm = reduxForm({
   form: "Category_Form",
 })(({ handleSubmit, submitting }) => {
-  return <CategoryFormFields onSubmit={handleSubmit} submitting={submitting} />;
+  return (
+    <SubCategoryFormFields onSubmit={handleSubmit} submitting={submitting} />
+  );
 });
 
-export const CategoryView = () => {
+export const SubCategoryView = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
   const [categoryId, setCategoryId] = useState("");
@@ -93,16 +95,16 @@ export const CategoryView = () => {
           <Paper>
             <Title>Create Category</Title>
             <Grid item xs={12} md={6}>
-              <CategoryFormController>
-                {(props) => <CategoryForm {...props} />}
-              </CategoryFormController>
+              <SubCategoryFormController>
+                {(props) => <SubCategoryForm {...props} />}
+              </SubCategoryFormController>
             </Grid>
           </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper>
-            <Title>List Category</Title>
-            <CategoryTable openDialog={handleOpen} />
+            <Title>Sub Category List</Title>
+            <SubCategoryTable openDialog={handleOpen} />
           </Paper>
         </Grid>
       </Grid>
