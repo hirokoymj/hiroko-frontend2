@@ -12,6 +12,7 @@ import { CategoryView } from "Components/PageView/CategoryView";
 import { CategoryEditView } from "Components/PageView/CategoryEditView";
 import { SubCategoryView } from "Components/PageView/SubCategoryView";
 import { SubCategoryEditView } from "Components/PageView/SubCategoryEditView";
+import { TopicView } from "Components/PageView/TopicView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,7 +57,7 @@ export const DashboardController = () => {
               path="/editSubCategory/:id"
               component={SubCategoryEditView}
             />
-            <Route path="/topicList" component={TopicList} />
+            <Route path="/topicList" component={TopicView} />
           </Switch>
         </main>
       </SnackbarProvider>
