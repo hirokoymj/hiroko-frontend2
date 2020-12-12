@@ -22,20 +22,10 @@ export const CREATE_TOPIC = gql`
 
 export const DELETE_TOPIC = gql`
   mutation DeleteTopic($id: ID!) {
-    deleteTopicById(id: $id) {
-      topic {
-        id
-        title
-        url
-        category {
-          ...CategoryInfo
-        }
-        subcategory {
-          ...SubCategoryInfo
-        }
-      }
+    deleteTopic(id: $id) {
+      id
+      title
+      url
     }
   }
-  ${CategoryFragments.categoryInfo}
-  ${SubCategoryFragments.subCategoryInfo}
 `;

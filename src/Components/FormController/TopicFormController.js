@@ -33,10 +33,9 @@ const makeDropdownOptions = (category_data, subcategory_data, loading) => {
 };
 
 export const TopicFormController = ({ children }) => {
-  // const [createTopic] = useMutation(CREATE_TOPIC, {
-  //   refetchQueries: [{ query: TOPICS }],
-  // });
-  const [createTopic] = useMutation(CREATE_TOPIC);
+  const [createTopic] = useMutation(CREATE_TOPIC, {
+    refetchQueries: [{ query: TOPICS }],
+  });
   const { data, loading } = useQuery(CATEGORIES);
   const { data: data_subCategory, loading_subCategory } = useQuery(
     SUB_CATEGORIES

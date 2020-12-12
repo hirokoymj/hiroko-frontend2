@@ -4,8 +4,8 @@ import { useMutation } from "@apollo/react-hooks";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-// import Typography from "@material-ui/core/Typography";
-// import { useSnackbar } from "notistack";
+import Typography from "@material-ui/core/Typography";
+import { useSnackbar } from "notistack";
 import { connect } from "react-redux";
 
 import { TopicFormController } from "Components/FormController/TopicFormController";
@@ -15,9 +15,9 @@ import { FormSelect } from "Components/Forms/FormSelect";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { Title } from "Components/Titles/Title";
 import { TopicTable } from "Components/Tables/TopicTable";
-// import { AlertDialog } from "Components/Dialog/AlertDialog";
-// import { DELETE_SUB_CATEGORY } from "Mutations/SubCategory";
-// import { SUB_CATEGORIES } from "Queries/SubCategory";
+import { AlertDialog } from "Components/Dialog/AlertDialog";
+import { DELETE_TOPIC } from "Mutations/Topic";
+import { TOPICS } from "Queries/Topic";
 
 const TopicFormFields = connect((state) => ({
   categoryId: formValueSelector("Create_Topic_Form")(state, "category"),
@@ -91,12 +91,36 @@ const TopicForm = reduxForm({
 });
 
 export const TopicView = () => {
-  // const { enqueueSnackbar } = useSnackbar();
-  // const [open, setOpen] = useState(false);
-  // const [subCategoryId, setSubCategoryId] = useState("");
-  // const [deleteSubCategory] = useMutation(DELETE_SUB_CATEGORY, {
-  //   refetchQueries: [{ query: SUB_CATEGORIES }],
-  // });
+  const { enqueueSnackbar } = useSnackbar();
+  const [open, setOpen] = useState(false);
+  const [topicId, setTopicId] = useState("");
+  const [deleteTopic, { loading }] = useMutation(DELETE_TOPIC, {
+    refetchQueries: [{ query: TOPICS }],
+  });
+
+  const handleClose = () => setOpen(false);
+
+  const handleOpen = (e, id) => {
+    e.preventDefault();
+    setTopicId(id);
+    setOpen(true);
+  };
+
+  const handleDeleteTopic = async () => {
+    try {
+      await deleteTopic({
+        variables: {
+          id: topicId,
+        },
+      });
+      enqueueSnackbar("Topic successfully deleted!", {
+        variant: "success",
+      });
+      handleClose();
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <DashboardLayout>
@@ -114,10 +138,26 @@ export const TopicView = () => {
         <Grid item xs={12}>
           <Paper>
             <Title>Topic List</Title>
-            <TopicTable />
+            <TopicTable openDialog={handleOpen} />
           </Paper>
         </Grid>
       </Grid>
+      <AlertDialog
+        open={open}
+        onClose={handleClose}
+        title="Delete Topic"
+        content={
+          <>
+            <Typography component="p" variant="body1">
+              Do you want to to delete a topic?
+            </Typography>
+          </>
+        }
+        actionLabel={loading ? "Deleting" : "Delete"}
+        action={handleDeleteTopic}
+        cancelLabel="Cancel"
+        cancel={handleClose}
+      />
     </DashboardLayout>
   );
 };

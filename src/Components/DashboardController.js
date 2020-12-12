@@ -7,7 +7,7 @@ import { useTheme } from "@material-ui/core/styles";
 
 import { DashboardHeader } from "Components/Headers/DashboardHeader";
 import { MenuDrawer } from "Components/Drawers/MenuDrawer";
-import { Home, TopicList } from "Components/Home";
+import { Home } from "Components/Home";
 import { CategoryView } from "Components/PageView/CategoryView";
 import { CategoryEditView } from "Components/PageView/CategoryEditView";
 import { SubCategoryView } from "Components/PageView/SubCategoryView";
