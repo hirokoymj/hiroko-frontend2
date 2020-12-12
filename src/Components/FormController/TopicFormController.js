@@ -37,7 +37,7 @@ export const TopicFormController = ({ children }) => {
     refetchQueries: [{ query: TOPICS }],
   });
   const { data, loading } = useQuery(CATEGORIES);
-  const { data: data_subCategory, loading_subCategory } = useQuery(
+  const { data: data_subCategory, loading: loading_subCategory } = useQuery(
     SUB_CATEGORIES
   );
 

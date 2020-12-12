@@ -22,7 +22,7 @@ export const TOPICS = gql`
 `;
 
 export const TOPIC_BY_ID = gql`
-  query Topic_By_Id($id: ID!) {
+  query TopicById($id: ID!) {
     topicById(id: $id) {
       id
       title
@@ -40,7 +40,7 @@ export const TOPIC_BY_ID = gql`
 `;
 
 export const TOPIC_BY_CATEGORY = gql`
-  query Topic_By_Category($id: ID!) {
+  query TopicByCategory($id: ID!) {
     topicByCategory(categoryId: $id) {
       id
       title

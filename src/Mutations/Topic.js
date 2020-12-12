@@ -29,3 +29,21 @@ export const DELETE_TOPIC = gql`
     }
   }
 `;
+
+export const UPDATE_TOPIC = gql`
+  mutation UpdateTopic($id: ID!, $input: updateTopicInput!) {
+    updateTopic(id: $id, input: $input) {
+      id
+      title
+      url
+      category {
+        ...CategoryInfo
+      }
+      subCategory {
+        ...SubCategoryInfo
+      }
+    }
+  }
+  ${CategoryFragments.categoryInfo}
+  ${SubCategoryFragments.subCategoryInfo}
+`;
