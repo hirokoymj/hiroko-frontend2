@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useParams, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { SnackbarProvider } from "notistack";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -14,6 +14,7 @@ import { SubCategoryView } from "Components/PageView/SubCategoryView";
 import { SubCategoryEditView } from "Components/PageView/SubCategoryEditView";
 import { TopicView } from "Components/PageView/TopicView";
 import { TopicEditView } from "Components/PageView/TopicEditView";
+import { ReferenceView } from "Components/PageView/ReferenceView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +27,15 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
 }));
+
+export const PageTest = (props) => {
+  const { id } = useParams();
+  return (
+    <div>
+      <h1>Page TEST {id}</h1>
+    </div>
+  );
+};
 
 export const DashboardController = () => {
   const classes = useStyles();
@@ -50,7 +60,15 @@ export const DashboardController = () => {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Switch>
-            <Route path="/" component={Home} exact={true} />
+            {/* <Route path="/" component={Home} exact={true} /> */}
+            <Route
+              path="/"
+              exact
+              render={() => {
+                return <Redirect to="/tech/git" />;
+              }}
+            />
+            <Route path="/tech" component={ReferenceView} />
             <Route path="/categoryList" component={CategoryView} />
             <Route path="/editCategory/:id" component={CategoryEditView} />
             <Route path="/subCategoryList" component={SubCategoryView} />
