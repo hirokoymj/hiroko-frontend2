@@ -5,6 +5,7 @@ export const CategoryFragments = {
     fragment CategoryInfo on Category {
       id
       name
+      abbr
       order
       createdAt
       updatedAt

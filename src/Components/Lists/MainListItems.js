@@ -11,7 +11,7 @@ export const MainListItems = (
       to="/"
       text="Dashboard"
       icon={<DashboardIcon />}
-      title="Technical Resources"
+      title="Technical References"
     />
     <ListItemLink
       to="/categoryList"

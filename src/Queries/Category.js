@@ -5,6 +5,7 @@ export const CATEGORIES = gql`
     categories {
       id
       name
+      abbr
       order
       createdAt
       updatedAt
@@ -17,6 +18,7 @@ export const CATEGORY_BY_ID = gql`
     categoryById(id: $id) {
       id
       name
+      abbr
       order
       createdAt
       updatedAt

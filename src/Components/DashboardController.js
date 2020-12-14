@@ -7,7 +7,6 @@ import { useTheme } from "@material-ui/core/styles";
 
 import { DashboardHeader } from "Components/Headers/DashboardHeader";
 import { MenuDrawer } from "Components/Drawers/MenuDrawer";
-import { Home } from "Components/Home";
 import { CategoryView } from "Components/PageView/CategoryView";
 import { CategoryEditView } from "Components/PageView/CategoryEditView";
 import { SubCategoryView } from "Components/PageView/SubCategoryView";
@@ -60,12 +59,18 @@ export const DashboardController = () => {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Switch>
-            {/* <Route path="/" component={Home} exact={true} /> */}
             <Route
               path="/"
               exact
               render={() => {
-                return <Redirect to="/tech/git" />;
+                return (
+                  <Redirect
+                    to={{
+                      pathname: "/tech/react",
+                      state: { title: "Technical References" },
+                    }}
+                  />
+                );
               }}
             />
             <Route path="/tech" component={ReferenceView} />

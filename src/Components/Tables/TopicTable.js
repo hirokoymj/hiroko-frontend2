@@ -20,7 +20,13 @@ const useStyles = makeStyles((theme) => ({
 export const TopicTable = ({ openDialog }) => {
   const classes = useStyles();
   const { data, loading } = useQuery(TOPICS);
-  const topics = !loading && get(data, "topics", []);
+  let topics = !loading && get(data, "topics", []);
+  if (!loading)
+    topics.sort(
+      (a, b) =>
+        a.category.order - b.category.order ||
+        a.subCategory.order - b.subCategory.order
+    );
 
   const mappedData = map(
     topics,

@@ -21,9 +21,8 @@ export const SubCategoryTable = ({ openDialog }) => {
   const classes = useStyles();
   const { data, loading } = useQuery(SUB_CATEGORIES);
   let subCategories = get(data, "subCategories", []);
-  if (!loading) {
+  if (!loading)
     subCategories.sort((a, b) => a.category.order - b.category.order);
-  }
 
   const mappedData = map(subCategories, (subCategory) => {
     const { id, name, order, category } = subCategory;

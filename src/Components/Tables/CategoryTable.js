@@ -23,7 +23,7 @@ export const CategoryTable = ({ openDialog }) => {
 
   const categories = get(data, "categories");
   const mappedData = map(categories, (category) => {
-    const { id, name, order } = category;
+    const { id, name, abbr, order } = category;
     const actions = (
       <>
         <Link
@@ -43,6 +43,7 @@ export const CategoryTable = ({ openDialog }) => {
     return {
       id,
       name,
+      abbr,
       order,
       actions,
     };
@@ -63,6 +64,10 @@ export const CategoryTable = ({ openDialog }) => {
             {
               label: "Category Name",
               field: "name",
+            },
+            {
+              label: "Abbreviation",
+              field: "abbr",
             },
             {
               label: "Order",
