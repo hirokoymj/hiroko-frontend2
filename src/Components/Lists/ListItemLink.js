@@ -4,9 +4,22 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link as RouterLink } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  imageIcon: {
+    width: "23px",
+    height: "auto",
+    backgroundColor: "transparent !important",
+  },
+  icon: {
+    color: "rgba(0, 0, 0, 0.8)",
+  },
+}));
 
 export const ListItemLink = (props) => {
-  const { icon, text, to, title } = props;
+  const { icon, text, to, title, imageIcon } = props;
+  const classes = useStyles();
 
   const renderLink = React.useMemo(
     () =>
@@ -23,7 +36,12 @@ export const ListItemLink = (props) => {
   return (
     <li>
       <ListItem button component={renderLink}>
-        <ListItemIcon>{icon}</ListItemIcon>
+        {icon && <ListItemIcon className={classes.icon}>{icon}</ListItemIcon>}
+        {imageIcon && (
+          <ListItemIcon>
+            <img src={imageIcon} alt="" className={classes.imageIcon} />
+          </ListItemIcon>
+        )}
         <ListItemText primary={text} />
       </ListItem>
     </li>

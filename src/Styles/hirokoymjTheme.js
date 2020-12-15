@@ -3,7 +3,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 export const hirokoymjTheme = createMuiTheme({
   palette: {
     primary: {
-      main: "#2E7D32",
+      main: "#002653",
     },
     secondary: {
       main: "#4CAF50",

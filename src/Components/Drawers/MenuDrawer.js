@@ -9,7 +9,10 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
 
-import { MainListItems } from "Components/Lists/MainListItems";
+import {
+  ReferenceListItems,
+  ManagementListItems,
+} from "Components/Lists/NavigationLists";
 import { closeNavigation } from "Redux/Navigation/ActionCreator";
 
 const drawerWidth = 240;
@@ -80,7 +83,13 @@ export const MenuDrawer = connect(
         </IconButton>
       </div>
       <Divider />
-      <List>{MainListItems}</List>
+      <List>
+        <ReferenceListItems />
+      </List>
+      <Divider />
+      <List>
+        <ManagementListItems />
+      </List>
       <Divider />
     </Drawer>
   );
