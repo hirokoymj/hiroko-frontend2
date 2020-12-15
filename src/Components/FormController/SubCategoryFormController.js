@@ -13,13 +13,9 @@ export const SubCategoryFormController = ({ children }) => {
 
   const { data, loading } = useQuery(CATEGORIES);
   let category_options = [];
-  console.log(data);
-  // const categories = !loading && get(data, "categories");
-  // console.log(categories);
 
   if (!loading) {
     const categories = get(data, "categories");
-    console.log(categories);
     category_options = categories.map(({ id, name }) => {
       return {
         value: id,
@@ -27,8 +23,6 @@ export const SubCategoryFormController = ({ children }) => {
       };
     });
   }
-  console.log("SubCategoryFormController");
-  console.log(category_options);
 
   const onSubmit = async (values, dispatch) => {
     try {
@@ -62,5 +56,6 @@ export const SubCategoryFormController = ({ children }) => {
     onSubmit,
     validate,
     category_options,
+    loading,
   });
 };

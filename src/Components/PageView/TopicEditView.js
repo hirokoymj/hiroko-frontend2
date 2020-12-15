@@ -11,6 +11,7 @@ import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSelect } from "Components/Forms/FormSelect";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { Title } from "Components/Titles/Title";
+import { FormSkelton } from "Components/Skelton/FormSkelton";
 
 const TopicEditFormFields = connect((state) => ({
   categoryId: formValueSelector("Topic_Edit_Form")(state, "category"),
@@ -81,14 +82,21 @@ const TopicEditForm = reduxForm({
     loading,
   }) => {
     return (
-      !loading && (
-        <TopicEditFormFields
-          onSubmit={handleSubmit}
-          submitting={submitting}
-          category_options={category_options}
-          subCategory_options={subCategory_options}
-        />
-      )
+      <>
+        {loading ? (
+          <FormSkelton fieldCount={4} />
+        ) : (
+          <>
+            <Title text="Create Technical Topic" />
+            <TopicEditFormFields
+              onSubmit={handleSubmit}
+              submitting={submitting}
+              category_options={category_options}
+              subCategory_options={subCategory_options}
+            />
+          </>
+        )}
+      </>
     );
   }
 );
@@ -101,7 +109,6 @@ export const TopicEditView = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper>
-            <Title>Create Technical Topic</Title>
             <Grid item xs={12} md={6}>
               <TopicEditFormController topicId={id}>
                 {(props) => <TopicEditForm {...props} />}

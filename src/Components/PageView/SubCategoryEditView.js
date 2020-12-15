@@ -11,6 +11,7 @@ import { FormSelect } from "Components/Forms/FormSelect";
 
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { Title } from "Components/Titles/Title";
+import { FormSkelton } from "Components/Skelton/FormSkelton";
 
 const SubCategoryEditFormFields = ({
   onSubmit,
@@ -60,14 +61,21 @@ const SubCategoryEditForm = reduxForm({
   form: "Sub_Category_Edit_Form",
 })(({ handleSubmit, submitting, category_options, initialValues, loading }) => {
   return (
-    !loading && (
-      <SubCategoryEditFormFields
-        onSubmit={handleSubmit}
-        submitting={submitting}
-        category_options={category_options}
-        initialValues={initialValues}
-      />
-    )
+    <>
+      {loading ? (
+        <FormSkelton fieldCount={3} />
+      ) : (
+        <>
+          <Title text="Edit Sub Category" />
+          <SubCategoryEditFormFields
+            onSubmit={handleSubmit}
+            submitting={submitting}
+            category_options={category_options}
+            initialValues={initialValues}
+          />
+        </>
+      )}
+    </>
   );
 });
 
@@ -79,7 +87,6 @@ export const SubCategoryEditView = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper>
-            <Title>Edit Sub Category</Title>
             <Grid item xs={12} md={6}>
               <SubCategoryEditFormController subCategoryId={id}>
                 {(props) => <SubCategoryEditForm {...props} />}

@@ -63,5 +63,6 @@ export const CategoryEditFormController = ({ children, categoryId }) => {
     onSubmit,
     validate,
     initialValues,
+    loading,
   });
 };

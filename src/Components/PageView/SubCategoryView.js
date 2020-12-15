@@ -17,6 +17,7 @@ import { SubCategoryTable } from "Components/Tables/SubCategoryTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_SUB_CATEGORY } from "Mutations/SubCategory";
 import { SUB_CATEGORIES } from "Queries/SubCategory";
+import { FormSkelton } from "Components/Skelton/FormSkelton";
 
 const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
   console.log("SubCategoryFormFiled");
@@ -62,13 +63,22 @@ const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
 
 const SubCategoryForm = reduxForm({
   form: "Sub_Category_Form",
-})(({ handleSubmit, submitting, category_options }) => {
+})(({ handleSubmit, submitting, category_options, loading }) => {
   return (
-    <SubCategoryFormFields
-      onSubmit={handleSubmit}
-      submitting={submitting}
-      category_options={category_options}
-    />
+    <>
+      {loading ? (
+        <FormSkelton fieldCount={3} />
+      ) : (
+        <>
+          <Title text="Create Sub Category" />
+          <SubCategoryFormFields
+            onSubmit={handleSubmit}
+            submitting={submitting}
+            category_options={category_options}
+          />
+        </>
+      )}
+    </>
   );
 });
 
@@ -109,7 +119,6 @@ export const SubCategoryView = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper>
-            <Title>Create Sub Category</Title>
             <Grid item xs={12} md={6}>
               <SubCategoryFormController>
                 {(props) => <SubCategoryForm {...props} />}
@@ -119,7 +128,6 @@ export const SubCategoryView = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper>
-            <Title>Sub Category List</Title>
             <SubCategoryTable openDialog={handleOpen} />
           </Paper>
         </Grid>

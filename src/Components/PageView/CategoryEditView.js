@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { CategoryEditFormController } from "Components/FormController/CategoryEditFormController";
 import { FormTextField } from "../Forms/FormTextField";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
+import { FormSkelton } from "Components/Skelton/FormSkelton";
 
 const CategoryEditFormFields = ({ onSubmit, submitting }) => {
   return (
@@ -45,9 +46,18 @@ const CategoryEditFormFields = ({ onSubmit, submitting }) => {
 
 const CategoryEditForm = reduxForm({
   form: "Category_Edit_Form",
-})(({ handleSubmit, submitting }) => {
+})(({ handleSubmit, submitting, loading }) => {
   return (
-    <CategoryEditFormFields onSubmit={handleSubmit} submitting={submitting} />
+    <>
+      {loading ? (
+        <FormSkelton fieldCount={2} />
+      ) : (
+        <CategoryEditFormFields
+          onSubmit={handleSubmit}
+          submitting={submitting}
+        />
+      )}
+    </>
   );
 });
 

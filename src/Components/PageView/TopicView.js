@@ -11,13 +11,13 @@ import { connect } from "react-redux";
 import { TopicFormController } from "Components/FormController/TopicFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSelect } from "Components/Forms/FormSelect";
-
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { Title } from "Components/Titles/Title";
 import { TopicTable } from "Components/Tables/TopicTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_TOPIC } from "Mutations/Topic";
 import { TOPICS } from "Queries/Topic";
+import { FormSkelton } from "Components/Skelton/FormSkelton";
 
 const TopicFormFields = connect((state) => ({
   categoryId: formValueSelector("Create_Topic_Form")(state, "category"),
@@ -79,16 +79,33 @@ const TopicFormFields = connect((state) => ({
 
 const TopicForm = reduxForm({
   form: "Create_Topic_Form",
-})(({ handleSubmit, submitting, category_options, subCategory_options }) => {
-  return (
-    <TopicFormFields
-      onSubmit={handleSubmit}
-      submitting={submitting}
-      category_options={category_options}
-      subCategory_options={subCategory_options}
-    />
-  );
-});
+})(
+  ({
+    handleSubmit,
+    submitting,
+    category_options,
+    subCategory_options,
+    loading,
+  }) => {
+    return (
+      <>
+        {loading ? (
+          <FormSkelton fieldCount={4} />
+        ) : (
+          <>
+            <Title text="Create Technical Topic" />
+            <TopicFormFields
+              onSubmit={handleSubmit}
+              submitting={submitting}
+              category_options={category_options}
+              subCategory_options={subCategory_options}
+            />
+          </>
+        )}
+      </>
+    );
+  }
+);
 
 export const TopicView = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -127,7 +144,6 @@ export const TopicView = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper>
-            <Title>Create Technical Topic</Title>
             <Grid item xs={12} md={6}>
               <TopicFormController>
                 {(props) => <TopicForm {...props} />}
@@ -137,7 +153,6 @@ export const TopicView = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper>
-            <Title>Topic List</Title>
             <TopicTable openDialog={handleOpen} />
           </Paper>
         </Grid>

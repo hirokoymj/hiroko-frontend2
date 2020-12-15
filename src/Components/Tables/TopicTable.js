@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { TOPICS } from "Queries/Topic";
 import { Table } from "Components/Tables/Table";
+import { Title } from "Components/Titles/Title";
 
 const useStyles = makeStyles((theme) => ({
   actionIcons: {
@@ -68,33 +69,31 @@ export const TopicTable = ({ openDialog }) => {
   );
 
   return (
-    <div>
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <Table
-          data={mappedData}
-          colmuns={[
-            {
-              label: "Category",
-              field: "categoryName",
-            },
-            {
-              label: "Sub Category",
-              field: "subCategoryName",
-            },
-            {
-              label: "Title",
-              field: "titleLink",
-            },
-            {
-              label: "Actions",
-              field: "actions",
-              align: "right",
-            },
-          ]}
-        />
-      )}
-    </div>
+    <>
+      <Title text="Topic List" />
+      <Table
+        data={mappedData}
+        loading={loading}
+        colmuns={[
+          {
+            label: "Category",
+            field: "categoryName",
+          },
+          {
+            label: "Sub Category",
+            field: "subCategoryName",
+          },
+          {
+            label: "Title",
+            field: "titleLink",
+          },
+          {
+            label: "Actions",
+            field: "actions",
+            align: "right",
+          },
+        ]}
+      />
+    </>
   );
 };

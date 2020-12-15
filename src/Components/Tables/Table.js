@@ -2,17 +2,16 @@ import React from "react";
 import { default as MuiTable } from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-//import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-// import Paper from "@material-ui/core/Paper";
-// import Container from "@material-ui/core/Container";
+
+import { TableSkelton } from "Components/Skelton/TableSkelton";
 
 export const Table = ({ data, colmuns, loading }) => {
   return (
     <>
       {loading ? (
-        <h1>Loading...</h1>
+        <TableSkelton />
       ) : (
         <>
           <MuiTable aria-label="simple table">

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Title = (props) => {
+export const Title = ({ text }) => {
   const classes = useStyles();
   return (
     <Typography
@@ -19,7 +19,7 @@ export const Title = (props) => {
       gutterBottom
       className={classes.sectionTitle}
     >
-      {props.children}
+      {text}
     </Typography>
   );
 };

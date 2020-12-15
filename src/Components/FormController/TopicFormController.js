@@ -78,5 +78,6 @@ export const TopicFormController = ({ children }) => {
     validate,
     category_options,
     subCategory_options,
+    loading: loading || loading_subCategory,
   });
 };

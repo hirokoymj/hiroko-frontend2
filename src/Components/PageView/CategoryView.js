@@ -10,11 +10,12 @@ import { useSnackbar } from "notistack";
 import { CategoryFormController } from "Components/FormController/CategoryFormController";
 import { FormTextField } from "../Forms/FormTextField";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
-import { Title } from "Components/Titles/Title";
 import { CategoryTable } from "Components/Tables/CategoryTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_CATEGORY } from "Mutations/Category";
 import { CATEGORIES } from "Queries/Category";
+import { Title } from "Components/Titles/Title";
+import { FormSkelton } from "Components/Skelton/FormSkelton";
 
 const CategoryFormFields = ({ onSubmit, submitting }) => {
   return (
@@ -101,7 +102,6 @@ export const CategoryView = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper>
-            <Title>List Category</Title>
             <CategoryTable openDialog={handleOpen} />
           </Paper>
         </Grid>

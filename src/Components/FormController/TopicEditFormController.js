@@ -101,5 +101,6 @@ export const TopicEditFormController = ({ children, topicId }) => {
     category_options,
     subCategory_options,
     initialValues,
+    loading: loading || loading_subCategory,
   });
 };

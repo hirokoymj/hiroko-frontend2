@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { Table } from "Components/Tables/Table";
+import { Title } from "Components/Titles/Title";
 
 const useStyles = makeStyles((theme) => ({
   actionIcons: {
@@ -57,33 +58,31 @@ export const SubCategoryTable = ({ openDialog }) => {
   });
 
   return (
-    <div>
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <Table
-          data={mappedData}
-          colmuns={[
-            {
-              label: "Category",
-              field: "categoryName",
-            },
-            {
-              label: "Sub Category",
-              field: "name",
-            },
-            {
-              label: "Display Order",
-              field: "order",
-            },
-            {
-              label: "Actions",
-              field: "actions",
-              align: "center",
-            },
-          ]}
-        />
-      )}
-    </div>
+    <>
+      <Title text="Sub Category List" />
+      <Table
+        data={mappedData}
+        loading={loading}
+        colmuns={[
+          {
+            label: "Category",
+            field: "categoryName",
+          },
+          {
+            label: "Sub Category",
+            field: "name",
+          },
+          {
+            label: "Display Order",
+            field: "order",
+          },
+          {
+            label: "Actions",
+            field: "actions",
+            align: "center",
+          },
+        ]}
+      />
+    </>
   );
 };
