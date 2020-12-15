@@ -49,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    fontFamily: ["Titillium Web", "sans-serif"].join(","),
+    fontSize: "1.5rem",
   },
 }));
 

@@ -16,6 +16,9 @@ export const hirokoymjTheme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: ["proxima-nova", "sans-serif"].join(","),
+    fontFamily: ["Roboto", "sans-serif", "Titillium Web"].join(","),
   },
 });
+
+// font-family: 'Roboto', sans-serif;
+// font-family: 'Titillium Web', sans-serif;
