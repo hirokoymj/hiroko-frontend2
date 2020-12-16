@@ -1,54 +1,35 @@
 import React from "react";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
-import { makeStyles } from "@material-ui/core/styles";
-import SettingsEthernetIcon from "@material-ui/icons/SettingsEthernet";
+import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
+import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
+import ViewAgendaOutlinedIcon from "@material-ui/icons/ViewAgendaOutlined";
 
 import { ListItemLink } from "Components/Lists/ListItemLink";
-import categoryIconImg from "Images/category.png";
-import subCatIcon from "Images/sub-category.svg";
-
-const useStyles = makeStyles((theme) => ({
-  categoryHeader: {
-    paddingTop: theme.spacing(2),
-  },
-  iconImg: {
-    width: "25px",
-    height: "auto",
-    backgroundColor: "transparent !important",
-  },
-}));
 
 export const ReferenceListItems = () => {
   return (
     <ListItemLink
       to="/"
       text="Tech References"
-      icon={<SettingsEthernetIcon />}
+      icon={<LibraryBooksOutlinedIcon />}
       title="Technical References"
     />
   );
 };
 
 export const ManagementListItems = () => {
-  const classes = useStyles();
-
   return (
     <>
-      <ListItem className={classes.categoryHeader}>
-        <ListItemText primary="Management" />
-      </ListItem>
       <ListItemLink
         to="/categoryList"
         text="Category"
-        imageIcon={categoryIconImg}
+        icon={<ViewAgendaOutlinedIcon />}
         title="Category"
       />
       <ListItemLink
         to="/subCategoryList"
         text="Sub Category"
-        imageIcon={subCatIcon}
+        icon={<AccountTreeOutlinedIcon />}
         title="Sub Category"
       />
       <ListItemLink

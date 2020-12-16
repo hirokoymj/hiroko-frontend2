@@ -30,15 +30,12 @@ const ListItemLink = (props) => {
 };
 
 const ReferenceListCard = ({ mappedData }) => {
-  console.log("mappedData");
-  console.log(mappedData);
-
   return (
     <div>
       {mappedData.map(({ cardTitle, topicData }, key) => {
         return (
           <Paper style={{ marginBottom: "25px" }} key={key}>
-            <Title>{cardTitle}</Title>
+            <Title text={cardTitle} />
             <List>
               {topicData.map((topic, key) => {
                 return (
