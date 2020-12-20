@@ -1,14 +1,20 @@
 import gql from "graphql-tag";
 
 export const CATEGORIES = gql`
-  query Categories {
-    categories {
-      id
-      name
-      abbr
-      order
-      createdAt
-      updatedAt
+  query Categories($limit: Int, $cursor: String) {
+    categories(limit: $limit, cursor: $cursor) {
+      categoryFeed {
+        id
+        name
+        abbr
+        createdAt
+        updatedAt
+      }
+      totalCount
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
 `;

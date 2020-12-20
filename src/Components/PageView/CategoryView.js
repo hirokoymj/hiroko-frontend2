@@ -91,7 +91,7 @@ export const CategoryView = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper>
-            <Title>Create Category</Title>
+            <Title text="Create Category" />
             <Grid item xs={12} md={6}>
               <CategoryFormController>
                 {(props) => <CategoryForm {...props} />}

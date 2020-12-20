@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import map from "lodash/map";
@@ -7,6 +7,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Link as RouterLink } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import moment from "moment";
 
 import { CATEGORIES } from "Queries/Category";
 import { Table } from "Components/Tables/Table";
@@ -18,13 +20,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const useLoadMore = (loading, error, fetchMore, pageInfo) => {
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const { hasNextPage, endCursor } = pageInfo;
+  const limit = 5;
+
+  const fetchMoreData = () => {
+    if (!loading && !error) {
+      if (hasNextPage) {
+        setIsLoadingMore(true);
+        fetchMore({
+          variables: { cursor: endCursor, limit },
+          updateQuery: (prevResult, { fetchMoreResult }) => {
+            fetchMoreResult.categories.categoryFeed = [
+              ...prevResult.categories.categoryFeed,
+              ...fetchMoreResult.categories.categoryFeed,
+            ];
+            return fetchMoreResult;
+          },
+        });
+        setIsLoadingMore(false);
+      }
+    }
+  };
+
+  return { fetchMoreData, isLoadingMore, hasNextPage };
+};
+
 export const CategoryTable = ({ openDialog }) => {
   const classes = useStyles();
-  const { data, loading } = useQuery(CATEGORIES);
+  const { data, loading, error, fetchMore } = useQuery(CATEGORIES, {
+    variables: {
+      cursor: null,
+      limit: 5,
+    },
+  });
+  const categories = !loading && get(data, "categories.categoryFeed", []);
+  const pageInfo = !loading && get(data, "categories.pageInfo", {});
+  const { isLoadingMore, fetchMoreData, hasNextPage } = useLoadMore(
+    loading,
+    error,
+    fetchMore,
+    pageInfo
+  );
 
-  const categories = get(data, "categories");
-  const mappedData = map(categories, (category) => {
-    const { id, name, abbr, order } = category;
+  const mappedData = map(categories, ({ id, name, abbr, createdAt }) => {
+    // const { id, name, abbr, createdAt } = category;
     const actions = (
       <>
         <Link
@@ -41,11 +82,13 @@ export const CategoryTable = ({ openDialog }) => {
         </Link>
       </>
     );
+    const created = moment(createdAt).format("MM/DD/YYYY");
+
     return {
       id,
       name,
       abbr,
-      order,
+      created,
       actions,
     };
   });
@@ -57,10 +100,10 @@ export const CategoryTable = ({ openDialog }) => {
         data={mappedData}
         loading={loading}
         colmuns={[
-          {
-            label: "ID",
-            field: "id",
-          },
+          // {
+          //   label: "ID",
+          //   field: "id",
+          // },
           {
             label: "Category Name",
             field: "name",
@@ -70,9 +113,8 @@ export const CategoryTable = ({ openDialog }) => {
             field: "abbr",
           },
           {
-            label: "Order",
-            field: "order",
-            align: "right",
+            label: "Created",
+            field: "created",
           },
           {
             label: "Actions",
@@ -81,6 +123,14 @@ export const CategoryTable = ({ openDialog }) => {
           },
         ]}
       />
+      <Button
+        onClick={fetchMoreData}
+        variant="contained"
+        color="primary"
+        disabled={!hasNextPage}
+      >
+        {isLoadingMore ? "Loading" : "Loard More"}
+      </Button>
     </>
   );
 };
