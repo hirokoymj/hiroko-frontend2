@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import map from "lodash/map";
@@ -7,6 +7,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { Link as RouterLink } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import moment from "moment";
 
 import { TOPICS } from "Queries/Topic";
 import { Table } from "Components/Tables/Table";
@@ -18,20 +20,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const useLoadMore = (loading, error, fetchMore, pageInfo) => {
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const { hasNextPage, endCursor } = pageInfo;
+  const limit = 5;
+
+  const fetchMoreData = () => {
+    if (!loading && !error) {
+      if (hasNextPage) {
+        setIsLoadingMore(true);
+        fetchMore({
+          variables: { cursor: endCursor, limit },
+          updateQuery: (prevResult, { fetchMoreResult }) => {
+            fetchMoreResult.topics.topicFeed = [
+              ...prevResult.topics.topicFeed,
+              ...fetchMoreResult.topics.topicFeed,
+            ];
+            return fetchMoreResult;
+          },
+        });
+        setIsLoadingMore(false);
+      }
+    }
+  };
+
+  return { fetchMoreData, isLoadingMore, hasNextPage };
+};
+
 export const TopicTable = ({ openDialog }) => {
   const classes = useStyles();
-  const { data, loading } = useQuery(TOPICS);
-  let topics = !loading && get(data, "topics", []);
-  if (!loading)
-    topics.sort(
-      (a, b) =>
-        a.category.order - b.category.order ||
-        a.subCategory.order - b.subCategory.order
-    );
+  const { data, loading, error, fetchMore } = useQuery(TOPICS, {
+    variables: {
+      limit: 5,
+      cursor: null,
+    },
+  });
+  console.log("TopicTable");
+  if (!loading) {
+    console.log(data);
+  }
+  const topics = !loading && get(data, "topics.topicFeed", []);
+  const pageInfo = !loading && get(data, "topics.pageInfo", {});
+  const { isLoadingMore, fetchMoreData, hasNextPage } = useLoadMore(
+    loading,
+    error,
+    fetchMore,
+    pageInfo
+  );
 
   const mappedData = map(
     topics,
-    ({ id, title, url, category, subCategory }) => {
+    ({ id, title, url, category, subCategory, createdAt }) => {
       const categoryName = get(category, "name", "");
       const subCategoryName = get(subCategory, "name", "");
 
@@ -57,12 +96,15 @@ export const TopicTable = ({ openDialog }) => {
           </Link>
         </>
       );
+      const created = moment(createdAt).format("MM/DD/YYYY");
+
       return {
         id,
         titleLink,
         url,
         categoryName,
         subCategoryName,
+        created,
         actions,
       };
     }
@@ -76,6 +118,10 @@ export const TopicTable = ({ openDialog }) => {
         loading={loading}
         colmuns={[
           {
+            label: "Title",
+            field: "titleLink",
+          },
+          {
             label: "Category",
             field: "categoryName",
           },
@@ -84,8 +130,8 @@ export const TopicTable = ({ openDialog }) => {
             field: "subCategoryName",
           },
           {
-            label: "Title",
-            field: "titleLink",
+            label: "Created",
+            field: "created",
           },
           {
             label: "Actions",
@@ -94,6 +140,14 @@ export const TopicTable = ({ openDialog }) => {
           },
         ]}
       />
+      <Button
+        onClick={fetchMoreData}
+        variant="contained"
+        color="primary"
+        disabled={!hasNextPage}
+      >
+        {isLoadingMore ? "Loading" : "Loard More"}
+      </Button>
     </>
   );
 };

@@ -4,16 +4,23 @@ import { CategoryFragments } from "./CategoryFragments";
 import { SubCategoryFragments } from "./SubCategoryFragments";
 
 export const TOPICS = gql`
-  query Topics {
-    topics {
-      id
-      title
-      url
-      category {
-        ...CategoryInfo
+  query Topics($limit: Int, $cursor: String) {
+    topics(limit: $limit, cursor: $cursor) {
+      topicFeed {
+        id
+        title
+        url
+        category {
+          ...CategoryInfo
+        }
+        subCategory {
+          ...SubCategoryInfo
+        }
       }
-      subCategory {
-        ...SubCategoryInfo
+      totalCount
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }
