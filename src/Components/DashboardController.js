@@ -15,6 +15,7 @@ import { TopicView } from "Components/PageView/TopicView";
 import { TopicEditView } from "Components/PageView/TopicEditView";
 import { ReferenceView } from "Components/PageView/ReferenceView";
 import { TaskView } from "Components/PageView/TaskView";
+import { PageFooter } from "Components/Layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,15 +28,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
 }));
-
-export const PageTest = (props) => {
-  const { id } = useParams();
-  return (
-    <div>
-      <h1>Page TEST {id}</h1>
-    </div>
-  );
-};
 
 export const DashboardController = () => {
   const classes = useStyles();
@@ -86,6 +78,7 @@ export const DashboardController = () => {
             <Route path="/editTopic/:id" component={TopicEditView} />
             <Route path="/task" component={TaskView} />
           </Switch>
+          <PageFooter />
         </main>
       </SnackbarProvider>
     </div>
