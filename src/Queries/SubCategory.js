@@ -3,15 +3,22 @@ import gql from "graphql-tag";
 import { CategoryFragments } from "./CategoryFragments";
 
 export const SUB_CATEGORIES = gql`
-  query SubCategories {
-    subCategories {
-      id
-      name
-      order
-      createdAt
-      updatedAt
-      category {
-        ...CategoryInfo
+  query SubCategories($limit: Int, $cursor: String) {
+    subCategories(limit: $limit, cursor: $cursor) {
+      subCategoryFeed {
+        id
+        name
+        order
+        createdAt
+        updatedAt
+        category {
+          ...CategoryInfo
+        }
+      }
+      totalCount
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }

@@ -28,6 +28,7 @@ export const FormSkelton = ({ fieldCount }) => {
         width="100%"
         height={45}
         className={classes.fieldItem}
+        key={i}
       />
     );
   }

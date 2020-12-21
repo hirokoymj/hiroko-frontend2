@@ -71,7 +71,6 @@ export const CategoryView = () => {
 
   const handleDeleteCategory = async () => {
     try {
-      console.log("handleDeleteCategory");
       await deleteCategory({
         variables: {
           id: categoryId,

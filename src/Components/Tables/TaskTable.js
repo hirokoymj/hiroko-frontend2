@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
-import map from "lodash/map";
+// import map from "lodash/map";
 import Button from "@material-ui/core/Button";
 import TablePagination from "@material-ui/core/TablePagination";
 
 import { TASKS } from "Queries/Task";
-import { Table } from "Components/Tables/Table";
-import { Title } from "Components/Titles/Title";
+// import { Table } from "Components/Tables/Table";
+// import { Title } from "Components/Titles/Title";
 
 export const TaskTable = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);

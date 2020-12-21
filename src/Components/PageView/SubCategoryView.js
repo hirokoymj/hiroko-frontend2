@@ -20,8 +20,6 @@ import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { FormSkelton } from "Components/Skelton/FormSkelton";
 
 const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
-  console.log("SubCategoryFormFiled");
-  console.log(category_options);
   return (
     <>
       <Field

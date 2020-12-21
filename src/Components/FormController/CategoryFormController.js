@@ -2,7 +2,6 @@ import { destroy } from "redux-form";
 import { useMutation } from "@apollo/react-hooks";
 
 import { CREATE_CATEGORY } from "Mutations/Category";
-// import { CATEGORIES } from "Queries/Category";
 
 export const CategoryFormController = ({ children }) => {
   const [createCategory] = useMutation(CREATE_CATEGORY);

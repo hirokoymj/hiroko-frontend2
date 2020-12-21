@@ -65,7 +65,6 @@ export const CategoryTable = ({ openDialog }) => {
   );
 
   const mappedData = map(categories, ({ id, name, abbr, createdAt }) => {
-    // const { id, name, abbr, createdAt } = category;
     const actions = (
       <>
         <Link
@@ -100,10 +99,6 @@ export const CategoryTable = ({ openDialog }) => {
         data={mappedData}
         loading={loading}
         colmuns={[
-          // {
-          //   label: "ID",
-          //   field: "id",
-          // },
           {
             label: "Category Name",
             field: "name",

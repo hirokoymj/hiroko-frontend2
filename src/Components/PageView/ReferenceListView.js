@@ -62,9 +62,6 @@ export const ReferenceListView = connect(null, { setTitle })(
     });
     const topics = get(data, "topicByCategoryAbbr", []);
     const topicsByGroup = groupBy(topics, "subCategory.id");
-    console.log(topicsByGroup);
-
-    console.log(title);
 
     const mappedData = keys(topicsByGroup).map((key, index) => {
       return {

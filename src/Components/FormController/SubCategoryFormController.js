@@ -15,7 +15,7 @@ export const SubCategoryFormController = ({ children }) => {
   let category_options = [];
 
   if (!loading) {
-    const categories = get(data, "categories");
+    const categories = get(data, "categories.categoryFeed");
     category_options = categories.map(({ id, name }) => {
       return {
         value: id,

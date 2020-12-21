@@ -9,7 +9,8 @@ import { CATEGORIES } from "Queries/Category";
 import { TOPICS } from "Queries/Topic";
 
 const makeDropdownOptions = (category_data, subcategory_data, loading) => {
-  const categories = !loading && get(category_data, "categories", []);
+  const categories =
+    !loading && get(category_data, "categories.categoryFeed", []);
   const subcategories = !loading && get(subcategory_data, "subCategories", []);
 
   const category_options = map(categories, ({ id, name }) => {
@@ -40,6 +41,8 @@ export const TopicFormController = ({ children }) => {
   const { data: data_subCategory, loading: loading_subCategory } = useQuery(
     SUB_CATEGORIES
   );
+  console.log("TopicFormController");
+  console.log(data);
 
   const { category_options, subCategory_options } = makeDropdownOptions(
     data,
