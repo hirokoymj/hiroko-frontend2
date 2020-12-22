@@ -112,7 +112,13 @@ export const TopicView = () => {
   const [open, setOpen] = useState(false);
   const [topicId, setTopicId] = useState("");
   const [deleteTopic, { loading }] = useMutation(DELETE_TOPIC, {
-    refetchQueries: [{ query: TOPICS }],
+    refetchQueries: [
+      {
+        query: TOPICS,
+        variables: { limit: 5, cursor: null },
+        fetchPolicy: "network-only",
+      },
+    ],
   });
 
   const handleClose = () => setOpen(false);

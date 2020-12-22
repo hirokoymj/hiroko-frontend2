@@ -2,6 +2,7 @@ import { destroy } from "redux-form";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import get from "lodash/get";
 import map from "lodash/map";
+import { useSnackbar } from "notistack";
 
 import { CREATE_TOPIC } from "Mutations/Topic";
 import { SUB_CATEGORIES } from "Queries/SubCategory";
@@ -35,8 +36,15 @@ const makeDropdownOptions = (category_data, subcategory_data, loading) => {
 };
 
 export const TopicFormController = ({ children }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [createTopic] = useMutation(CREATE_TOPIC, {
-    refetchQueries: [{ query: TOPICS }],
+    refetchQueries: [
+      {
+        query: TOPICS,
+        variables: { limit: 5, cursor: null },
+        fetchPolicy: "network-only",
+      },
+    ],
   });
   const { data, loading } = useQuery(CATEGORIES);
   const { data: data_subCategory, loading: loading_subCategory } = useQuery(
@@ -60,6 +68,9 @@ export const TopicFormController = ({ children }) => {
       });
       console.log("Success");
       dispatch(destroy("Create_Topic_Form"));
+      enqueueSnackbar("New topic has been created!", {
+        variant: "success",
+      });
     } catch (e) {
       console.error(e);
     }
