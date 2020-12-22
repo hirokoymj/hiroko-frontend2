@@ -7,13 +7,13 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { connect } from "react-redux";
-import Typography from "@material-ui/core/Typography";
 
 import {
   ReferenceListItems,
   ManagementListItems,
 } from "Components/Lists/NavigationLists";
 import { closeNavigation } from "Redux/Navigation/ActionCreator";
+import { Logo } from "Components/Layouts/Logo";
 
 const drawerWidth = 240;
 
@@ -45,16 +45,6 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9),
     },
   },
-  logoHiroko: {
-    fontFamily: ["Roboto", "sans-serif"].join(","),
-    fontWeight: 700,
-    fontSize: "1.5rem",
-  },
-  logoDotCom: {
-    fontFamily: ["Roboto", "sans-serif"].join(","),
-    fontWeight: 300,
-    fontSize: "1.5rem",
-  },
 }));
 
 export const MenuDrawer = connect(
@@ -74,10 +64,7 @@ export const MenuDrawer = connect(
       open={open}
     >
       <div className={classes.toolbarIcon}>
-        <Typography variant="h6" component="h1">
-          <span className={classes.logoHiroko}>hiroko</span>
-          <span className={classes.logoDotCom}>ymj.com</span>
-        </Typography>
+        <Logo />
         <IconButton onClick={closeNavigation}>
           <ChevronLeftIcon />
         </IconButton>
