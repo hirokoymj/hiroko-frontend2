@@ -38,14 +38,6 @@ const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
         variant="outlined"
         label="Sub Category Name"
       />
-      <Field
-        name="order"
-        component={FormTextField}
-        type="number"
-        fullWidth
-        variant="outlined"
-        label="Display Order"
-      />
       <Button
         type="submit"
         variant="contained"
@@ -65,7 +57,7 @@ const SubCategoryForm = reduxForm({
   return (
     <>
       {loading ? (
-        <FormSkelton fieldCount={3} />
+        <FormSkelton fieldCount={2} />
       ) : (
         <>
           <Title text="Create Sub Category" />
@@ -85,7 +77,13 @@ export const SubCategoryView = () => {
   const [open, setOpen] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState("");
   const [deleteSubCategory] = useMutation(DELETE_SUB_CATEGORY, {
-    refetchQueries: [{ query: SUB_CATEGORIES }],
+    refetchQueries: [
+      {
+        query: SUB_CATEGORIES,
+        variables: { limit: 5, cursor: null },
+        fetchPolicy: "network-only",
+      },
+    ],
   });
 
   const handleClose = () => setOpen(false);

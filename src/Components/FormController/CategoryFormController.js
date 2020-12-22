@@ -1,24 +1,36 @@
 import { destroy } from "redux-form";
 import { useMutation } from "@apollo/react-hooks";
+import { useSnackbar } from "notistack";
 
 import { CREATE_CATEGORY } from "Mutations/Category";
+import { CATEGORIES } from "Queries/Category";
 
 export const CategoryFormController = ({ children }) => {
-  const [createCategory] = useMutation(CREATE_CATEGORY);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [createCategory] = useMutation(CREATE_CATEGORY, {
+    refetchQueries: [
+      {
+        query: CATEGORIES,
+        variables: { limit: 5, cursor: null },
+        fetchPolicy: "network-only",
+      },
+    ],
+  });
 
   const onSubmit = async (values, dispatch) => {
     try {
-      const { name, order } = values;
       await createCategory({
         variables: {
           input: {
-            name,
-            order: parseInt(order),
+            ...values,
           },
         },
       });
-      console.log("Success");
       dispatch(destroy("Category_Form"));
+      enqueueSnackbar("New category has been created!", {
+        variant: "success",
+      });
     } catch (e) {
       console.error(e);
     }

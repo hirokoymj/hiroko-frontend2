@@ -27,12 +27,12 @@ const CategoryFormFields = ({ onSubmit, submitting }) => {
         label="Category Name"
       />
       <Field
-        name="order"
+        name="abbr"
         component={FormTextField}
         type="text"
         fullWidth
         variant="outlined"
-        label="Order"
+        label="Abbreviation"
       />
       <Button
         type="submit"
@@ -58,7 +58,13 @@ export const CategoryView = () => {
   const [open, setOpen] = useState(false);
   const [categoryId, setCategoryId] = useState("");
   const [deleteCategory] = useMutation(DELETE_CATEGORY, {
-    refetchQueries: [{ query: CATEGORIES }],
+    refetchQueries: [
+      {
+        query: CATEGORIES,
+        variables: { limit: 5, cursor: null },
+        fetchPolicy: "network-only",
+      },
+    ],
   });
 
   const handleClose = () => setOpen(false);
@@ -111,7 +117,7 @@ export const CategoryView = () => {
         content={
           <>
             <Typography component="p" variant="body1">
-              Do you want to to delete category? - id: {categoryId}
+              Do you want to to delete the category?
             </Typography>
           </>
         }

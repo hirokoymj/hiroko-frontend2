@@ -1,43 +1,51 @@
 import { destroy } from "redux-form";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import get from "lodash/get";
+import { useSnackbar } from "notistack";
 
 import { CREATE_SUB_CATEGORY } from "Mutations/SubCategory";
 import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { CATEGORIES } from "Queries/Category";
 
 export const SubCategoryFormController = ({ children }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [createSubCategory] = useMutation(CREATE_SUB_CATEGORY, {
-    refetchQueries: [{ query: SUB_CATEGORIES }],
+    refetchQueries: [
+      {
+        query: SUB_CATEGORIES,
+        variables: { limit: 5, cursor: null },
+        fetchPolicy: "network-only",
+      },
+    ],
   });
-
   const { data, loading } = useQuery(CATEGORIES);
-  let category_options = [];
 
-  if (!loading) {
-    const categories = get(data, "categories.categoryFeed");
-    category_options = categories.map(({ id, name }) => {
+  const categories = !loading && get(data, "categories.categoryFeed");
+
+  const category_options =
+    !loading &&
+    categories.map(({ id, name }) => {
       return {
         value: id,
         label: name,
       };
     });
-  }
 
   const onSubmit = async (values, dispatch) => {
     try {
-      const { name, order, categoryId } = values;
+      const { name, categoryId } = values;
       await createSubCategory({
         variables: {
           input: {
             name,
-            order: parseInt(order),
             category: categoryId,
           },
         },
       });
-      console.log("Success");
       dispatch(destroy("Sub_Category_Form"));
+      enqueueSnackbar("New sub category has been created!", {
+        variant: "success",
+      });
     } catch (e) {
       console.error(e);
     }
