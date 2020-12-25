@@ -42,7 +42,7 @@ export const CurrentWeather = ({ city, unit }) => {
   const { cityName, country, temperature, icon, weather } =
     !loading && get(data, "currentWeatherByCity", {});
   const currentTemperature = Math.ceil(temperature);
-  const currentTemperatureUnit = unit === "metric" ? "C" : "F";
+  const currentTemperatureUnit = unit === "imperial" ? "F" : "C";
   return (
     <>
       {loading ? (
