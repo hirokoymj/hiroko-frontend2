@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { CURRENT_WEATHER } from "Queries/Weather";
+import { CURRENT_WEATHER_BY_CITY } from "Queries/Weather";
 
 const useStyles = makeStyles((theme) => ({
   row: {
@@ -30,19 +30,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CurrentWeather = ({ lat, lon, unit = "metric" }) => {
+export const CurrentWeather = ({ city, unit }) => {
+  console.log("CurrentWeather");
   const classes = useStyles();
-  const { data, loading } = useQuery(CURRENT_WEATHER, {
+  const { data, loading } = useQuery(CURRENT_WEATHER_BY_CITY, {
     variables: {
-      lat,
-      lon,
+      city,
       unit,
     },
   });
-  console.log(data);
-
-  const { cityName, temperature, icon, weather } =
-    !loading && get(data, "currentWeather", {});
+  const { cityName, country, temperature, icon, weather } =
+    !loading && get(data, "currentWeatherByCity", {});
   const currentTemperature = Math.ceil(temperature);
   const currentTemperatureUnit = unit === "metric" ? "C" : "F";
   return (
@@ -64,7 +62,7 @@ export const CurrentWeather = ({ lat, lon, unit = "metric" }) => {
             </span>
           </div>
           <div className={classes.row} style={{ marginTop: "-10px" }}>
-            {cityName}
+            {cityName}, {country}
           </div>
         </div>
       )}

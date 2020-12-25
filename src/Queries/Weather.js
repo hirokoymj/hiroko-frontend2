@@ -15,3 +15,19 @@ export const CURRENT_WEATHER = gql`
     }
   }
 `;
+
+export const CURRENT_WEATHER_BY_CITY = gql`
+  query CurrentWeatherByCity($city: String!, $unit: Units) {
+    currentWeatherByCity(city: $city, unit: $unit) {
+      id
+      cityName
+      country
+      weather
+      icon
+      temperature
+      min
+      max
+      humidity
+    }
+  }
+`;

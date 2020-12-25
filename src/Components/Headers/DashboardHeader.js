@@ -9,7 +9,6 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { openNavigation } from "Redux/Navigation/ActionCreator";
-import { useCurrentLocation } from "Hooks/useCurrentLocation";
 import { CurrentWeather } from "Components/Weather/CurrentWeather";
 
 const drawerWidth = 240;
@@ -64,15 +63,6 @@ export const DashboardHeader = connect(
   { openNavigation }
 )(({ openNavigation, open, pageTitle }) => {
   const classes = useStyles();
-  const { location, error } = useCurrentLocation();
-  console.log("DashboardHeader");
-
-  if (location) {
-    console.log(typeof location.latitude);
-    console.log(location);
-  } else {
-    console.log(location);
-  }
 
   return (
     <AppBar
@@ -98,12 +88,7 @@ export const DashboardHeader = connect(
         >
           {pageTitle}
         </Typography>
-        {!location ? (
-          <p>loading</p>
-        ) : (
-          // 35.652832, 139.839478
-          <CurrentWeather lat="35.652832" lon="139.839478" />
-        )}
+        <CurrentWeather city="tokyo" />
       </Toolbar>
     </AppBar>
   );
