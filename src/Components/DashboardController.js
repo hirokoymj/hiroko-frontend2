@@ -16,6 +16,7 @@ import { TopicEditView } from "Components/PageView/TopicEditView";
 import { ReferenceView } from "Components/PageView/ReferenceView";
 import { TaskView } from "Components/PageView/TaskView";
 import { PageFooter } from "Components/Layouts/Footer";
+import { TestView } from "Components/PageView/TestView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,6 +78,7 @@ export const DashboardController = () => {
             <Route path="/topicList" component={TopicView} />
             <Route path="/editTopic/:id" component={TopicEditView} />
             <Route path="/task" component={TaskView} />
+            <Route path="/test" component={TestView} />
           </Switch>
           <PageFooter />
         </main>

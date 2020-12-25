@@ -55,10 +55,7 @@ export const TopicTable = ({ openDialog }) => {
       cursor: null,
     },
   });
-  console.log("TopicTable");
-  if (!loading) {
-    console.log(data);
-  }
+
   const topics = !loading && get(data, "topics.topicFeed", []);
   const pageInfo = !loading && get(data, "topics.pageInfo", {});
   const { isLoadingMore, fetchMoreData, hasNextPage } = useLoadMore(
