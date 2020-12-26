@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const DashboardLayout = connect(null, { setTitle })(
-  ({ setTitle, children }) => {
+  ({ setTitle, children, maxWidth }) => {
     const classes = useStyles();
     const location = useLocation();
 
@@ -44,7 +44,10 @@ export const DashboardLayout = connect(null, { setTitle })(
 
     return (
       <div className={classes.root}>
-        <Container maxWidth="lg" className={classes.container}>
+        <Container
+          maxWidth={maxWidth ? maxWidth : "lg"}
+          className={classes.container}
+        >
           {children}
         </Container>
       </div>

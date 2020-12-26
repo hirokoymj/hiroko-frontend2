@@ -3,6 +3,7 @@ import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
 import ViewAgendaOutlinedIcon from "@material-ui/icons/ViewAgendaOutlined";
+import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
 
 import { ListItemLink } from "Components/Lists/ListItemLink";
 
@@ -39,5 +40,16 @@ export const ManagementListItems = () => {
         title="Topics"
       />
     </>
+  );
+};
+
+export const WeatherListItems = () => {
+  return (
+    <ListItemLink
+      to="/forecast"
+      text="Weather Forecast"
+      icon={<WbSunnyOutlinedIcon />}
+      title="7 days Weather Forecast"
+    />
   );
 };

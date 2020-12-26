@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import {
   ReferenceListItems,
   ManagementListItems,
+  WeatherListItems,
 } from "Components/Lists/NavigationLists";
 import { closeNavigation } from "Redux/Navigation/ActionCreator";
 import { Logo } from "Components/Layouts/Logo";
@@ -76,6 +77,10 @@ export const MenuDrawer = connect(
       <Divider />
       <List>
         <ManagementListItems />
+      </List>
+      <Divider />
+      <List>
+        <WeatherListItems />
       </List>
       <Divider />
     </Drawer>

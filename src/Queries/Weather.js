@@ -31,3 +31,28 @@ export const CURRENT_WEATHER_BY_CITY = gql`
     }
   }
 `;
+
+export const DAILY_FORECAST = gql`
+  query DailyForecast($city: String!, $unit: Units) {
+    dailyForecast(city: $city, unit: $unit) {
+      id
+      city {
+        name
+        lon
+        lat
+        country
+      }
+      forecastList {
+        dt
+        weather
+        icon
+        humidity
+        temperature {
+          day
+          min
+          max
+        }
+      }
+    }
+  }
+`;
