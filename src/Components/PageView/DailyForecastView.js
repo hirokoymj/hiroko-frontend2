@@ -8,11 +8,37 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import red from "@material-ui/core/colors/red";
+import blue from "@material-ui/core/colors/blue";
 
 import { DAILY_FORECAST } from "Queries/Weather";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
+import { DailyForecastSkelton } from "Components/Skelton/WeatherSkelton";
+
+const useStyles = makeStyles((theme) => ({
+  forecastDate: {
+    width: "25%",
+    textAlign: "left",
+  },
+  weather: {
+    width: "25%",
+    textAlign: "center",
+  },
+  tempHigh: {
+    width: "25%",
+    textAlign: "center",
+    color: red[500],
+  },
+  tempLow: {
+    width: "25%",
+    textAlign: "center",
+    color: blue[700],
+  },
+}));
 
 export const DailyForecast = ({ city, unit }) => {
+  const classes = useStyles();
   const { data, loading } = useQuery(DAILY_FORECAST, {
     variables: {
       city,
@@ -24,8 +50,6 @@ export const DailyForecast = ({ city, unit }) => {
 
   const cityName = get(cityInfo, "name", "");
   const country = get(cityInfo, "country", "");
-
-  console.log(cityName);
 
   const mappedData = map(forecastList, (forecast) => {
     const {
@@ -46,45 +70,57 @@ export const DailyForecast = ({ city, unit }) => {
     };
   });
   const unit_format = unit === "imperial" ? "F" : "C";
+  const mappedDataLen = mappedData.length;
 
   return (
     <>
-      <Typography component="h2" variant="h3" gutterBottom>
-        {cityName},{country}
-      </Typography>
-      <Paper>
-        <List>
-          <ListItem dense divider>
-            <ListItemText primary="Date" />
-            <ListItemText primary="Weather" />
-            <ListItemText primary="High" />
-            <ListItemText primary="Low" />
-          </ListItem>
-          {mappedData.map(({ dt, weather, icon, day, min, max }) => {
-            console.log(moment(dt));
-            return (
-              <ListItem divider dense>
-                <ListItemText primary={moment.unix(dt).format("ddd, MM/DD")} />
-                <ListItemText>
-                  <img
-                    src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-                    width="50"
-                    height="50"
-                    alt={weather}
-                  />
-                  <Typography variant="body1">{weather}</Typography>
-                </ListItemText>
-                <ListItemText>
-                  {Math.ceil(max)}&deg;{unit_format}
-                </ListItemText>
-                <ListItemText>
-                  {Math.ceil(min)}&deg;{unit_format}
-                </ListItemText>
+      {loading ? (
+        <DailyForecastSkelton />
+      ) : (
+        <>
+          <Typography component="h2" variant="h3" gutterBottom>
+            {cityName},{country}
+          </Typography>
+          <Paper>
+            <List>
+              <ListItem dense divider>
+                <ListItemText primary="Date" className={classes.forecastDate} />
+                <ListItemText primary="Weather" className={classes.weather} />
+                <ListItemText primary="High" className={classes.tempHigh} />
+                <ListItemText primary="Low" className={classes.tempLow} />
               </ListItem>
-            );
-          })}
-        </List>
-      </Paper>
+              {mappedData.map(({ dt, weather, icon, day, min, max }, index) => {
+                return (
+                  <ListItem
+                    divider={index !== mappedDataLen - 1 ? true : false}
+                    dense
+                  >
+                    <ListItemText
+                      primary={moment.unix(dt).format("ddd, MM/DD")}
+                      className={classes.forecastDate}
+                    />
+                    <ListItemText className={classes.weather}>
+                      <img
+                        src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                        width="50"
+                        height="50"
+                        alt={weather}
+                      />
+                      <Typography variant="body1">{weather}</Typography>
+                    </ListItemText>
+                    <ListItemText className={classes.tempHigh}>
+                      {Math.ceil(max)}&deg;{unit_format}
+                    </ListItemText>
+                    <ListItemText className={classes.tempLow}>
+                      {Math.ceil(min)}&deg;{unit_format}
+                    </ListItemText>
+                  </ListItem>
+                );
+              })}
+            </List>
+          </Paper>
+        </>
+      )}
     </>
   );
 };
