@@ -7,6 +7,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import { Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 
 import { openNavigation } from "Redux/Navigation/ActionCreator";
 import { CurrentWeather } from "Components/Weather/CurrentWeather";
@@ -88,7 +90,15 @@ export const DashboardHeader = connect(
         >
           {pageTitle}
         </Typography>
-        <CurrentWeather city="tokyo" />
+        <Link
+          component={RouterLink}
+          to={{
+            pathname: "/forecast",
+            state: { title: "7 days Weather Forecast" },
+          }}
+        >
+          <CurrentWeather city="tokyo" />
+        </Link>
       </Toolbar>
     </AppBar>
   );
