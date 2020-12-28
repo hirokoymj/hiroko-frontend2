@@ -18,22 +18,26 @@ import { DailyForecastSkelton } from "Components/Skelton/WeatherSkelton";
 
 const useStyles = makeStyles((theme) => ({
   forecastDate: {
-    width: "25%",
+    width: "20%",
     textAlign: "left",
   },
   weather: {
-    width: "25%",
+    width: "20%",
     textAlign: "center",
   },
   tempHigh: {
-    width: "25%",
+    width: "20%",
     textAlign: "center",
     color: red[500],
   },
   tempLow: {
-    width: "25%",
+    width: "20%",
     textAlign: "center",
     color: blue[700],
+  },
+  rain: {
+    width: "20%",
+    textAlign: "center",
   },
 }));
 
@@ -45,28 +49,27 @@ export const DailyForecast = ({ city, unit }) => {
       unit,
     },
   });
-  const { city: cityInfo, forecastList } =
-    !loading && get(data, "dailyForecast", {});
+  const { cityInfo, forecastList } = !loading && get(data, "dailyForecast", {});
 
   const cityName = get(cityInfo, "name", "");
   const country = get(cityInfo, "country", "");
-
+  console.log(data);
   const mappedData = map(forecastList, (forecast) => {
     const {
       dt,
-      weather,
+      condition,
       icon,
-      humidity,
-      temperature: { day, min, max },
+      temperature: { min, max },
+      rain,
     } = forecast;
+
     return {
       dt,
-      weather,
+      condition,
       icon,
-      humidity,
-      day,
       min,
       max,
+      rain,
     };
   });
   const unit_format = unit === "imperial" ? "F" : "C";
@@ -88,35 +91,43 @@ export const DailyForecast = ({ city, unit }) => {
                 <ListItemText primary="Weather" className={classes.weather} />
                 <ListItemText primary="High" className={classes.tempHigh} />
                 <ListItemText primary="Low" className={classes.tempLow} />
+                <ListItemText primary="Rain" className={classes.rain} />
               </ListItem>
-              {mappedData.map(({ dt, weather, icon, day, min, max }, index) => {
-                return (
-                  <ListItem
-                    divider={index !== mappedDataLen - 1 ? true : false}
-                    dense
-                  >
-                    <ListItemText
-                      primary={moment.unix(dt).format("ddd, MM/DD")}
-                      className={classes.forecastDate}
-                    />
-                    <ListItemText className={classes.weather}>
-                      <img
-                        src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-                        width="50"
-                        height="50"
-                        alt={weather}
+              {mappedData.map(
+                ({ dt, condition, icon, min, max, rain }, index) => {
+                  return (
+                    <ListItem
+                      divider={index !== mappedDataLen - 1 ? true : false}
+                      dense
+                    >
+                      <ListItemText
+                        primary={moment.unix(dt).format("ddd, MM/DD")}
+                        className={classes.forecastDate}
                       />
-                      <Typography variant="body1">{weather}</Typography>
-                    </ListItemText>
-                    <ListItemText className={classes.tempHigh}>
-                      {Math.ceil(max)}&deg;{unit_format}
-                    </ListItemText>
-                    <ListItemText className={classes.tempLow}>
-                      {Math.ceil(min)}&deg;{unit_format}
-                    </ListItemText>
-                  </ListItem>
-                );
-              })}
+                      <ListItemText className={classes.weather}>
+                        {icon && (
+                          <img
+                            src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                            width="50"
+                            height="50"
+                            alt={condition}
+                          />
+                        )}
+                        <Typography variant="body1">{condition}</Typography>
+                      </ListItemText>
+                      <ListItemText className={classes.tempHigh}>
+                        {Math.ceil(max)}&deg;{unit_format}
+                      </ListItemText>
+                      <ListItemText className={classes.tempLow}>
+                        {Math.ceil(min)}&deg;{unit_format}
+                      </ListItemText>
+                      <ListItemText className={classes.rain}>
+                        {Math.ceil(rain)}&#37;
+                      </ListItemText>
+                    </ListItem>
+                  );
+                }
+              )}
             </List>
           </Paper>
         </>

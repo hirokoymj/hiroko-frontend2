@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const CurrentWeather = ({ city, unit }) => {
-  console.log("CurrentWeather");
   const classes = useStyles();
   const { data, loading } = useQuery(CURRENT_WEATHER_BY_CITY, {
     variables: {
@@ -40,10 +39,14 @@ export const CurrentWeather = ({ city, unit }) => {
       unit,
     },
   });
-  const { cityName, country, temperature, icon, weather } =
+  const { cityInfo, weather } =
     !loading && get(data, "currentWeatherByCity", {});
-  const currentTemperature = Math.ceil(temperature);
-  const currentTemperatureUnit = unit === "imperial" ? "F" : "C";
+  const temp_day = Math.ceil(get(weather, "temperature.day", 0));
+  const temp_unit = unit === "imperial" ? "F" : "C";
+  const icon = get(weather, "icon");
+  const condition = get(weather, "condition");
+  const country = get(cityInfo, "country");
+
   return (
     <>
       {loading ? (
@@ -51,19 +54,21 @@ export const CurrentWeather = ({ city, unit }) => {
       ) : (
         <div className={classes.weatherInfo}>
           <div className={classes.row}>
-            <img
-              src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-              width="50"
-              height="50"
-              alt={weather}
-            />
+            {icon && (
+              <img
+                src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                width="50"
+                height="50"
+                alt={condition}
+              />
+            )}
             <span>
-              {currentTemperature}&deg;
-              {currentTemperatureUnit}
+              {temp_day}&deg;
+              {temp_unit}
             </span>
           </div>
           <div className={classes.row} style={{ marginTop: "-10px" }}>
-            {cityName}, {country}
+            {city}, {country}
           </div>
         </div>
       )}

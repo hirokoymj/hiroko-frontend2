@@ -12,7 +12,7 @@ import { TASKS } from "Queries/Task";
 export const TaskTable = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [setRowsPerPage] = React.useState(5);
 
   const { data, loading, error, fetchMore } = useQuery(TASKS, {
     variables: {
