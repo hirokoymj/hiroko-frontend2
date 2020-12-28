@@ -4,6 +4,7 @@ import get from "lodash/get";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { CURRENT_WEATHER_BY_CITY } from "Queries/Weather";
+import { CurrentWeatherSkelton } from "Components/Skelton/WeatherSkelton";
 
 const useStyles = makeStyles((theme) => ({
   row: {
@@ -50,7 +51,7 @@ export const CurrentWeather = ({ city, unit }) => {
   return (
     <>
       {loading ? (
-        "loading"
+        <CurrentWeatherSkelton />
       ) : (
         <div className={classes.weatherInfo}>
           <div className={classes.row}>
