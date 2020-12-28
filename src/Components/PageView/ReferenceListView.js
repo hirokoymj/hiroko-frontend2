@@ -15,6 +15,7 @@ import { setTitle } from "Redux/Title/ActionCreator";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { TOPIC_BY_CATEGORY_ABBR } from "Queries/Topic";
 import { Title } from "Components/Titles/Title";
+import { ListSkelton } from "Components/Skelton/ListSkelton";
 
 const ListItemLink = (props) => {
   return (
@@ -75,7 +76,7 @@ export const ReferenceListView = connect(null, { setTitle })(
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
             {loading ? (
-              "loading"
+              <ListSkelton />
             ) : (
               <ReferenceListCard mappedData={mappedData} />
             )}
