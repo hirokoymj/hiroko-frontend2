@@ -6,19 +6,13 @@ import Link from "@material-ui/core/Link";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Link as RouterLink } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
+import IconButton from "@material-ui/core/IconButton";
 
 import { CATEGORIES } from "Queries/Category";
 import { Table } from "Components/Tables/Table";
 import { Title } from "Components/Titles/Title";
-
-const useStyles = makeStyles((theme) => ({
-  actionIcons: {
-    marginRight: theme.spacing(2),
-  },
-}));
 
 const useLoadMore = (loading, error, fetchMore, pageInfo) => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -48,7 +42,6 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
 };
 
 export const CategoryTable = ({ openDialog }) => {
-  const classes = useStyles();
   const { data, loading, error, fetchMore } = useQuery(CATEGORIES, {
     variables: {
       cursor: null,
@@ -67,17 +60,15 @@ export const CategoryTable = ({ openDialog }) => {
   const mappedData = map(categories, ({ id, name, abbr, createdAt }) => {
     const actions = (
       <>
-        <Link
-          component={RouterLink}
-          to={{
-            pathname: `/editCategory/${id}`,
-            state: { title: "Edit Category" },
-          }}
-        >
-          <EditIcon className={classes.actionIcons} color="secondary" />
+        <Link component={RouterLink} to={`/categoryList/${id}`}>
+          <IconButton>
+            <EditIcon color="secondary" />
+          </IconButton>
         </Link>
         <Link href="#" onClick={(e) => openDialog(e, id)}>
-          <DeleteIcon className={classes.actionIcons} color="secondary" />
+          <IconButton>
+            <DeleteIcon color="secondary" />
+          </IconButton>
         </Link>
       </>
     );

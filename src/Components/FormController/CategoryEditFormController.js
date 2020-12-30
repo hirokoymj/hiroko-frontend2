@@ -19,22 +19,24 @@ export const CategoryEditFormController = ({ children, categoryId }) => {
       id: categoryId,
     },
   });
+  console.log("CategoryEditFormController");
+  console.log(data);
 
   const initialValues = !loading && {
     id: get(data, "categoryById.id"),
     name: get(data, "categoryById.name", ""),
-    order: get(data, "categoryById.order", ""),
+    abbr: get(data, "categoryById.abbr", ""),
   };
 
   const onSubmit = async (values, dispatch) => {
     try {
-      const { name, order } = values; // ===TODO: id should include values??
+      const { name, abbr } = values;
       await updateCategory({
         variables: {
           id: categoryId,
           input: {
             name,
-            order: parseInt(order),
+            abbr,
           },
         },
       });

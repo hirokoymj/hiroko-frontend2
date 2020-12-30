@@ -29,7 +29,7 @@ export const UPDATE_CATEGORY = gql`
     updateCategory(id: $id, input: $input) {
       id
       name
-      order
+      abbr
       createdAt
       updatedAt
     }

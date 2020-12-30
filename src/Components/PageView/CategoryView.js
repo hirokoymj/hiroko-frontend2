@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
+import { Route, Switch } from "react-router-dom";
 
 import { CategoryFormController } from "Components/FormController/CategoryFormController";
 import { FormTextField } from "../Forms/FormTextField";
@@ -15,6 +16,7 @@ import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_CATEGORY } from "Mutations/Category";
 import { CATEGORIES } from "Queries/Category";
 import { Title } from "Components/Titles/Title";
+import { CategoryEditView } from "Components/PageView/CategoryEditView";
 
 const CategoryFormFields = ({ onSubmit, submitting }) => {
   return (
@@ -92,40 +94,45 @@ export const CategoryView = () => {
   };
 
   return (
-    <DashboardLayout>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper>
-            <Title text="Create Category" />
-            <Grid item xs={12} md={6}>
-              <CategoryFormController>
-                {(props) => <CategoryForm {...props} />}
-              </CategoryFormController>
-            </Grid>
-          </Paper>
+    <>
+      <Switch>
+        <Route path={`/categoryList/:id`} component={CategoryEditView} />
+      </Switch>
+      <DashboardLayout>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper>
+              <Title text="Create Category" />
+              <Grid item xs={12} md={6}>
+                <CategoryFormController>
+                  {(props) => <CategoryForm {...props} />}
+                </CategoryFormController>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <CategoryTable openDialog={handleOpen} />
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Paper>
-            <CategoryTable openDialog={handleOpen} />
-          </Paper>
-        </Grid>
-      </Grid>
-      <AlertDialog
-        open={open}
-        onClose={handleClose}
-        title="Delete Category"
-        content={
-          <>
-            <Typography component="p" variant="body1">
-              Do you want to to delete the category?
-            </Typography>
-          </>
-        }
-        actionLabel="Delete"
-        action={handleDeleteCategory}
-        cancelLabel="Cancel"
-        cancel={handleClose}
-      />
-    </DashboardLayout>
+        <AlertDialog
+          open={open}
+          onClose={handleClose}
+          title="Delete Category"
+          content={
+            <>
+              <Typography component="p" variant="body1">
+                Do you want to to delete the category?
+              </Typography>
+            </>
+          }
+          actionLabel="Delete"
+          action={handleDeleteCategory}
+          cancelLabel="Cancel"
+          cancel={handleClose}
+        />
+      </DashboardLayout>
+    </>
   );
 };

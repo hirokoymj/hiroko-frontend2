@@ -8,7 +8,6 @@ import { useTheme } from "@material-ui/core/styles";
 import { DashboardHeader } from "Components/Headers/DashboardHeader";
 import { MenuDrawer } from "Components/Drawers/MenuDrawer";
 import { CategoryView } from "Components/PageView/CategoryView";
-import { CategoryEditView } from "Components/PageView/CategoryEditView";
 import { SubCategoryView } from "Components/PageView/SubCategoryView";
 import { SubCategoryEditView } from "Components/PageView/SubCategoryEditView";
 import { TopicView } from "Components/PageView/TopicView";
@@ -70,7 +69,6 @@ export const DashboardController = () => {
             />
             <Route path="/tech" component={ReferenceView} />
             <Route path="/categoryList" component={CategoryView} />
-            <Route path="/editCategory/:id" component={CategoryEditView} />
             <Route path="/subCategoryList" component={SubCategoryView} />
             <Route
               path="/editSubCategory/:id"

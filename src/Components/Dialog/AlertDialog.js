@@ -15,21 +15,19 @@ export const AlertDialog = ({
   onClose,
 }) => {
   return (
-    <div>
-      <Dialog open={open} onClose={onClose} fullWidth>
-        <DialogTitle>{title}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>{content}</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={action} color="primary" autoFocus>
-            {actionLabel}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <Dialog open={open} onClose={onClose} fullWidth>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent>
+        <DialogContentText>{content}</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={action} color="primary" autoFocus>
+          {actionLabel}
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };

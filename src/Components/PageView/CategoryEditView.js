@@ -1,82 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import { Field, reduxForm } from "redux-form";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import { CategoryEditFormController } from "Components/FormController/CategoryEditFormController";
 import { FormTextField } from "../Forms/FormTextField";
-import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { FormSkelton } from "Components/Skelton/FormSkelton";
+import { DrawerDialog } from "Components/Dialog/DrawerDialog";
 
-const CategoryEditFormFields = ({ onSubmit, submitting }) => {
-  return (
-    <>
-      <Field
-        name="name"
-        component={FormTextField}
-        fullWidth
-        variant="outlined"
-        label="Category Name"
-        margin="normal"
-      />
-      <Field
-        name="order"
-        component={FormTextField}
-        type="text"
-        fullWidth
-        variant="outlined"
-        label="Order"
-        margin="normal"
-      />
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        margin="normal"
-        disabled={submitting}
-        onClick={onSubmit}
-      >
-        {submitting ? "Updating" : "Update"}
-      </Button>
-    </>
-  );
-};
-
-const CategoryEditForm = reduxForm({
+const CategoryEditFormDrawer = reduxForm({
   form: "Category_Edit_Form",
-})(({ handleSubmit, submitting, loading }) => {
+})(({ handleSubmit, submitting, loading, open, onClose }) => {
   return (
     <>
       {loading ? (
         <FormSkelton fieldCount={2} />
       ) : (
-        <CategoryEditFormFields
+        <DrawerDialog
+          open={open}
+          title="Edit Category"
+          onClose={onClose}
           onSubmit={handleSubmit}
           submitting={submitting}
-        />
+          submitLabel="Edit"
+        >
+          <Field
+            name="name"
+            component={FormTextField}
+            fullWidth
+            variant="outlined"
+            label="Category Name"
+            margin="normal"
+          />
+          <Field
+            name="abbr"
+            component={FormTextField}
+            type="text"
+            fullWidth
+            variant="outlined"
+            label="Abbreviation"
+            margin="normal"
+          />
+        </DrawerDialog>
       )}
     </>
   );
 });
 
 export const CategoryEditView = () => {
-  let { id } = useParams();
+  const { id } = useParams();
+  const [open, setOpen] = useState(true);
+  const history = useHistory();
+
+  const onClose = () => {
+    setOpen(false);
+    history.push("/categoryList");
+  };
 
   return (
-    <DashboardLayout>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper>
-            <Grid item xs={12} md={6}>
-              <CategoryEditFormController categoryId={id}>
-                {(props) => <CategoryEditForm {...props} />}
-              </CategoryEditFormController>
-            </Grid>
-          </Paper>
-        </Grid>
-      </Grid>
-    </DashboardLayout>
+    <CategoryEditFormController categoryId={id}>
+      {(props) => (
+        <CategoryEditFormDrawer {...props} open={open} onClose={onClose} />
+      )}
+    </CategoryEditFormController>
   );
 };
