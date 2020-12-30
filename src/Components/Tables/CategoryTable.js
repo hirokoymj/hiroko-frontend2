@@ -9,10 +9,35 @@ import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
 import IconButton from "@material-ui/core/IconButton";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import green from "@material-ui/core/colors/green";
 
 import { CATEGORIES } from "Queries/Category";
 import { Table } from "Components/Tables/Table";
 import { Title } from "Components/Titles/Title";
+
+const useStyles = makeStyles((theme) => ({
+  imageIcon: {
+    width: "23px",
+    height: "auto",
+    backgroundColor: "transparent !important",
+  },
+  iconButtonRoot: {
+    backgroundColor: green[500],
+    padding: theme.spacing(1),
+    padding: theme.spacing(1),
+    margin: theme.spacing(0, 1),
+    "&:hover": {
+      backgroundColor: green[200],
+    },
+  },
+  svgIconRoot: {
+    color: theme.palette.common.white,
+    fontSize: "1.3rem",
+    textAlign: "center",
+    fontWeight: 400,
+  },
+}));
 
 const useLoadMore = (loading, error, fetchMore, pageInfo) => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -42,6 +67,7 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
 };
 
 export const CategoryTable = ({ openDialog }) => {
+  const classes = useStyles();
   const { data, loading, error, fetchMore } = useQuery(CATEGORIES, {
     variables: {
       cursor: null,
@@ -60,14 +86,20 @@ export const CategoryTable = ({ openDialog }) => {
   const mappedData = map(categories, ({ id, name, abbr, createdAt }) => {
     const actions = (
       <>
-        <Link component={RouterLink} to={`/categoryList/${id}`}>
-          <IconButton>
-            <EditIcon color="secondary" />
+        <Link
+          component={RouterLink}
+          to={{
+            pathname: `/categoryList/${id}`,
+            state: { title: "Edit Category" },
+          }}
+        >
+          <IconButton classes={{ root: classes.iconButtonRoot }}>
+            <EditIcon classes={{ root: classes.svgIconRoot }} />
           </IconButton>
         </Link>
         <Link href="#" onClick={(e) => openDialog(e, id)}>
-          <IconButton>
-            <DeleteIcon color="secondary" />
+          <IconButton classes={{ root: classes.iconButtonRoot }}>
+            <DeleteIcon classes={{ root: classes.svgIconRoot }} />
           </IconButton>
         </Link>
       </>

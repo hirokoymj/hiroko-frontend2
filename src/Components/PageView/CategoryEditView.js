@@ -6,23 +6,24 @@ import { CategoryEditFormController } from "Components/FormController/CategoryEd
 import { FormTextField } from "../Forms/FormTextField";
 import { FormSkelton } from "Components/Skelton/FormSkelton";
 import { DrawerDialog } from "Components/Dialog/DrawerDialog";
+import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 
 const CategoryEditFormDrawer = reduxForm({
   form: "Category_Edit_Form",
 })(({ handleSubmit, submitting, loading, open, onClose }) => {
   return (
-    <>
+    <DrawerDialog
+      open={open}
+      title="Edit Category"
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      submitting={submitting}
+      submitLabel="Edit"
+    >
       {loading ? (
         <FormSkelton fieldCount={2} />
       ) : (
-        <DrawerDialog
-          open={open}
-          title="Edit Category"
-          onClose={onClose}
-          onSubmit={handleSubmit}
-          submitting={submitting}
-          submitLabel="Edit"
-        >
+        <>
           <Field
             name="name"
             component={FormTextField}
@@ -40,9 +41,9 @@ const CategoryEditFormDrawer = reduxForm({
             label="Abbreviation"
             margin="normal"
           />
-        </DrawerDialog>
+        </>
       )}
-    </>
+    </DrawerDialog>
   );
 });
 
@@ -57,10 +58,12 @@ export const CategoryEditView = () => {
   };
 
   return (
-    <CategoryEditFormController categoryId={id}>
-      {(props) => (
-        <CategoryEditFormDrawer {...props} open={open} onClose={onClose} />
-      )}
-    </CategoryEditFormController>
+    <DashboardLayout>
+      <CategoryEditFormController categoryId={id}>
+        {(props) => (
+          <CategoryEditFormDrawer {...props} open={open} onClose={onClose} />
+        )}
+      </CategoryEditFormController>
+    </DashboardLayout>
   );
 };
