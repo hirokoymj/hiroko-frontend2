@@ -6,11 +6,11 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
+import { Route, Switch } from "react-router-dom";
 
 import { SubCategoryFormController } from "Components/FormController/SubCategoryFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSelect } from "Components/Forms/FormSelect";
-
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { Title } from "Components/Titles/Title";
 import { SubCategoryTable } from "Components/Tables/SubCategoryTable";
@@ -18,6 +18,7 @@ import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_SUB_CATEGORY } from "Mutations/SubCategory";
 import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { FormSkelton } from "Components/Skelton/FormSkelton";
+import { SubCategoryEditView } from "Components/PageView/SubCategoryEditView";
 
 const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
   return (
@@ -111,39 +112,44 @@ export const SubCategoryView = () => {
   };
 
   return (
-    <DashboardLayout>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper>
-            <Grid item xs={12} md={6}>
-              <SubCategoryFormController>
-                {(props) => <SubCategoryForm {...props} />}
-              </SubCategoryFormController>
-            </Grid>
-          </Paper>
+    <>
+      <Switch>
+        <Route path={`/subCategoryList/:id`} component={SubCategoryEditView} />
+      </Switch>
+      <DashboardLayout>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper>
+              <Grid item xs={12} md={6}>
+                <SubCategoryFormController>
+                  {(props) => <SubCategoryForm {...props} />}
+                </SubCategoryFormController>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <SubCategoryTable openDialog={handleOpen} />
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Paper>
-            <SubCategoryTable openDialog={handleOpen} />
-          </Paper>
-        </Grid>
-      </Grid>
-      <AlertDialog
-        open={open}
-        onClose={handleClose}
-        title="Delete Sub Category"
-        content={
-          <>
-            <Typography component="p" variant="body1">
-              Do you want to to delete sub category?
-            </Typography>
-          </>
-        }
-        actionLabel="Delete"
-        action={handleDeleteSubCategory}
-        cancelLabel="Cancel"
-        cancel={handleClose}
-      />
-    </DashboardLayout>
+        <AlertDialog
+          open={open}
+          onClose={handleClose}
+          title="Delete Sub Category"
+          content={
+            <>
+              <Typography component="p" variant="body1">
+                Are you sure to delete the sub category?
+              </Typography>
+            </>
+          }
+          actionLabel="Delete"
+          action={handleDeleteSubCategory}
+          cancelLabel="Cancel"
+          cancel={handleClose}
+        />
+      </DashboardLayout>
+    </>
   );
 };

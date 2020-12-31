@@ -28,16 +28,15 @@ export const SubCategoryEditFormController = ({ children, subCategoryId }) => {
     order: get(data_sub_category, "subCategoryById.order", 1),
   };
 
-  let category_options = [];
-  if (!loading) {
-    const categories = get(data, "categories");
-    category_options = categories.map(({ id, name }) => {
+  const categories = !loading && get(data, "categories.categoryFeed", []);
+  const category_options =
+    !loading &&
+    categories.map(({ id, name }) => {
       return {
         value: id,
         label: name,
       };
     });
-  }
 
   const onSubmit = async (values, dispatch) => {
     try {

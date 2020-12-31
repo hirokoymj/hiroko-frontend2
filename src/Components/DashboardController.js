@@ -9,7 +9,6 @@ import { DashboardHeader } from "Components/Headers/DashboardHeader";
 import { MenuDrawer } from "Components/Drawers/MenuDrawer";
 import { CategoryView } from "Components/PageView/CategoryView";
 import { SubCategoryView } from "Components/PageView/SubCategoryView";
-import { SubCategoryEditView } from "Components/PageView/SubCategoryEditView";
 import { TopicView } from "Components/PageView/TopicView";
 import { TopicEditView } from "Components/PageView/TopicEditView";
 import { ReferenceView } from "Components/PageView/ReferenceView";
@@ -70,10 +69,10 @@ export const DashboardController = () => {
             <Route path="/tech" component={ReferenceView} />
             <Route path="/categoryList" component={CategoryView} />
             <Route path="/subCategoryList" component={SubCategoryView} />
-            <Route
+            {/* <Route
               path="/editSubCategory/:id"
               component={SubCategoryEditView}
-            />
+            /> */}
             <Route path="/topicList" component={TopicView} />
             <Route path="/editTopic/:id" component={TopicEditView} />
             <Route path="/task" component={TaskView} />

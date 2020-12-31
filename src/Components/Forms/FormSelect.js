@@ -12,10 +12,16 @@ export const FormSelect = ({
   options,
   defaultValue,
   variant,
+  margin,
   ...custom
 }) => {
   return (
-    <FormControl error={touched && error} fullWidth variant={variant}>
+    <FormControl
+      error={touched && error}
+      fullWidth
+      variant={variant}
+      margin={margin ? margin : ""}
+    >
       <InputLabel id={input.name}>{label}</InputLabel>
       <Select
         labelId={input.name}

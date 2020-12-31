@@ -19,8 +19,6 @@ export const CategoryEditFormController = ({ children, categoryId }) => {
       id: categoryId,
     },
   });
-  console.log("CategoryEditFormController");
-  console.log(data);
 
   const initialValues = !loading && {
     id: get(data, "categoryById.id"),
@@ -55,8 +53,8 @@ export const CategoryEditFormController = ({ children, categoryId }) => {
 
   const validate = (values) => {
     const errors = {};
-    if (!values.categoryName) errors.categoryName = "Required";
-    if (!values.categoryOrder) errors.categoryOrder = "Required";
+    if (!values.name) errors.name = "Required";
+    if (!values.abbr) errors.abbr = "Required";
 
     return errors;
   };
