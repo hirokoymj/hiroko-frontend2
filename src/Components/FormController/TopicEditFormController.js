@@ -11,8 +11,10 @@ import { CATEGORIES } from "Queries/Category";
 import { TOPIC_BY_ID } from "Queries/Topic";
 
 const makeDropdownOptions = (category_data, subcategory_data, loading) => {
-  const categories = !loading && get(category_data, "categories", []);
-  const subcategories = !loading && get(subcategory_data, "subCategories", []);
+  const categories =
+    !loading && get(category_data, "categories.categoryFeed", []);
+  const subcategories =
+    !loading && get(subcategory_data, "subCategories.subCategoryFeed", []);
 
   const category_options = map(categories, ({ id, name }) => {
     return {

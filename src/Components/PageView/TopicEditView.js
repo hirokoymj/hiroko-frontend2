@@ -1,122 +1,129 @@
-import React from "react";
-import { Field, formValueSelector, reduxForm } from "redux-form";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Field, formValues, reduxForm } from "redux-form";
+import { compose } from "recompose";
+import { useParams, useHistory } from "react-router-dom";
 
 import { TopicEditFormController } from "Components/FormController/TopicEditFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSelect } from "Components/Forms/FormSelect";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
-import { Title } from "Components/Titles/Title";
 import { FormSkelton } from "Components/Skelton/FormSkelton";
+import { DrawerDialog } from "Components/Dialog/DrawerDialog";
 
-const TopicEditFormFields = connect((state) => ({
-  categoryId: formValueSelector("Topic_Edit_Form")(state, "category"),
-}))(
-  ({
-    onSubmit,
-    submitting,
-    category_options,
-    subCategory_options,
-    categoryId,
-  }) => {
-    return (
-      <>
-        <Field
-          name="category"
-          component={FormSelect}
-          fullWidth
-          variant="outlined"
-          label="Category"
-          options={category_options}
-        />
-        <Field
-          name="subCategory"
-          component={FormSelect}
-          fullWidth
-          variant="outlined"
-          label="Sub Category"
-          options={subCategory_options.filter(
-            (option) => option.categoryId === categoryId
-          )}
-        />
-        <Field
-          name="title"
-          component={FormTextField}
-          fullWidth
-          variant="outlined"
-          label="Title"
-        />
-        <Field
-          name="url"
-          component={FormTextField}
-          fullWidth
-          variant="outlined"
-          label="URL"
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          disabled={submitting}
-          onClick={onSubmit}
-        >
-          {submitting ? "Submitting" : "Submit"}
-        </Button>
-      </>
-    );
-  }
-);
-
-const TopicEditForm = reduxForm({
-  form: "Topic_Edit_Form",
-})(
+const TopicEditFormDrawer = compose(
+  reduxForm({
+    form: "Topic_Edit_Form",
+  }),
+  formValues({
+    categoryId: "category",
+  })
+)(
   ({
     handleSubmit,
     submitting,
     category_options,
     subCategory_options,
     loading,
+    open,
+    onClose,
+    categoryId,
   }) => {
+    console.log("TopicEditFormDrawer");
+    console.log(subCategory_options);
+    console.log(categoryId);
     return (
       <>
-        {loading ? (
-          <FormSkelton fieldCount={4} />
-        ) : (
-          <>
-            <Title text="Create Technical Topic" />
-            <TopicEditFormFields
-              onSubmit={handleSubmit}
-              submitting={submitting}
-              category_options={category_options}
-              subCategory_options={subCategory_options}
-            />
-          </>
-        )}
+        <DrawerDialog
+          open={open}
+          title="Edit Topic"
+          onClose={onClose}
+          onSubmit={handleSubmit}
+          submitting={submitting}
+          submitLabel="Edit"
+        >
+          {loading ? (
+            <FormSkelton fieldCount={4} />
+          ) : (
+            <>
+              <Field
+                name="category"
+                component={FormSelect}
+                fullWidth
+                variant="outlined"
+                label="Category"
+                options={category_options}
+                margin="normal"
+              />
+              <Field
+                name="subCategory"
+                component={FormSelect}
+                fullWidth
+                variant="outlined"
+                label="Sub Category"
+                options={subCategory_options.filter(
+                  (option) => option.categoryId === categoryId
+                )}
+                margin="normal"
+              />
+              <Field
+                name="title"
+                component={FormTextField}
+                fullWidth
+                variant="outlined"
+                label="Title"
+                margin="normal"
+              />
+              <Field
+                name="url"
+                component={FormTextField}
+                fullWidth
+                variant="outlined"
+                label="URL"
+                margin="normal"
+              />
+            </>
+          )}
+        </DrawerDialog>
       </>
     );
   }
 );
 
+// const TopicEditFormDrawer = reduxForm({
+//   form: "Topic_Edit_Form",
+// })(
+//   ({
+//     handleSubmit,
+//     submitting,
+//     category_options,
+//     subCategory_options,
+//     loading,
+//     open,
+//     onClose,
+//   }) => {
+//     return (
+//     );
+//   }
+// );
+
 export const TopicEditView = () => {
   const { id } = useParams();
+  console.log(id);
+  const [open, setOpen] = useState(true);
+  const history = useHistory();
+
+  const onClose = () => {
+    setOpen(false);
+    history.push("/categoryList");
+  };
 
   return (
     <DashboardLayout>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper>
-            <Grid item xs={12} md={6}>
-              <TopicEditFormController topicId={id}>
-                {(props) => <TopicEditForm {...props} />}
-              </TopicEditFormController>
-            </Grid>
-          </Paper>
-        </Grid>
-      </Grid>
+      <TopicEditFormController topicId={id}>
+        {(props) => (
+          <TopicEditFormDrawer {...props} open={open} onClose={onClose} />
+        )}
+      </TopicEditFormController>
     </DashboardLayout>
   );
 };

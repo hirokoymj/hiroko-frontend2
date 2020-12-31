@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 import { connect } from "react-redux";
+import { Route, Switch } from "react-router-dom";
 
 import { TopicFormController } from "Components/FormController/TopicFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
@@ -18,6 +19,7 @@ import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_TOPIC } from "Mutations/Topic";
 import { TOPICS } from "Queries/Topic";
 import { FormSkelton } from "Components/Skelton/FormSkelton";
+import { TopicEditView } from "Components/PageView/TopicEditView";
 
 const TopicFormFields = connect((state) => ({
   categoryId: formValueSelector("Create_Topic_Form")(state, "category"),
@@ -146,39 +148,44 @@ export const TopicView = () => {
   };
 
   return (
-    <DashboardLayout>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper>
-            <Grid item xs={12} md={6}>
-              <TopicFormController>
-                {(props) => <TopicForm {...props} />}
-              </TopicFormController>
-            </Grid>
-          </Paper>
+    <>
+      <Switch>
+        <Route path={`/topicList/:id`} component={TopicEditView} />
+      </Switch>
+      <DashboardLayout>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper>
+              <Grid item xs={12} md={6}>
+                <TopicFormController>
+                  {(props) => <TopicForm {...props} />}
+                </TopicFormController>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <TopicTable openDialog={handleOpen} />
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Paper>
-            <TopicTable openDialog={handleOpen} />
-          </Paper>
-        </Grid>
-      </Grid>
-      <AlertDialog
-        open={open}
-        onClose={handleClose}
-        title="Delete Topic"
-        content={
-          <>
-            <Typography component="p" variant="body1">
-              Do you want to to delete a topic?
-            </Typography>
-          </>
-        }
-        actionLabel={loading ? "Deleting" : "Delete"}
-        action={handleDeleteTopic}
-        cancelLabel="Cancel"
-        cancel={handleClose}
-      />
-    </DashboardLayout>
+        <AlertDialog
+          open={open}
+          onClose={handleClose}
+          title="Delete Topic"
+          content={
+            <>
+              <Typography component="p" variant="body1">
+                Do you want to to delete a topic?
+              </Typography>
+            </>
+          }
+          actionLabel={loading ? "Deleting" : "Delete"}
+          action={handleDeleteTopic}
+          cancelLabel="Cancel"
+          cancel={handleClose}
+        />
+      </DashboardLayout>
+    </>
   );
 };

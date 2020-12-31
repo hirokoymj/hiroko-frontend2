@@ -10,11 +10,8 @@ import { MenuDrawer } from "Components/Drawers/MenuDrawer";
 import { CategoryView } from "Components/PageView/CategoryView";
 import { SubCategoryView } from "Components/PageView/SubCategoryView";
 import { TopicView } from "Components/PageView/TopicView";
-import { TopicEditView } from "Components/PageView/TopicEditView";
 import { ReferenceView } from "Components/PageView/ReferenceView";
-import { TaskView } from "Components/PageView/TaskView";
 import { PageFooter } from "Components/Layouts/Footer";
-import { TestView } from "Components/PageView/TestView";
 import { DailyForecastView } from "Components/PageView/DailyForecastView";
 
 const useStyles = makeStyles((theme) => ({
@@ -69,14 +66,7 @@ export const DashboardController = () => {
             <Route path="/tech" component={ReferenceView} />
             <Route path="/categoryList" component={CategoryView} />
             <Route path="/subCategoryList" component={SubCategoryView} />
-            {/* <Route
-              path="/editSubCategory/:id"
-              component={SubCategoryEditView}
-            /> */}
             <Route path="/topicList" component={TopicView} />
-            <Route path="/editTopic/:id" component={TopicEditView} />
-            <Route path="/task" component={TaskView} />
-            <Route path="/test" component={TestView} />
             <Route path="/forecast" component={DailyForecastView} />
           </Switch>
           <PageFooter />

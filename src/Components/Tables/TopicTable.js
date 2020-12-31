@@ -3,22 +3,14 @@ import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import map from "lodash/map";
 import Link from "@material-ui/core/Link";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { Link as RouterLink } from "react-router-dom";
-import EditIcon from "@material-ui/icons/Edit";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
 
 import { TOPICS } from "Queries/Topic";
 import { Table } from "Components/Tables/Table";
 import { Title } from "Components/Titles/Title";
-
-const useStyles = makeStyles((theme) => ({
-  actionIcons: {
-    marginRight: theme.spacing(2),
-  },
-}));
+import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
+import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
 
 const useLoadMore = (loading, error, fetchMore, pageInfo) => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -48,7 +40,6 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
 };
 
 export const TopicTable = ({ openDialog }) => {
-  const classes = useStyles();
   const { data, loading, error, fetchMore } = useQuery(TOPICS, {
     variables: {
       limit: 5,
@@ -79,18 +70,12 @@ export const TopicTable = ({ openDialog }) => {
 
       const actions = (
         <>
-          <Link
-            component={RouterLink}
-            to={{
-              pathname: `/editTopic/${id}`,
-              state: { title: "Edit Topic" },
-            }}
-          >
-            <EditIcon className={classes.actionIcons} color="secondary" />
-          </Link>
-          <Link href="#" onClick={(e) => openDialog(e, id)}>
-            <DeleteIcon className={classes.actionIcons} color="secondary" />
-          </Link>
+          <ActionRouterButton
+            to={`/topicList/${id}`}
+            title="Edit Topic"
+            icon="edit"
+          />
+          <ActionLinkButton onClick={(e) => openDialog(e, id)} icon="delete" />
         </>
       );
       const created = moment(createdAt).format("MM/DD/YYYY");
@@ -133,7 +118,7 @@ export const TopicTable = ({ openDialog }) => {
           {
             label: "Actions",
             field: "actions",
-            align: "right",
+            align: "center",
           },
         ]}
       />
