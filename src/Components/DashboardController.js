@@ -13,6 +13,7 @@ import { TopicView } from "Components/PageView/TopicView";
 import { ReferenceView } from "Components/PageView/ReferenceView";
 import { PageFooter } from "Components/Layouts/Footer";
 import { DailyForecastView } from "Components/PageView/DailyForecastView";
+import { TestView } from "Components/PageView/TestView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,6 +69,7 @@ export const DashboardController = () => {
             <Route path="/subCategoryList" component={SubCategoryView} />
             <Route path="/topicList" component={TopicView} />
             <Route path="/forecast" component={DailyForecastView} />
+            <Route path="/test" component={TestView} />
           </Switch>
           <PageFooter />
         </main>

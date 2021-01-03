@@ -53,7 +53,6 @@ export const DailyForecast = ({ city, unit }) => {
 
   const cityName = get(cityInfo, "name", "");
   const country = get(cityInfo, "country", "");
-  console.log(data);
   const mappedData = map(forecastList, (forecast) => {
     const {
       dt,
