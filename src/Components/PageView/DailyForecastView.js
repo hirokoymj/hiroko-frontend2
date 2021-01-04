@@ -177,7 +177,7 @@ const CitySearchForm = reduxForm({
           disabled={submitting}
           className={classes.searchButton}
         >
-          {submitting ? "Submitting" : "Submit"}
+          {submitting ? "Searching" : "Search"}
         </Button>
       </form>
     </Paper>
