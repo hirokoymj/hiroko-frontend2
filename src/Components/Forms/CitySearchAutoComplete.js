@@ -18,11 +18,18 @@ const useStyles = makeStyles((theme) => ({
 const filterOptions = createFilterOptions({
   limit: 15,
 });
-export const CitySearchAutoComplete = () => {
+
+export const CitySearchAutoComplete = ({
+  input,
+  label,
+  className,
+  ...custom
+}) => {
   const classes = useStyles();
   const [options, setOptions] = useState([]);
   const [value, setValue] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
+  // const [selected, setSelected] = useState(false);
   const [runQuery, { loading }] = useLazyQuery(CITIES, {
     onCompleted: (data) => {
       const cities = get(data, "cities", []);
@@ -59,25 +66,29 @@ export const CitySearchAutoComplete = () => {
       }}
       getOptionLabel={(option) => option && option.name}
       filterOptions={filterOptions}
-      style={{ width: 300 }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Search a city"
-          variant="outlined"
-          InputProps={{
-            ...params.InputProps,
-            endAdornment: (
-              <React.Fragment>
-                {loading ? (
-                  <CircularProgress color="inherit" size={20} />
-                ) : null}
-                {params.InputProps.endAdornment}
-              </React.Fragment>
-            ),
-          }}
-        />
-      )}
+      className={className}
+      renderInput={(params) => {
+        return (
+          <TextField
+            {...params}
+            label={label}
+            variant="outlined"
+            InputProps={{
+              ...params.InputProps,
+              value: input.value,
+              endAdornment: (
+                <React.Fragment>
+                  {loading ? (
+                    <CircularProgress color="inherit" size={20} />
+                  ) : null}
+                  {params.InputProps.endAdornment}
+                </React.Fragment>
+              ),
+            }}
+            {...input}
+          />
+        );
+      }}
       renderOption={(option) => {
         const { name, country } = option;
         return (

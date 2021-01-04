@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import map from "lodash/map";
@@ -11,10 +11,17 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
+// import Grid from "@material-ui/core/Grid";
+// import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
+// import Container from "@material-ui/core/Container";
+import { reduxForm, Field } from "redux-form";
+// import { compose } from "recompose";
 
 import { DAILY_FORECAST } from "Queries/Weather";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { DailyForecastSkelton } from "Components/Skelton/WeatherSkelton";
+import { CitySearchAutoComplete } from "Components/Forms/CitySearchAutoComplete";
 
 const useStyles = makeStyles((theme) => ({
   forecastDate: {
@@ -38,6 +45,18 @@ const useStyles = makeStyles((theme) => ({
   rain: {
     width: "20%",
     textAlign: "center",
+  },
+  root: {
+    justifyContent: "center",
+  },
+  searchForm: {
+    display: "flex",
+  },
+  searchButton: {
+    width: "25%",
+  },
+  searchField: {
+    width: "80%",
   },
 }));
 
@@ -98,6 +117,7 @@ export const DailyForecast = ({ city, unit }) => {
                     <ListItem
                       divider={index !== mappedDataLen - 1 ? true : false}
                       dense
+                      key={dt}
                     >
                       <ListItemText
                         primary={moment.unix(dt).format("ddd, MM/DD")}
@@ -135,10 +155,50 @@ export const DailyForecast = ({ city, unit }) => {
   );
 };
 
+const CitySearchForm = reduxForm({
+  form: "CITY_SEARCH_FORM",
+})(({ handleSubmit, submitting }) => {
+  const classes = useStyles();
+
+  return (
+    <Paper>
+      <form onSubmit={handleSubmit} className={classes.searchForm}>
+        <Field
+          name="myCity"
+          component={CitySearchAutoComplete}
+          variant="filled"
+          label="Search city"
+          className={classes.searchField}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={submitting}
+          className={classes.searchButton}
+        >
+          {submitting ? "Submitting" : "Submit"}
+        </Button>
+      </form>
+    </Paper>
+  );
+});
+
 export const DailyForecastView = () => {
+  // const classes = useStyles();
+  const [city, setCity] = useState("tokyo");
+
+  const onSubmit = (values) => {
+    setCity(values.myCity);
+  };
+
   return (
     <DashboardLayout maxWidth="sm">
-      <DailyForecast city="tokyo" />
+      <CitySearchForm onSubmit={onSubmit} />
+      <br />
+      <br />
+      <br />
+      <DailyForecast city={city} />
     </DashboardLayout>
   );
 };
