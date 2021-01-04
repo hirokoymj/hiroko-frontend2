@@ -20,6 +20,14 @@ import { DELETE_TOPIC } from "Mutations/Topic";
 import { TOPICS } from "Queries/Topic";
 import { FormSkelton } from "Components/Skelton/FormSkelton";
 import { TopicEditView } from "Components/PageView/TopicEditView";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    width: "50%",
+    margin: "auto",
+  },
+}));
 
 const TopicFormFields = connect((state) => ({
   categoryId: formValueSelector("Create_Topic_Form")(state, "category"),
@@ -31,6 +39,7 @@ const TopicFormFields = connect((state) => ({
     subCategory_options,
     categoryId,
   }) => {
+    const classes = useStyles();
     return (
       <>
         <Field
@@ -71,6 +80,7 @@ const TopicFormFields = connect((state) => ({
           color="primary"
           disabled={submitting}
           onClick={onSubmit}
+          className={classes.button}
         >
           {submitting ? "Submitting" : "Submit"}
         </Button>
@@ -153,14 +163,12 @@ export const TopicView = () => {
         <Route path={`/topicList/:id`} component={TopicEditView} />
       </Switch>
       <DashboardLayout>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid container spacing={3} justify="center">
+          <Grid item xs={12} md={6}>
             <Paper>
-              <Grid item xs={12} md={6}>
-                <TopicFormController>
-                  {(props) => <TopicForm {...props} />}
-                </TopicFormController>
-              </Grid>
+              <TopicFormController>
+                {(props) => <TopicForm {...props} />}
+              </TopicFormController>
             </Paper>
           </Grid>
           <Grid item xs={12}>

@@ -5,12 +5,21 @@ import map from "lodash/map";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { TOPICS } from "Queries/Topic";
 import { Table } from "Components/Tables/Table";
 import { Title } from "Components/Titles/Title";
 import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
 import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
+
+const useStyles = makeStyles((theme) => ({
+  loadMoreButton: {
+    width: "30%",
+    margin: "auto",
+    marginTop: theme.spacing(3),
+  },
+}));
 
 const useLoadMore = (loading, error, fetchMore, pageInfo) => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -40,6 +49,7 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
 };
 
 export const TopicTable = ({ openDialog }) => {
+  const classes = useStyles();
   const { data, loading, error, fetchMore } = useQuery(TOPICS, {
     variables: {
       limit: 5,
@@ -127,6 +137,7 @@ export const TopicTable = ({ openDialog }) => {
         variant="contained"
         color="primary"
         disabled={!hasNextPage}
+        className={classes.loadMoreButton}
       >
         {isLoadingMore ? "Loading" : "Loard More"}
       </Button>
