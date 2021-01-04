@@ -13,7 +13,7 @@ import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
 import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
 
 const useStyles = makeStyles((theme) => ({
-  submitButton: {
+  loadMoreButton: {
     width: "30%",
     margin: "auto",
     marginTop: theme.spacing(3),
@@ -117,7 +117,7 @@ export const CategoryTable = ({ openDialog }) => {
         variant="contained"
         color="primary"
         disabled={!hasNextPage}
-        className={classes.submitButton}
+        className={classes.loadMoreButton}
       >
         {isLoadingMore ? "Loading" : "Loard More"}
       </Button>

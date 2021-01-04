@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { SubCategoryFormController } from "Components/FormController/SubCategoryFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
@@ -20,7 +21,15 @@ import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { FormSkelton } from "Components/Skelton/FormSkelton";
 import { SubCategoryEditView } from "Components/PageView/SubCategoryEditView";
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    width: "30%",
+    margin: "auto",
+  },
+}));
+
 const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
+  const classes = useStyles();
   return (
     <>
       <Field
@@ -45,6 +54,7 @@ const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
         color="primary"
         disabled={submitting}
         onClick={onSubmit}
+        className={classes.button}
       >
         {submitting ? "Submitting" : "Submit"}
       </Button>
@@ -117,14 +127,12 @@ export const SubCategoryView = () => {
         <Route path={`/subCategoryList/:id`} component={SubCategoryEditView} />
       </Switch>
       <DashboardLayout>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid container spacing={3} justify="center">
+          <Grid item xs={12} md={5}>
             <Paper>
-              <Grid item xs={12} md={6}>
-                <SubCategoryFormController>
-                  {(props) => <SubCategoryForm {...props} />}
-                </SubCategoryFormController>
-              </Grid>
+              <SubCategoryFormController>
+                {(props) => <SubCategoryForm {...props} />}
+              </SubCategoryFormController>
             </Paper>
           </Grid>
           <Grid item xs={12}>
