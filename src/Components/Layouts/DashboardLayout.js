@@ -10,11 +10,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     "& .MuiFormControl-root": {
-      margin: theme.spacing(1),
+      marginBottom: theme.spacing(2),
     },
-    "& .MuiButton-root": {
-      margin: theme.spacing(1),
-    },
+    // "& .MuiButton-root": {
+    //   width: "50%",
+    // },
     "& .MuiPaper-root": {
       padding: theme.spacing(2),
       display: "flex",
@@ -26,8 +26,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    // paddingTop: theme.spacing(4),
+    // paddingBottom: theme.spacing(4),
+    padding: theme.spacing(4, 3),
   },
 }));
 

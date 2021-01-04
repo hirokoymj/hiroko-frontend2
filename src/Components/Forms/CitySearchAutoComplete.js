@@ -66,13 +66,14 @@ export const CitySearchAutoComplete = ({
       }}
       getOptionLabel={(option) => option && option.name}
       filterOptions={filterOptions}
-      className={className}
+      style={{ width: "80%" }}
       renderInput={(params) => {
         return (
           <TextField
             {...params}
             label={label}
             variant="outlined"
+            className={className}
             InputProps={{
               ...params.InputProps,
               value: input.value,

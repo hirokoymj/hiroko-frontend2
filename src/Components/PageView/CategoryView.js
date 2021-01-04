@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { CategoryFormController } from "Components/FormController/CategoryFormController";
 import { FormTextField } from "../Forms/FormTextField";
@@ -18,7 +19,15 @@ import { CATEGORIES } from "Queries/Category";
 import { Title } from "Components/Titles/Title";
 import { CategoryEditView } from "Components/PageView/CategoryEditView";
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    width: "30%",
+    margin: "auto",
+  },
+}));
 const CategoryFormFields = ({ onSubmit, submitting }) => {
+  const classes = useStyles();
+
   return (
     <>
       <Field
@@ -42,6 +51,7 @@ const CategoryFormFields = ({ onSubmit, submitting }) => {
         color="primary"
         disabled={submitting}
         onClick={onSubmit}
+        className={classes.button}
       >
         {submitting ? "Submitting" : "Submit"}
       </Button>
@@ -99,15 +109,13 @@ export const CategoryView = () => {
         <Route path={`/categoryList/:id`} component={CategoryEditView} />
       </Switch>
       <DashboardLayout>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Grid container spacing={3} justify="center">
+          <Grid item xs={12} md={5}>
             <Paper>
               <Title text="Create Category" />
-              <Grid item xs={12} md={6}>
-                <CategoryFormController>
-                  {(props) => <CategoryForm {...props} />}
-                </CategoryFormController>
-              </Grid>
+              <CategoryFormController>
+                {(props) => <CategoryForm {...props} />}
+              </CategoryFormController>
             </Paper>
           </Grid>
           <Grid item xs={12}>

@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   sectionTitle: {
     fontFamily: ["Titillium Web", "sans-serif"].join(","),
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -16,7 +17,6 @@ export const Title = ({ text }) => {
       component="h2"
       variant="h5"
       color="primary"
-      gutterBottom
       className={classes.sectionTitle}
     >
       {text}
