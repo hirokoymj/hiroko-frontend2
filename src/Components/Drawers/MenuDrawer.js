@@ -46,6 +46,12 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9),
     },
   },
+  logo: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: theme.spacing(1, 5),
+  },
 }));
 
 export const MenuDrawer = connect(
@@ -69,6 +75,36 @@ export const MenuDrawer = connect(
         <IconButton onClick={closeNavigation}>
           <ChevronLeftIcon />
         </IconButton>
+      </div>
+      <Divider />
+      <List>
+        <ReferenceListItems />
+      </List>
+      <Divider />
+      <List>
+        <ManagementListItems />
+      </List>
+      <Divider />
+      <List>
+        <WeatherListItems />
+      </List>
+      <Divider />
+    </Drawer>
+  );
+});
+
+export const MobileMenuDrawer = connect(
+  (state) => ({
+    open: state.navigation.navigationOpen,
+  }),
+  { closeNavigation }
+)(({ closeNavigation, open }) => {
+  const classes = useStyles();
+
+  return (
+    <Drawer open={open} onClose={closeNavigation}>
+      <div className={classes.logo}>
+        <Logo />
       </div>
       <Divider />
       <List>

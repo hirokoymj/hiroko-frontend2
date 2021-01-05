@@ -17,9 +17,6 @@ import { CurrentWeather } from "Components/Weather/CurrentWeather";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
   toolbar: {
     padding: theme.spacing(0, 5, 0, 3),
   },
@@ -47,9 +44,6 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
-    [theme.breakpoints.down("sm")]: {
-      marginRight: 16,
-    },
   },
   menuButtonHidden: {
     display: "none",
@@ -58,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     fontFamily: ["Titillium Web", "sans-serif"].join(","),
     fontSize: "1.5rem",
+  },
+  mobileMenuButton: {
+    marginRight: theme.spacing(2),
   },
 }));
 
@@ -73,41 +70,69 @@ export const DashboardHeader = connect(
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   return (
-    <AppBar
-      position="absolute"
-      className={clsx(classes.appBar, open && classes.appBarShift)}
-    >
-      <Toolbar className={classes.toolbar}>
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          onClick={openNavigation}
-          className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+    <>
+      {matches ? (
+        <AppBar position="absolute">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              className={classes.mobileMenuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={openNavigation}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.title}
+            >
+              {pageTitle}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      ) : (
+        <AppBar
+          position="absolute"
+          className={clsx(classes.appBar, open && classes.appBarShift)}
         >
-          <MenuIcon />
-        </IconButton>
-        <Typography
-          component="h1"
-          variant="h6"
-          color="inherit"
-          noWrap
-          className={classes.title}
-        >
-          {pageTitle}
-        </Typography>
-        {!matches && (
-          <Link
-            component={RouterLink}
-            to={{
-              pathname: "/forecast",
-              state: { title: "7 days Weather Forecast" },
-            }}
-          >
-            <CurrentWeather city="tokyo" />
-          </Link>
-        )}
-      </Toolbar>
-    </AppBar>
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={openNavigation}
+              className={clsx(
+                classes.menuButton,
+                open && classes.menuButtonHidden
+              )}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.title}
+            >
+              {pageTitle}
+            </Typography>
+            <Link
+              component={RouterLink}
+              to={{
+                pathname: "/forecast",
+                state: { title: "7 days Weather Forecast" },
+              }}
+            >
+              <CurrentWeather city="tokyo" />
+            </Link>
+          </Toolbar>
+        </AppBar>
+      )}
+    </>
   );
 });

@@ -4,9 +4,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { SnackbarProvider } from "notistack";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
+import { connect } from "react-redux";
 
 import { DashboardHeader } from "Components/Headers/DashboardHeader";
-import { MenuDrawer } from "Components/Drawers/MenuDrawer";
+import { MenuDrawer, MobileMenuDrawer } from "Components/Drawers/MenuDrawer";
 import { CategoryView } from "Components/PageView/CategoryView";
 import { SubCategoryView } from "Components/PageView/SubCategoryView";
 import { TopicView } from "Components/PageView/TopicView";
@@ -14,6 +15,10 @@ import { ReferenceView } from "Components/PageView/ReferenceView";
 import { PageFooter } from "Components/Layouts/Footer";
 import { DailyForecastView } from "Components/PageView/DailyForecastView";
 import { TestView } from "Components/PageView/TestView";
+import {
+  closeNavigation,
+  openNavigation,
+} from "Redux/Navigation/ActionCreator";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,15 +32,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const DashboardController = () => {
+export const DashboardController = connect(null, {
+  closeNavigation,
+  openNavigation,
+})(({ closeNavigation, openNavigation }) => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  if (matches) {
+    closeNavigation();
+  } else {
+    openNavigation();
+  }
 
   return (
     <div className={classes.root}>
       <DashboardHeader />
-      <MenuDrawer />
+      {matches ? <MobileMenuDrawer /> : <MenuDrawer />}
       <SnackbarProvider
         maxSnack={1}
         dense
@@ -76,4 +89,4 @@ export const DashboardController = () => {
       </SnackbarProvider>
     </div>
   );
-};
+});

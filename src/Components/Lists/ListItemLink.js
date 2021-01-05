@@ -7,13 +7,11 @@ import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  imageIcon: {
-    width: "23px",
-    height: "auto",
-    backgroundColor: "transparent !important",
-  },
   icon: {
     color: "rgba(0, 0, 0, 0.8)",
+    [theme.breakpoints.down("sm")]: {
+      minWidth: "40px",
+    },
   },
 }));
 
