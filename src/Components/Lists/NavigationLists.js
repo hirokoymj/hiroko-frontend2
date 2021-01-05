@@ -7,18 +7,19 @@ import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
 
 import { ListItemLink } from "Components/Lists/ListItemLink";
 
-export const ReferenceListItems = () => {
+export const ReferenceListItems = ({ setDrawerClosed }) => {
   return (
     <ListItemLink
       to="/"
       text="Tech References"
       icon={<LibraryBooksOutlinedIcon />}
       title="Technical References"
+      onClick={setDrawerClosed && setDrawerClosed}
     />
   );
 };
 
-export const ManagementListItems = () => {
+export const ManagementListItems = ({ setDrawerClosed }) => {
   return (
     <>
       <ListItemLink
@@ -26,30 +27,34 @@ export const ManagementListItems = () => {
         text="Category"
         icon={<ViewAgendaOutlinedIcon />}
         title="Category"
+        onClick={setDrawerClosed && setDrawerClosed}
       />
       <ListItemLink
         to="/subCategoryList"
         text="Sub Category"
         icon={<AccountTreeOutlinedIcon />}
         title="Sub Category"
+        onClick={setDrawerClosed && setDrawerClosed}
       />
       <ListItemLink
         to="/topicList"
         text="Topic"
         icon={<DescriptionOutlinedIcon />}
         title="Topics"
+        onClick={setDrawerClosed && setDrawerClosed}
       />
     </>
   );
 };
 
-export const WeatherListItems = () => {
+export const WeatherListItems = ({ setDrawerClosed }) => {
   return (
     <ListItemLink
       to="/forecast"
       text="Weather Forecast"
       icon={<WbSunnyOutlinedIcon />}
       title="7 days Weather Forecast"
+      onClick={setDrawerClosed && setDrawerClosed}
     />
   );
 };

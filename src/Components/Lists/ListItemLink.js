@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ListItemLink = (props) => {
-  const { icon, text, to, title } = props;
+  const { icon, text, to, title, onClick } = props;
   const classes = useStyles();
 
   const renderLink = React.useMemo(
@@ -33,7 +33,11 @@ export const ListItemLink = (props) => {
 
   return (
     <li>
-      <ListItem button component={renderLink}>
+      <ListItem
+        button
+        component={renderLink}
+        onClick={onClick ? onClick : null}
+      >
         <ListItemIcon className={classes.icon}>{icon}</ListItemIcon>
         <ListItemText primary={text} />
       </ListItem>

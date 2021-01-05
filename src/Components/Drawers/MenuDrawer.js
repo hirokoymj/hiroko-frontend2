@@ -108,15 +108,15 @@ export const MobileMenuDrawer = connect(
       </div>
       <Divider />
       <List>
-        <ReferenceListItems />
+        <ReferenceListItems setDrawerClosed={closeNavigation} />
       </List>
       <Divider />
       <List>
-        <ManagementListItems />
+        <ManagementListItems setDrawerClosed={closeNavigation} />
       </List>
       <Divider />
       <List>
-        <WeatherListItems />
+        <WeatherListItems setDrawerClosed={closeNavigation} />
       </List>
       <Divider />
     </Drawer>
