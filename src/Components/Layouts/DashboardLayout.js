@@ -26,15 +26,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    // paddingTop: theme.spacing(4),
-    // paddingBottom: theme.spacing(4),
-    padding: theme.spacing(4, 3),
+    padding: (props) =>
+      props.fullWidth ? theme.spacing(0) + "!important" : theme.spacing(4),
+    maxWidth: "100%",
   },
 }));
 
 export const DashboardLayout = connect(null, { setTitle })(
-  ({ setTitle, children, maxWidth }) => {
-    const classes = useStyles();
+  ({ setTitle, children, maxWidth, fullWidth }) => {
+    const classes = useStyles({ fullWidth });
     const location = useLocation();
 
     if (location.state) {
