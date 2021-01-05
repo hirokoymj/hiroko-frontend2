@@ -12,9 +12,6 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiFormControl-root": {
       marginBottom: theme.spacing(2),
     },
-    // "& .MuiButton-root": {
-    //   width: "50%",
-    // },
     "& .MuiPaper-root": {
       padding: theme.spacing(2),
       display: "flex",
@@ -28,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: (props) => (props.fullWidth ? "0 !important" : theme.spacing(4)),
     maxWidth: (props) => props.fullWidth && "100%",
+    [theme.breakpoints.down("sm")]: {
+      padding: "16px !important",
+    },
   },
 }));
 

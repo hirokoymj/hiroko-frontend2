@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     width: "30%",
     margin: "auto",
     marginTop: theme.spacing(3),
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
 }));
 
@@ -94,7 +97,7 @@ export const CategoryTable = ({ openDialog }) => {
         loading={loading}
         colmuns={[
           {
-            label: "Category Name",
+            label: "Category",
             field: "name",
           },
           {

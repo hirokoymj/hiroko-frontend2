@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
   actionButton: {
     width: "25%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   actionsRoot: {
     borderTop: `1px solid ${theme.palette.grey[400]}`,

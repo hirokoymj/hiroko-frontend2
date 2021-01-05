@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "hidden",
     position: "fixed",
     margin: "9px",
+    [theme.breakpoints.down("sm")]: {
+      height: "100%",
+      width: "auto",
+    },
   },
   titleRoot: {
     borderBottom: `1px solid ${theme.palette.grey[400]}`,

@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     width: "45%",
     margin: "auto",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   searchButton: {
     width: "20%",
@@ -28,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "none",
     padding: "32px !important",
     marginBottom: theme.spacing(4),
+    [theme.breakpoints.down("sm")]: {
+      padding: "16px !important",
+    },
   },
 }));
 
@@ -71,7 +77,7 @@ export const DailyForecastView = () => {
     <DashboardLayout fullWidth={true}>
       <CitySearchForm onSubmit={onSubmit} />
       <Grid container justify="center">
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <DailyForecast city={city} />
         </Grid>
       </Grid>

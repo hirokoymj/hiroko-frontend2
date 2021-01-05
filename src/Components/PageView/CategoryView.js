@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   button: {
     width: "30%",
     margin: "auto",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
 }));
 const CategoryFormFields = ({ onSubmit, submitting }) => {
@@ -131,7 +134,7 @@ export const CategoryView = () => {
           content={
             <>
               <Typography component="p" variant="body1">
-                Do you want to to delete the category?
+                Are you sure to delete the category?
               </Typography>
             </>
           }

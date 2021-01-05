@@ -17,6 +17,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+///==== TODO: replace Tab to TabLink
+const TabLink = ({ to, className, label }) => {
+  return (
+    <Tab
+      label={label}
+      component={Link}
+      to={{ pathname: to, state: { title: "Technical References" } }}
+      className={className}
+    />
+  );
+};
+
 export const ReferenceView = () => {
   const [activeTab, setActiveTab] = useState(0);
   const classes = useStyles({ activeTab });
@@ -38,7 +50,10 @@ export const ReferenceView = () => {
           <Tab
             label="React"
             component={Link}
-            to="/tech/react"
+            to={{
+              pathname: "/tech/react",
+              state: { title: "Technical References" },
+            }}
             className={clsx(classes.tab, {
               [classes.activeTab]: activeTab === 0,
             })}
@@ -46,7 +61,10 @@ export const ReferenceView = () => {
           <Tab
             label="JavaScript"
             component={Link}
-            to="/tech/js"
+            to={{
+              pathname: "/tech/js",
+              state: { title: "Technical References" },
+            }}
             className={clsx(classes.tab, {
               [classes.activeTab]: activeTab === 1,
             })}
@@ -54,7 +72,10 @@ export const ReferenceView = () => {
           <Tab
             label="GraphQL"
             component={Link}
-            to="/tech/graphQL"
+            to={{
+              pathname: "/tech/graphQL",
+              state: { title: "Technical References" },
+            }}
             className={clsx(classes.tab, {
               [classes.activeTab]: activeTab === 2,
             })}
@@ -62,7 +83,10 @@ export const ReferenceView = () => {
           <Tab
             label="HTML/CSS"
             component={Link}
-            to="/tech/html"
+            to={{
+              pathname: "/tech/html",
+              state: { title: "Technical References" },
+            }}
             className={clsx(classes.tab, {
               [classes.activeTab]: activeTab === 3,
             })}

@@ -14,12 +14,16 @@ export const Table = ({ data, colmuns, loading }) => {
         <TableSkelton />
       ) : (
         <>
-          <MuiTable aria-label="simple table">
+          <MuiTable aria-label="simple table" size="small">
             <TableHead>
               <TableRow>
                 {colmuns.map(({ label, align }, key) => {
                   return (
-                    <TableCell key={key} align={align}>
+                    <TableCell
+                      key={key}
+                      align={align}
+                      style={{ whiteSpace: "nowrap" }}
+                    >
                       {label}
                     </TableCell>
                   );

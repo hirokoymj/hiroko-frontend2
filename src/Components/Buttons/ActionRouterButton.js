@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   iconButtonRoot: {
     backgroundColor: green[500],
     padding: theme.spacing(1),
-    margin: theme.spacing(0, 1),
+    margin: theme.spacing(1),
     "&:hover": {
       backgroundColor: green[200],
     },

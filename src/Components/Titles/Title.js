@@ -18,6 +18,7 @@ export const Title = ({ text }) => {
       variant="h5"
       color="primary"
       className={classes.sectionTitle}
+      noWrap
     >
       {text}
     </Typography>

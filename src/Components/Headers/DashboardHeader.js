@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
+import { useTheme, makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -46,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    [theme.breakpoints.down("sm")]: {
+      marginRight: 16,
+    },
   },
   menuButtonHidden: {
     display: "none",
@@ -66,6 +70,8 @@ export const DashboardHeader = connect(
 )(({ openNavigation, open, pageTitle }) => {
   const classes = useStyles();
 
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <AppBar
       position="absolute"
@@ -90,15 +96,17 @@ export const DashboardHeader = connect(
         >
           {pageTitle}
         </Typography>
-        <Link
-          component={RouterLink}
-          to={{
-            pathname: "/forecast",
-            state: { title: "7 days Weather Forecast" },
-          }}
-        >
-          <CurrentWeather city="tokyo" />
-        </Link>
+        {!matches && (
+          <Link
+            component={RouterLink}
+            to={{
+              pathname: "/forecast",
+              state: { title: "7 days Weather Forecast" },
+            }}
+          >
+            <CurrentWeather city="tokyo" />
+          </Link>
+        )}
       </Toolbar>
     </AppBar>
   );
