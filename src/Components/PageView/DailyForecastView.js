@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-// import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
-// import Container from "@material-ui/core/Container";
 import { reduxForm, Field } from "redux-form";
 
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
@@ -63,7 +61,6 @@ const CitySearchForm = reduxForm({
 });
 
 export const DailyForecastView = () => {
-  // const classes = useStyles();
   const [city, setCity] = useState("tokyo");
 
   const onSubmit = (values) => {

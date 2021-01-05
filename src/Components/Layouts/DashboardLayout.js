@@ -26,9 +26,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    padding: (props) =>
-      props.fullWidth ? theme.spacing(0) + "!important" : theme.spacing(4),
-    maxWidth: "100%",
+    padding: (props) => (props.fullWidth ? "0 !important" : theme.spacing(4)),
+    maxWidth: (props) => props.fullWidth && "100%",
   },
 }));
 

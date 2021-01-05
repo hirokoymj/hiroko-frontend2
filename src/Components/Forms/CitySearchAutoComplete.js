@@ -68,7 +68,6 @@ export const CitySearchAutoComplete = ({
       filterOptions={filterOptions}
       style={{ width: "80%" }}
       renderInput={(params) => {
-        console.log(params);
         return (
           <TextField
             {...params}
