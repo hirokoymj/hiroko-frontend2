@@ -29,7 +29,6 @@ export const CitySearchAutoComplete = ({
   const [options, setOptions] = useState([]);
   const [value, setValue] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
-  // const [selected, setSelected] = useState(false);
   const [runQuery, { loading }] = useLazyQuery(CITIES, {
     onCompleted: (data) => {
       const cities = get(data, "cities", []);
@@ -49,6 +48,9 @@ export const CitySearchAutoComplete = ({
         if (reason === "select-option") {
           setOptions([...options]);
         }
+        input.onChange({
+          myCity: newValue,
+        });
       }}
       inputValue={inputValue}
       onInputChange={(e, newInputValue, reason) => {
@@ -76,7 +78,6 @@ export const CitySearchAutoComplete = ({
             className={className}
             InputProps={{
               ...params.InputProps,
-              value: input.value,
               className: className,
               endAdornment: (
                 <React.Fragment>
@@ -87,7 +88,7 @@ export const CitySearchAutoComplete = ({
                 </React.Fragment>
               ),
             }}
-            {...input}
+            // {...input}
           />
         );
       }}

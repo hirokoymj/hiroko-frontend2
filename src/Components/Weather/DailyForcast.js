@@ -51,10 +51,10 @@ export const DailyForecast = ({ city, unit }) => {
       unit,
     },
   });
-  const { cityInfo, forecastList } = !loading && get(data, "dailyForecast", {});
+  const { forecastList } = !loading && get(data, "dailyForecast", {});
 
-  const cityName = get(cityInfo, "name", "");
-  const country = get(cityInfo, "country", "");
+  // const cityName = get(cityInfo, "name", "");
+  // const country = get(cityInfo, "country", "");
   const mappedData = map(forecastList, (forecast) => {
     const {
       dt,
@@ -82,8 +82,8 @@ export const DailyForecast = ({ city, unit }) => {
         <DailyForecastSkelton />
       ) : (
         <>
-          <Typography component="h2" variant="h3" gutterBottom>
-            {cityName},{country}
+          <Typography component="h2" variant="h5" gutterBottom>
+            7 days forecast
           </Typography>
           <Paper>
             <List>
