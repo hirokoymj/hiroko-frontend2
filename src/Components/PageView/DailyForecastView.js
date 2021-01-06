@@ -77,7 +77,7 @@ export const DailyForecastView = () => {
     <DashboardLayout fullWidth={true}>
       <CitySearchForm onSubmit={onSubmit} />
       <Grid container justify="center">
-        <Grid item xs={12} md={6}>
+        <Grid item xs={11} md={6}>
           <DailyForecast city={city} />
         </Grid>
       </Grid>
