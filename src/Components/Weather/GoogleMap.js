@@ -1,20 +1,29 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
 
-export const GoogleMap = ({ lat, lng, children }) => {
-  console.log("GoogleMap");
-  console.log(`lat: ${lat}, lng: ${lng}`);
+import { config } from "Config/config";
 
+export const GoogleMap = ({ center, zoom, geo_lat, geo_lon, children }) => {
+  const { GOOGLE_MAP_API_KEY } = config;
+  console.log(GOOGLE_MAP_API_KEY);
   return (
     <GoogleMapReact
-      bootstrapURLKeys={{ key: "AIzaSyDVSQkRDcbE-z-2aeaAtFpkQPm4l_wu43o" }}
-      defaultCenter={{
-        lat,
-        lng,
+      bootstrapURLKeys={{
+        key: GOOGLE_MAP_API_KEY,
       }}
-      defaultZoom={10} // ZoomLevel: City
+      defaultCenter={center}
+      defaultZoom={zoom}
+      center={{ lat: geo_lat, lng: geo_lon }}
+      zoom={zoom}
     >
       {children}
     </GoogleMapReact>
   );
+};
+GoogleMap.defaultProps = {
+  center: {
+    lat: config.TOKYO_LOCATION.lat,
+    lng: config.TOKYO_LOCATION.lon,
+  },
+  zoom: 10,
 };

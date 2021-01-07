@@ -81,7 +81,7 @@ export const DailyForecast = ({ city, unit }) => {
       {loading ? (
         <DailyForecastSkelton />
       ) : (
-        <>
+        <div style={{ width: "65%", margin: "auto" }}>
           <Typography component="h2" variant="h5" gutterBottom>
             7 days forecast
           </Typography>
@@ -132,7 +132,7 @@ export const DailyForecast = ({ city, unit }) => {
               )}
             </List>
           </Paper>
-        </>
+        </div>
       )}
     </>
   );
