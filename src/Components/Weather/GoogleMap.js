@@ -5,7 +5,6 @@ import { config } from "Config/config";
 
 export const GoogleMap = ({ center, zoom, geo_lat, geo_lon, children }) => {
   const { GOOGLE_MAP_API_KEY } = config;
-  console.log(GOOGLE_MAP_API_KEY);
   return (
     <GoogleMapReact
       bootstrapURLKeys={{

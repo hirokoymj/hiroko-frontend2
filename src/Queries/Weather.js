@@ -9,14 +9,19 @@ export const CURRENT_WEATHER_BY_CITY = gql`
       cityInfo {
         name
         country
+        lon
+        lat
       }
       weather {
         dt
         condition
+        description
+        feelsLike
         icon
         temperature {
           ...temperature
         }
+        humidity
       }
     }
   }
