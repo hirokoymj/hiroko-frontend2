@@ -173,7 +173,7 @@ export const DailyForecastView = () => {
   };
 
   return (
-    <DashboardLayout fullWidth={true}>
+    <DashboardLayout fullWidth={true} title="7 days Weather Forecast">
       <CitySearchForm onSubmit={onSubmit} />
       <Container maxWidth="md">
         <Grid container spacing={3} justify="center">

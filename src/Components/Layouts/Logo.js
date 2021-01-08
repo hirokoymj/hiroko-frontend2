@@ -24,7 +24,11 @@ export const Logo = () => {
   const classes = useStyles();
 
   return (
-    <Link component={RouterLink} to="/" className={classes.logo}>
+    <Link
+      component={RouterLink}
+      to={{ pathname: "/", state: { title: "7 days Forecast" } }}
+      className={classes.logo}
+    >
       <Typography variant="h6" component="h1">
         <span className={classes.boldFont}>hiroko</span>
         <span className={classes.lightFont}>ymj.com</span>

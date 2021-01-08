@@ -5,6 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import EmailIcon from "@material-ui/icons/Email";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { makeStyles } from "@material-ui/core/styles";
+import PictureAsPdfOutlinedIcon from "@material-ui/icons/PictureAsPdfOutlined";
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -43,7 +44,11 @@ export const PageFooter = () => {
       />
       <IconButtonLink
         icon={<GitHubIcon fontSize="large" />}
-        to="https://github.com/hirokoymj"
+        to="https://github.com/hirokoymj/hiroko-frontend"
+      />
+      <IconButtonLink
+        icon={<PictureAsPdfOutlinedIcon fontSize="large" />}
+        to="/Yamaji_Hiroko.pdf"
       />
     </footer>
   );

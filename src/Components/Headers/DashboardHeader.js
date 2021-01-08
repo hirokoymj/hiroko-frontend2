@@ -124,8 +124,8 @@ export const DashboardHeader = connect(
             <Link
               component={RouterLink}
               to={{
-                pathname: "/forecast",
-                state: { title: "7 days Weather Forecast" },
+                pathname: "/",
+                state: { title: "7 days Forecast" },
               }}
             >
               <CurrentWeather city="tokyo" />

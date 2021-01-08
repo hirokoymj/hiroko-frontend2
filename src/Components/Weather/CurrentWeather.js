@@ -40,13 +40,11 @@ export const CurrentWeather = ({ city, unit }) => {
       unit,
     },
   });
-  const { cityInfo, weather } =
-    !loading && get(data, "currentWeatherByCity", {});
+  const { weather } = !loading && get(data, "currentWeatherByCity", {});
   const temp_day = Math.ceil(get(weather, "temperature.day", 0));
   const temp_unit = unit === "imperial" ? "F" : "C";
   const icon = get(weather, "icon");
   const condition = get(weather, "condition");
-  const country = get(cityInfo, "country");
 
   return (
     <>
@@ -69,7 +67,7 @@ export const CurrentWeather = ({ city, unit }) => {
             </span>
           </div>
           <div className={classes.row} style={{ marginTop: "-10px" }}>
-            {city}, {country}
+            {city.toUpperCase()}
           </div>
         </div>
       )}

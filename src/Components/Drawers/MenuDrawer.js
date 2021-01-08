@@ -8,11 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { connect } from "react-redux";
 
-import {
-  ReferenceListItems,
-  ManagementListItems,
-  WeatherListItems,
-} from "Components/Lists/NavigationLists";
+import { TechNavItems } from "Components/Lists/NavigationLists";
 import { closeNavigation } from "Redux/Navigation/ActionCreator";
 import { Logo } from "Components/Layouts/Logo";
 
@@ -78,15 +74,7 @@ export const MenuDrawer = connect(
       </div>
       <Divider />
       <List>
-        <ReferenceListItems />
-      </List>
-      <Divider />
-      <List>
-        <ManagementListItems />
-      </List>
-      <Divider />
-      <List>
-        <WeatherListItems />
+        <TechNavItems />
       </List>
       <Divider />
     </Drawer>
@@ -108,15 +96,7 @@ export const MobileMenuDrawer = connect(
       </div>
       <Divider />
       <List>
-        <ReferenceListItems setDrawerClosed={closeNavigation} />
-      </List>
-      <Divider />
-      <List>
-        <ManagementListItems setDrawerClosed={closeNavigation} />
-      </List>
-      <Divider />
-      <List>
-        <WeatherListItems setDrawerClosed={closeNavigation} />
+        <TechNavItems setDrawerClosed={closeNavigation} />
       </List>
       <Divider />
     </Drawer>

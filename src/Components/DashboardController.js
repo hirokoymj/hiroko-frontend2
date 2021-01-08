@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { SnackbarProvider } from "notistack";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -14,7 +14,6 @@ import { TopicView } from "Components/PageView/TopicView";
 import { ReferenceView } from "Components/PageView/ReferenceView";
 import { PageFooter } from "Components/Layouts/Footer";
 import { DailyForecastView } from "Components/PageView/DailyForecastView";
-import { TestView } from "Components/PageView/TestView";
 import {
   closeNavigation,
   openNavigation,
@@ -63,26 +62,11 @@ export const DashboardController = connect(null, {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Switch>
-            <Route
-              path="/"
-              exact
-              render={() => {
-                return (
-                  <Redirect
-                    to={{
-                      pathname: "/tech/react",
-                      state: { title: "Technical References" },
-                    }}
-                  />
-                );
-              }}
-            />
+            <Route path="/" exact component={DailyForecastView} />
             <Route path="/tech" component={ReferenceView} />
             <Route path="/categoryList" component={CategoryView} />
             <Route path="/subCategoryList" component={SubCategoryView} />
             <Route path="/topicList" component={TopicView} />
-            <Route path="/forecast" component={DailyForecastView} />
-            <Route path="/test" component={TestView} />
           </Switch>
           <PageFooter />
         </main>

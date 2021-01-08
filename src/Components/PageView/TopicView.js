@@ -165,7 +165,7 @@ export const TopicView = () => {
       <Switch>
         <Route path={`/topicList/:id`} component={TopicEditView} />
       </Switch>
-      <DashboardLayout>
+      <DashboardLayout title="Technical Topics">
         <Grid container spacing={3} justify="center">
           <Grid item xs={12} md={6}>
             <Paper>

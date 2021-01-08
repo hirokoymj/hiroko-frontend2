@@ -32,12 +32,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const DashboardLayout = connect(null, { setTitle })(
-  ({ setTitle, children, maxWidth, fullWidth }) => {
+  ({ setTitle, children, maxWidth, fullWidth, title }) => {
     const classes = useStyles({ fullWidth });
     const location = useLocation();
 
     if (location.state) {
       setTitle(location.state.title);
+    } else if (title) {
+      setTitle(title);
     } else {
       setTitle("");
     }

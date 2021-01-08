@@ -129,7 +129,7 @@ export const SubCategoryView = () => {
       <Switch>
         <Route path={`/subCategoryList/:id`} component={SubCategoryEditView} />
       </Switch>
-      <DashboardLayout>
+      <DashboardLayout title="Sub Category">
         <Grid container spacing={3} justify="center">
           <Grid item xs={12} md={5}>
             <Paper>

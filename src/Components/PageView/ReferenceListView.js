@@ -9,8 +9,6 @@ import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { connect } from "react-redux";
-import { setTitle } from "Redux/Title/ActionCreator";
 
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { TOPIC_BY_CATEGORY_ABBR } from "Queries/Topic";
@@ -53,36 +51,34 @@ const ReferenceListCard = ({ mappedData }) => {
   );
 };
 
-export const ReferenceListView = connect(null, { setTitle })(
-  ({ setTitle, title }) => {
-    const { abbr } = useParams();
-    const { data, loading } = useQuery(TOPIC_BY_CATEGORY_ABBR, {
-      variables: {
-        abbr,
-      },
-    });
-    const topics = get(data, "topicByCategoryAbbr", []);
-    const topicsByGroup = groupBy(topics, "subCategory.id");
+export const ReferenceListView = () => {
+  const { abbr } = useParams();
+  const { data, loading } = useQuery(TOPIC_BY_CATEGORY_ABBR, {
+    variables: {
+      abbr,
+    },
+  });
+  const topics = get(data, "topicByCategoryAbbr", []);
+  const topicsByGroup = groupBy(topics, "subCategory.id");
 
-    const mappedData = keys(topicsByGroup).map((key, index) => {
-      return {
-        cardTitle: get(topicsByGroup[key][0], "subCategory.name", ""),
-        topicData: topicsByGroup[key],
-      };
-    });
+  const mappedData = keys(topicsByGroup).map((key, index) => {
+    return {
+      cardTitle: get(topicsByGroup[key][0], "subCategory.name", ""),
+      topicData: topicsByGroup[key],
+    };
+  });
 
-    return (
-      <DashboardLayout>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={8}>
-            {loading ? (
-              <ListSkelton />
-            ) : (
-              <ReferenceListCard mappedData={mappedData} />
-            )}
-          </Grid>
+  return (
+    <DashboardLayout title="Technical References">
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={8}>
+          {loading ? (
+            <ListSkelton />
+          ) : (
+            <ReferenceListCard mappedData={mappedData} />
+          )}
         </Grid>
-      </DashboardLayout>
-    );
-  }
-);
+      </Grid>
+    </DashboardLayout>
+  );
+};

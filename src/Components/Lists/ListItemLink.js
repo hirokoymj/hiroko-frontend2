@@ -4,6 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,19 +17,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ListItemLink = (props) => {
-  const { icon, text, to, title, onClick } = props;
+  const { icon, text, to, onClick } = props;
   const classes = useStyles();
 
   const renderLink = React.useMemo(
     () =>
       React.forwardRef((itemProps, ref) => (
-        <RouterLink
-          to={{ pathname: to, state: { title: title } }}
-          ref={ref}
-          {...itemProps}
-        />
+        <RouterLink to={to} ref={ref} {...itemProps} />
       )),
-    [to, title]
+    [to]
   );
 
   return (
@@ -42,6 +39,20 @@ export const ListItemLink = (props) => {
         <ListItemText primary={text} />
       </ListItem>
     </li>
+  );
+};
+
+export const ListLink = ({ icon, text, to }) => {
+  const classes = useStyles();
+  const preventDefault = (event) => event.preventDefault();
+
+  return (
+    <ListItem>
+      <Link href={to} onClick={preventDefault}>
+        <ListItemIcon className={classes.icon}>{icon}</ListItemIcon>
+        <ListItemText primary={text} />
+      </Link>
+    </ListItem>
   );
 };
 

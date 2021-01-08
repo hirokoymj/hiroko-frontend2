@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, Redirect } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -16,18 +16,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1rem",
   },
 }));
-
-///==== TODO: replace Tab to TabLink
-const TabLink = ({ to, className, label }) => {
-  return (
-    <Tab
-      label={label}
-      component={Link}
-      to={{ pathname: to, state: { title: "Technical References" } }}
-      className={className}
-    />
-  );
-};
 
 export const ReferenceView = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -50,10 +38,7 @@ export const ReferenceView = () => {
           <Tab
             label="React"
             component={Link}
-            to={{
-              pathname: "/tech/react",
-              state: { title: "Technical References" },
-            }}
+            to="/tech/react"
             className={clsx(classes.tab, {
               [classes.activeTab]: activeTab === 0,
             })}
@@ -61,10 +46,7 @@ export const ReferenceView = () => {
           <Tab
             label="JavaScript"
             component={Link}
-            to={{
-              pathname: "/tech/js",
-              state: { title: "Technical References" },
-            }}
+            to="/tech/js"
             className={clsx(classes.tab, {
               [classes.activeTab]: activeTab === 1,
             })}
@@ -72,10 +54,7 @@ export const ReferenceView = () => {
           <Tab
             label="GraphQL"
             component={Link}
-            to={{
-              pathname: "/tech/graphQL",
-              state: { title: "Technical References" },
-            }}
+            to="/tech/graphQL"
             className={clsx(classes.tab, {
               [classes.activeTab]: activeTab === 2,
             })}
@@ -83,10 +62,7 @@ export const ReferenceView = () => {
           <Tab
             label="HTML/CSS"
             component={Link}
-            to={{
-              pathname: "/tech/html",
-              state: { title: "Technical References" },
-            }}
+            to="/tech/html"
             className={clsx(classes.tab, {
               [classes.activeTab]: activeTab === 3,
             })}
@@ -94,10 +70,10 @@ export const ReferenceView = () => {
         </Tabs>
       </AppBar>
       <Switch>
-        <Route
-          path="/tech/:abbr"
-          render={() => <ReferenceListView title="Technical References" />}
-        />
+        <Route path="/tech" exact>
+          <Redirect to="/tech/react" />
+        </Route>
+        <Route path="/tech/:abbr" component={ReferenceListView} />
       </Switch>
     </div>
   );

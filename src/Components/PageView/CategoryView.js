@@ -111,7 +111,7 @@ export const CategoryView = () => {
       <Switch>
         <Route path={`/categoryList/:id`} component={CategoryEditView} />
       </Switch>
-      <DashboardLayout>
+      <DashboardLayout title="Category">
         <Grid container spacing={3} justify="center">
           <Grid item xs={12} md={5}>
             <Paper>
