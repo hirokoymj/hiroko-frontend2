@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cityCountry: {
     fontWeight: 500,
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
   },
   weatherInfo: {
     height: "250px",
@@ -107,10 +107,8 @@ const CurrentWeatherInfo = ({ city }) => {
   const temp = Math.ceil(get(weather, "temperature.day")) + `${"\u00b0"}C`;
   const text = `Feels like ${Math.ceil(
     get(weather, "feelsLike", 0)
-  )} ${"\u00b0"}C. ${get(weather, "description")}. Humidity: ${get(
-    weather,
-    "humidity"
-  )}%`;
+  )} ${"\u00b0"}C. ${get(weather, "description")}.`;
+  const humidity = `Humidity: ${get(weather, "humidity")}%`;
 
   return (
     <>
@@ -131,22 +129,21 @@ const CurrentWeatherInfo = ({ city }) => {
                 {cityCountry}
               </Typography>
             </Grid>
-            <Grid item xs={12} style={{ display: "flex" }}>
-              <img
-                src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-                width="50"
-                height="50"
-                alt=""
-                className={classes.weatherIcon}
-              />
-              <Typography variant="h4" gutterBottom>
-                {temp}
-              </Typography>
+            <Grid item xs={12}>
+              <div style={{ display: "flex", marginBottom: "16px" }}>
+                <img
+                  src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                  width="50"
+                  height="50"
+                  alt=""
+                  className={classes.weatherIcon}
+                />
+                <Typography variant="h4">{temp}</Typography>
+              </div>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="body1" gutterBottom>
-                {text}
-              </Typography>
+              <Typography variant="body1">{text}</Typography>
+              <Typography variant="body1">{humidity}</Typography>
             </Grid>
           </Grid>
         </Paper>
@@ -178,8 +175,8 @@ export const DailyForecastView = () => {
   return (
     <DashboardLayout fullWidth={true}>
       <CitySearchForm onSubmit={onSubmit} />
-      <Container maxWidth="md" style={{ flexGrow: 1 }}>
-        <Grid container spacing={3}>
+      <Container maxWidth="md">
+        <Grid container spacing={3} justify="center">
           <Grid item xs={12} sm={6}>
             <CurrentWeatherInfo city={city} />
           </Grid>

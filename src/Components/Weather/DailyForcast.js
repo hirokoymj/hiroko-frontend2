@@ -81,7 +81,7 @@ export const DailyForecast = ({ city, unit }) => {
       {loading ? (
         <DailyForecastSkelton />
       ) : (
-        <div style={{ width: "90%", margin: "auto" }}>
+        <div>
           <Typography component="h2" variant="h5" gutterBottom>
             7 days forecast
           </Typography>
