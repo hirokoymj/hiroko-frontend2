@@ -48,7 +48,7 @@ export const PageFooter = () => {
       />
       <IconButtonLink
         icon={<PictureAsPdfOutlinedIcon fontSize="large" />}
-        to="/Yamaji_Hiroko.pdf"
+        to="/Resume_Yamaji_Hiroko.pdf"
       />
     </footer>
   );
