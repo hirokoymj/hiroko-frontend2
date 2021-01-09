@@ -5,13 +5,13 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-import { TableSkelton } from "Components/Skelton/TableSkelton";
+import { TableSkeleton } from "Components/Skeleton/TableSkeleton";
 
 export const Table = ({ data, colmuns, loading }) => {
   return (
     <>
       {loading ? (
-        <TableSkelton />
+        <TableSkeleton />
       ) : (
         <>
           <MuiTable aria-label="simple table" size="small">

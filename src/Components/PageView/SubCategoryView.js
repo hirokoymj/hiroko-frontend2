@@ -18,7 +18,7 @@ import { SubCategoryTable } from "Components/Tables/SubCategoryTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_SUB_CATEGORY } from "Mutations/SubCategory";
 import { SUB_CATEGORIES } from "Queries/SubCategory";
-import { FormSkelton } from "Components/Skelton/FormSkelton";
+import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { SubCategoryEditView } from "Components/PageView/SubCategoryEditView";
 
 const useStyles = makeStyles((theme) => ({
@@ -71,7 +71,7 @@ const SubCategoryForm = reduxForm({
   return (
     <>
       {loading ? (
-        <FormSkelton fieldCount={2} />
+        <FormSkeleton fieldCount={2} />
       ) : (
         <>
           <Title text="Create Sub Category" />

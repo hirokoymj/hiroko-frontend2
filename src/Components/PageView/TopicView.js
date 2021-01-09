@@ -18,7 +18,7 @@ import { TopicTable } from "Components/Tables/TopicTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_TOPIC } from "Mutations/Topic";
 import { TOPICS } from "Queries/Topic";
-import { FormSkelton } from "Components/Skelton/FormSkelton";
+import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { TopicEditView } from "Components/PageView/TopicEditView";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -105,7 +105,7 @@ const TopicForm = reduxForm({
     return (
       <>
         {loading ? (
-          <FormSkelton fieldCount={4} />
+          <FormSkeleton fieldCount={4} />
         ) : (
           <>
             <Title text="Create Technical Topic" />

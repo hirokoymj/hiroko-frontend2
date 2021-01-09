@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ListSkelton = () => {
+export const ListSkeleton = () => {
   const classes = useStyles();
 
   return (

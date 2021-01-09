@@ -18,6 +18,7 @@ import { DailyForecast } from "Components/Weather/DailyForcast";
 import { GoogleMap } from "Components/Weather/GoogleMap";
 import { config } from "Config/config";
 import { CURRENT_WEATHER_BY_CITY } from "Queries/Weather";
+import { CurrentWeatherInfoSkeleton } from "Components/Skeleton/WeatherSkeleton";
 
 const useStyles = makeStyles((theme) => ({
   searchForm: {
@@ -113,7 +114,7 @@ const CurrentWeatherInfo = ({ city }) => {
   return (
     <>
       {loading ? (
-        <div>Loading...</div>
+        <CurrentWeatherInfoSkeleton />
       ) : (
         <Paper className={classes.weatherInfo}>
           <Grid container justify="flex-start">

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const TableSkelton = () => {
+export const TableSkeleton = () => {
   const classes = useStyles();
 
   return (

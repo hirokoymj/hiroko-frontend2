@@ -13,7 +13,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { TOPIC_BY_CATEGORY_ABBR } from "Queries/Topic";
 import { Title } from "Components/Titles/Title";
-import { ListSkelton } from "Components/Skelton/ListSkelton";
+import { ListSkeleton } from "Components/Skeleton/ListSkeleton";
 
 const ListItemLink = (props) => {
   return (
@@ -73,7 +73,7 @@ export const ReferenceListView = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
           {loading ? (
-            <ListSkelton />
+            <ListSkeleton />
           ) : (
             <ReferenceListCard mappedData={mappedData} />
           )}

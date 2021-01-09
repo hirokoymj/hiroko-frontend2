@@ -7,7 +7,7 @@ import { TopicEditFormController } from "Components/FormController/TopicEditForm
 import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSelect } from "Components/Forms/FormSelect";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
-import { FormSkelton } from "Components/Skelton/FormSkelton";
+import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { DrawerDialog } from "Components/Dialog/DrawerDialog";
 
 const TopicEditFormDrawer = compose(
@@ -42,7 +42,7 @@ const TopicEditFormDrawer = compose(
           submitLabel="Edit"
         >
           {loading ? (
-            <FormSkelton fieldCount={4} />
+            <FormSkeleton fieldCount={4} />
           ) : (
             <>
               <Field

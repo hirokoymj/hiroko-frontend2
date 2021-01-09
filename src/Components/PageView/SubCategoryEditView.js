@@ -7,7 +7,7 @@ import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSelect } from "Components/Forms/FormSelect";
 
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
-import { FormSkelton } from "Components/Skelton/FormSkelton";
+import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { DrawerDialog } from "Components/Dialog/DrawerDialog";
 
 const SubCategoryEditFormDrawer = reduxForm({
@@ -32,7 +32,7 @@ const SubCategoryEditFormDrawer = reduxForm({
         submitLabel="Edit"
       >
         {loading ? (
-          <FormSkelton fieldCount={3} />
+          <FormSkeleton fieldCount={3} />
         ) : (
           <>
             <Field

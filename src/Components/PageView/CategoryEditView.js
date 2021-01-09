@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 import { CategoryEditFormController } from "Components/FormController/CategoryEditFormController";
 import { FormTextField } from "../Forms/FormTextField";
-import { FormSkelton } from "Components/Skelton/FormSkelton";
+import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { DrawerDialog } from "Components/Dialog/DrawerDialog";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 
@@ -21,7 +21,7 @@ const CategoryEditFormDrawer = reduxForm({
       submitLabel="Edit"
     >
       {loading ? (
-        <FormSkelton fieldCount={2} />
+        <FormSkeleton fieldCount={2} />
       ) : (
         <>
           <Field

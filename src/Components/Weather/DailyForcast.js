@@ -13,7 +13,7 @@ import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
 
 import { DAILY_FORECAST } from "Queries/Weather";
-import { DailyForecastSkelton } from "Components/Skelton/WeatherSkelton";
+import { DailyForecastSkeleton } from "Components/Skeleton/WeatherSkeleton";
 
 const useStyles = makeStyles((theme) => ({
   forecastDate: {
@@ -53,8 +53,6 @@ export const DailyForecast = ({ city, unit }) => {
   });
   const { forecastList } = !loading && get(data, "dailyForecast", {});
 
-  // const cityName = get(cityInfo, "name", "");
-  // const country = get(cityInfo, "country", "");
   const mappedData = map(forecastList, (forecast) => {
     const {
       dt,
@@ -79,7 +77,7 @@ export const DailyForecast = ({ city, unit }) => {
   return (
     <>
       {loading ? (
-        <DailyForecastSkelton />
+        <DailyForecastSkeleton />
       ) : (
         <div>
           <Typography component="h2" variant="h5" gutterBottom>

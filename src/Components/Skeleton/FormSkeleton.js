@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const FormSkelton = ({ fieldCount }) => {
+export const FormSkeleton = ({ fieldCount }) => {
   const classes = useStyles();
 
   var fieldItems = [];
