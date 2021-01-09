@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   searchButton: {
     width: "20%",
     borderRadius: 0,
+    height: "56px",
   },
   searchField: {
     marginBottom: "0 !important",
@@ -93,7 +94,6 @@ const CurrentWeatherInfo = ({ city }) => {
       city,
     },
   });
-  // !loading && console.log(data);
   const { cityInfo, weather } =
     !loading && get(data, "currentWeatherByCity", {});
 

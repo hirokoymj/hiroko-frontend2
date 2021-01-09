@@ -76,6 +76,7 @@ export const CitySearchAutoComplete = ({
             label={label}
             variant="outlined"
             className={className}
+            helperText="Japan and US only (ex. Los Angeles, Osaka)"
             InputProps={{
               ...params.InputProps,
               className: className,
