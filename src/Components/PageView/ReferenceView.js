@@ -33,8 +33,9 @@ export const ReferenceView = () => {
           onChange={handleTabChange}
           indicatorColor="primary"
           textColor="primary"
-          fullWidth
-        >
+          variant="scrollable"
+          scrollButtons="on"
+          fullWidth>
           <Tab
             label="React"
             component={Link}
@@ -57,6 +58,14 @@ export const ReferenceView = () => {
             to="/tech/graphQL"
             className={clsx(classes.tab, {
               [classes.activeTab]: activeTab === 2,
+            })}
+          />
+          <Tab
+            label="Git"
+            component={Link}
+            to="/tech/git"
+            className={clsx(classes.tab, {
+              [classes.activeTab]: activeTab === 3,
             })}
           />
           <Tab
