@@ -7,10 +7,7 @@ export const CURRENT_WEATHER_BY_CITY = gql`
     currentWeatherByCity(city: $city, unit: $unit) {
       id
       cityInfo {
-        name
-        country
-        lon
-        lat
+        ...cityInfo
       }
       weather {
         dt
@@ -26,6 +23,7 @@ export const CURRENT_WEATHER_BY_CITY = gql`
     }
   }
   ${WeatherFragments.temperature}
+  ${WeatherFragments.cityInfo}
 `;
 
 export const DAILY_FORECAST = gql`
