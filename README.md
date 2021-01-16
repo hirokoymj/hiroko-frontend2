@@ -1,27 +1,35 @@
-# hirokoymj.com React Application (front-end)
+# hirokoymj.com
 
-### Start this app in development
+## URL
 
-```js
-yarn dev
-```
-http://localhost:3000/
+https://www.hirokoymj.com
 
-### Start this app in production
-
-```js
-yarn build
-yarn start
-```
-http://localhost:8080/
-
-### GraphQL Apollo Server Client 
-
+## Back-end API
 
 https://hirokoymj-backend.herokuapp.com/
 
+## Database
 
-### Deploying on Heroku
+[MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
-- App Name: `hiroko-frontend`
-- Set up Automatic Deploys
+## Cloud Server
+
+[Heroku](https://dashboard.heroku.com/apps)
+
+## Technologies
+
+**Front-end**
+
+- React, Redux, Redux-Form, React-Router, Apollo Client, Lodash, Moment.js, Google Map API, OpenWeatherMap API, Express.js(Live Server), Enfoced HTTPS
+
+**Back-end**
+
+- Apollo Server, GraphQL, MongoDB, Mongoose, REST API, dotEnv
+
+## Screenshot - desktop
+
+![](src/Assets/hirokoymj-com-desktop.png)
+
+## Screenshot - mobile
+
+![](src/Assets/hirokoymj-com-mobile.png)
