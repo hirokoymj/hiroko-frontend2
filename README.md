@@ -1,12 +1,18 @@
-# hirokoymj.com
+# hirokoymj.com Repository
 
 ## URL
 
 https://www.hirokoymj.com
 
-## Back-end API
+## Back-end
+
+**Apollo Server**
 
 https://hirokoymj-backend.herokuapp.com/
+
+**Back-end repository**
+
+https://github.com/hirokoymj/hirokoymj-backend
 
 ## Database
 
