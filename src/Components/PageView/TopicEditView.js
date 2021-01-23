@@ -39,8 +39,7 @@ const TopicEditFormDrawer = compose(
           onClose={onClose}
           onSubmit={handleSubmit}
           submitting={submitting}
-          submitLabel="Edit"
-        >
+          submitLabel="Edit">
           {loading ? (
             <FormSkeleton fieldCount={4} />
           ) : (
@@ -88,23 +87,6 @@ const TopicEditFormDrawer = compose(
     );
   }
 );
-
-// const TopicEditFormDrawer = reduxForm({
-//   form: "Topic_Edit_Form",
-// })(
-//   ({
-//     handleSubmit,
-//     submitting,
-//     category_options,
-//     subCategory_options,
-//     loading,
-//     open,
-//     onClose,
-//   }) => {
-//     return (
-//     );
-//   }
-// );
 
 export const TopicEditView = () => {
   const { id } = useParams();
