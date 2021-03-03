@@ -60,11 +60,19 @@ export const ReferenceListView = () => {
   });
   const topics = get(data, "topicByCategoryAbbr", []);
   const topicsByGroup = groupBy(topics, "subCategory.id");
+  const ordered = {};
+  Object.keys(topicsByGroup)
+    // .sort((a, b) => (a < b ? 1 : -1))
+    .sort()
+    .reverse()
+    .forEach((key) => {
+      ordered[key] = topicsByGroup[key];
+    });
 
-  const mappedData = keys(topicsByGroup).map((key, index) => {
+  const mappedData = keys(ordered).map((key) => {
     return {
-      cardTitle: get(topicsByGroup[key][0], "subCategory.name", ""),
-      topicData: topicsByGroup[key],
+      cardTitle: get(ordered[key][0], "subCategory.name", ""),
+      topicData: ordered[key],
     };
   });
 
