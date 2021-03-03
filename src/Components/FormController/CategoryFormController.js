@@ -38,8 +38,8 @@ export const CategoryFormController = ({ children }) => {
 
   const validate = (values) => {
     const errors = {};
-    if (!values.categoryName) errors.categoryName = "Required";
-    if (!values.categoryOrder) errors.categoryOrder = "Required";
+    if (!values.name) errors.name = "Required";
+    if (!values.abbr) errors.abbr = "Required";
 
     return errors;
   };
