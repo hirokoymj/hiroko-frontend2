@@ -8,9 +8,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { CATEGORIES } from "Queries/Category";
 import { Table } from "Components/Tables/Table";
-import { Title } from "Components/Titles/Title";
 import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
 import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
+import { TableHead } from "Components/Tables/TableHead";
+import { useCategoryFilterState } from "Components/Tables/hooks/useCategoryFilterState";
 
 const useStyles = makeStyles((theme) => ({
   loadMoreButton: {
@@ -52,10 +53,20 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
 
 export const CategoryTable = ({ openDialog }) => {
   const classes = useStyles();
+  const {
+    category_loading,
+    selectedFilters,
+    filters,
+    handleFilterChange,
+    handleDeleteFilter,
+  } = useCategoryFilterState();
   const { data, loading, error, fetchMore } = useQuery(CATEGORIES, {
     variables: {
       cursor: null,
       limit: 5,
+      ...(selectedFilters.length !== 0 && {
+        filter: selectedFilters,
+      }),
     },
   });
   const categories = !loading && get(data, "categories.categoryFeed", []);
@@ -91,39 +102,51 @@ export const CategoryTable = ({ openDialog }) => {
 
   return (
     <>
-      <Title text="Category List" />
-      <Table
-        data={mappedData}
-        loading={loading}
-        colmuns={[
-          {
-            label: "Category",
-            field: "name",
-          },
-          {
-            label: "Abbreviation",
-            field: "abbr",
-          },
-          {
-            label: "Created",
-            field: "created",
-          },
-          {
-            label: "Actions",
-            field: "actions",
-            align: "center",
-          },
-        ]}
-      />
-      <Button
-        onClick={fetchMoreData}
-        variant="contained"
-        color="primary"
-        disabled={!hasNextPage}
-        className={classes.loadMoreButton}
-      >
-        {isLoadingMore ? "Loading" : "Loard More"}
-      </Button>
+      {loading || category_loading ? (
+        <div>...loading</div>
+      ) : (
+        <>
+          <TableHead
+            loading={loading || category_loading}
+            title="Category List"
+            filters={filters}
+            handleFilterChange={handleFilterChange}
+            handleDeleteFilter={handleDeleteFilter}
+            selectedFilters={selectedFilters}
+          />
+          <Table
+            data={mappedData}
+            loading={loading}
+            colmuns={[
+              {
+                label: "Category",
+                field: "name",
+              },
+              {
+                label: "Abbreviation",
+                field: "abbr",
+              },
+              {
+                label: "Created",
+                field: "created",
+              },
+              {
+                label: "Actions",
+                field: "actions",
+                align: "center",
+              },
+            ]}
+          />
+          <Button
+            onClick={fetchMoreData}
+            variant="contained"
+            color="primary"
+            disabled={!hasNextPage}
+            className={classes.loadMoreButton}>
+            {isLoadingMore ? "Loading" : "Loard More"}
+          </Button>
+        </>
+      )}
     </>
   );
 };

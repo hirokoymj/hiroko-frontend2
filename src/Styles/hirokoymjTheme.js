@@ -7,6 +7,7 @@ export const hirokoymjTheme = createMuiTheme({
     },
     secondary: {
       main: "#4CAF50",
+      light: "#c8e6c9",
     },
     text: {
       primary: "#000",
@@ -19,6 +20,3 @@ export const hirokoymjTheme = createMuiTheme({
     fontFamily: ["Roboto", "sans-serif", "Titillium Web"].join(","),
   },
 });
-
-// font-family: 'Roboto', sans-serif;
-// font-family: 'Titillium Web', sans-serif;

@@ -7,8 +7,10 @@ import { ReduxProvider } from "Redux/ReduxProvider";
 import { ThemeProvider } from "Styles/ThemeProvider";
 import { DashboardController } from "Components/DashboardController";
 
+const URI_PRODUCTION = "https://hirokoymj-backend.herokuapp.com/";
+const URI_LOCAL = "http://localhost:4000/";
 const client = new ApolloClient({
-  uri: "https://hirokoymj-backend.herokuapp.com/",
+  uri: URI_PRODUCTION,
 });
 
 const App = () => {

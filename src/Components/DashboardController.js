@@ -18,6 +18,7 @@ import {
   closeNavigation,
   openNavigation,
 } from "Redux/Navigation/ActionCreator";
+import { TestView } from "Components/PageView/TestView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,8 +58,7 @@ export const DashboardController = connect(null, {
             ? { horizontal: "center", vertical: "bottom" }
             : { horizontal: "left", vertical: "top" }
         }
-        autoHideDuration={2500}
-      >
+        autoHideDuration={2500}>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Switch>
@@ -67,6 +67,7 @@ export const DashboardController = connect(null, {
             <Route path="/categoryList" component={CategoryView} />
             <Route path="/subCategoryList" component={SubCategoryView} />
             <Route path="/topicList" component={TopicView} />
+            <Route path="/test" component={TestView} />
           </Switch>
           <PageFooter />
         </main>
