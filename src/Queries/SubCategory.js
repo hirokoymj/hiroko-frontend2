@@ -3,8 +3,8 @@ import gql from "graphql-tag";
 import { CategoryFragments } from "./CategoryFragments";
 
 export const SUB_CATEGORIES = gql`
-  query SubCategories($limit: Int, $cursor: String) {
-    subCategories(limit: $limit, cursor: $cursor) {
+  query SubCategories($limit: Int, $cursor: String, $filter: [String]) {
+    subCategories(limit: $limit, cursor: $cursor, filter: $filter) {
       subCategoryFeed {
         id
         name

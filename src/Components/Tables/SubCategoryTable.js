@@ -11,6 +11,8 @@ import { Table } from "Components/Tables/Table";
 import { Title } from "Components/Titles/Title";
 import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
 import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
+import { useCategoryFilterState } from "Components/Tables/hooks/useCategoryFilterState";
+import { TableHead } from "Components/Tables/TableHead";
 
 const useStyles = makeStyles((theme) => ({
   loadMoreButton: {
@@ -52,10 +54,20 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
 
 export const SubCategoryTable = ({ openDialog }) => {
   const classes = useStyles();
+  const {
+    category_loading,
+    selectedFilters,
+    filters,
+    handleFilterChange,
+    handleDeleteFilter,
+  } = useCategoryFilterState();
   const { data, loading, error, fetchMore } = useQuery(SUB_CATEGORIES, {
     variables: {
       cursor: null,
       limit: 5,
+      ...(selectedFilters.length !== 0 && {
+        filter: selectedFilters,
+      }),
     },
   });
   const subCategories = get(data, "subCategories.subCategoryFeed", []);
@@ -98,39 +110,53 @@ export const SubCategoryTable = ({ openDialog }) => {
 
   return (
     <>
-      <Title text="Sub Category List" />
-      <Table
-        data={mappedData}
-        loading={loading}
-        colmuns={[
-          {
-            label: "Sub Category",
-            field: "name",
-          },
-          {
-            label: "Category",
-            field: "categoryName",
-          },
-          {
-            label: "Created",
-            field: "created",
-          },
-          {
-            label: "Actions",
-            field: "actions",
-            align: "center",
-          },
-        ]}
-      />
-      <Button
-        onClick={fetchMoreData}
-        variant="contained"
-        color="primary"
-        disabled={!hasNextPage}
-        className={classes.loadMoreButton}
-      >
-        {isLoadingMore ? "Loading" : "Loard More"}
-      </Button>
+      {loading || category_loading ? (
+        <>
+          <div>...loading</div>
+        </>
+      ) : (
+        <>
+          <TableHead
+            loading={loading || category_loading}
+            title="Sub Category List"
+            filters={filters}
+            handleFilterChange={handleFilterChange}
+            handleDeleteFilter={handleDeleteFilter}
+            selectedFilters={selectedFilters}
+          />
+          <Table
+            data={mappedData}
+            loading={loading}
+            colmuns={[
+              {
+                label: "Sub Category",
+                field: "name",
+              },
+              {
+                label: "Category",
+                field: "categoryName",
+              },
+              {
+                label: "Created",
+                field: "created",
+              },
+              {
+                label: "Actions",
+                field: "actions",
+                align: "center",
+              },
+            ]}
+          />
+          <Button
+            onClick={fetchMoreData}
+            variant="contained"
+            color="primary"
+            disabled={!hasNextPage}
+            className={classes.loadMoreButton}>
+            {isLoadingMore ? "Loading" : "Loard More"}
+          </Button>
+        </>
+      )}
     </>
   );
 };
