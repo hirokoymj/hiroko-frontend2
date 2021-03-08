@@ -47,19 +47,10 @@ const MenuProps = {
   },
 };
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
 export const TestView = () => {
   const classes = useStyles();
   const [categoryFilter, setCategoryFilter] = React.useState([]);
-  const { data, loading, error } = useQuery(CATEGORY_ALL);
+  const { data, loading } = useQuery(CATEGORY_ALL);
 
   const categories = !loading && get(data, "categoryAll");
   const filters =
@@ -108,7 +99,6 @@ export const TestView = () => {
                       label={filters.find((d) => d.id === value).name}
                       onDelete={handleDeleteFilter(value)}
                       onMouseDown={(event) => event.stopPropagation()}
-                      color="primary"
                       classes={{
                         root: classes.root,
                         colorSecondary: classes.colorSecondary,

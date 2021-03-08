@@ -9,9 +9,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { TOPICS } from "Queries/Topic";
 import { Table } from "Components/Tables/Table";
-import { Title } from "Components/Titles/Title";
 import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
 import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
+import { useCategoryFilterState } from "Components/Tables/hooks/useCategoryFilterState";
+import { TableHead } from "Components/Tables/TableHead";
 
 const useStyles = makeStyles((theme) => ({
   loadMoreButton: {
@@ -53,10 +54,20 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
 
 export const TopicTable = ({ openDialog }) => {
   const classes = useStyles();
+  const {
+    category_loading,
+    selectedFilters,
+    filters,
+    handleFilterChange,
+    handleDeleteFilter,
+  } = useCategoryFilterState();
   const { data, loading, error, fetchMore } = useQuery(TOPICS, {
     variables: {
-      limit: 5,
       cursor: null,
+      limit: 5,
+      ...(selectedFilters.length !== 0 && {
+        filter: selectedFilters,
+      }),
     },
   });
 
@@ -107,43 +118,56 @@ export const TopicTable = ({ openDialog }) => {
 
   return (
     <>
-      <Title text="Topic List" />
-      <Table
-        data={mappedData}
-        loading={loading}
-        colmuns={[
-          {
-            label: "Title",
-            field: "titleLink",
-          },
-          {
-            label: "Category",
-            field: "categoryName",
-          },
-          {
-            label: "Sub Category",
-            field: "subCategoryName",
-          },
-          {
-            label: "Created",
-            field: "created",
-          },
-          {
-            label: "Actions",
-            field: "actions",
-            align: "center",
-          },
-        ]}
-      />
-      <Button
-        onClick={fetchMoreData}
-        variant="contained"
-        color="primary"
-        disabled={!hasNextPage}
-        className={classes.loadMoreButton}
-      >
-        {isLoadingMore ? "Loading" : "Loard More"}
-      </Button>
+      {loading || category_loading ? (
+        <div>...loading</div>
+      ) : (
+        <>
+          <TableHead
+            loading={loading || category_loading}
+            title="Topic List"
+            filters={filters}
+            handleFilterChange={handleFilterChange}
+            handleDeleteFilter={handleDeleteFilter}
+            selectedFilters={selectedFilters}
+            filterLabel="Filter by Category"
+          />
+          <Table
+            data={mappedData}
+            loading={loading}
+            colmuns={[
+              {
+                label: "Title",
+                field: "titleLink",
+              },
+              {
+                label: "Category",
+                field: "categoryName",
+              },
+              {
+                label: "Sub Category",
+                field: "subCategoryName",
+              },
+              {
+                label: "Created",
+                field: "created",
+              },
+              {
+                label: "Actions",
+                field: "actions",
+                align: "center",
+              },
+            ]}
+          />
+          <Button
+            onClick={fetchMoreData}
+            variant="contained"
+            color="primary"
+            disabled={!hasNextPage}
+            className={classes.loadMoreButton}>
+            {isLoadingMore ? "Loading" : "Loard More"}
+          </Button>
+        </>
+      )}
     </>
   );
 };

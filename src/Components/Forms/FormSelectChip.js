@@ -40,12 +40,13 @@ export const FormSelectChip = ({
   selectedFilters,
   handleFilterChange,
   handleDeleteFilter,
+  filterLabel = "Filter",
 }) => {
   const classes = useStyles();
 
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel>Filter</InputLabel>
+      <InputLabel>{filterLabel}</InputLabel>
       <Select
         name="tableFilter"
         multiple
@@ -62,7 +63,6 @@ export const FormSelectChip = ({
                   label={filters.find((d) => d.value === value).name}
                   onDelete={handleDeleteFilter(value)}
                   onMouseDown={(event) => event.stopPropagation()}
-                  color="primary"
                   classes={{
                     root: classes.root,
                     colorSecondary: classes.colorSecondary,

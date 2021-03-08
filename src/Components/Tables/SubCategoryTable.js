@@ -8,7 +8,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { Table } from "Components/Tables/Table";
-import { Title } from "Components/Titles/Title";
 import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
 import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
 import { useCategoryFilterState } from "Components/Tables/hooks/useCategoryFilterState";
@@ -111,9 +110,7 @@ export const SubCategoryTable = ({ openDialog }) => {
   return (
     <>
       {loading || category_loading ? (
-        <>
-          <div>...loading</div>
-        </>
+        <div>...loading</div>
       ) : (
         <>
           <TableHead
@@ -123,6 +120,7 @@ export const SubCategoryTable = ({ openDialog }) => {
             handleFilterChange={handleFilterChange}
             handleDeleteFilter={handleDeleteFilter}
             selectedFilters={selectedFilters}
+            filterLabel="Filter by Category"
           />
           <Table
             data={mappedData}

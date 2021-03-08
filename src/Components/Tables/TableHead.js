@@ -9,6 +9,7 @@ export const TableHead = ({
   handleFilterChange,
   selectedFilters,
   handleDeleteFilter,
+  filterLabel,
 }) => {
   return (
     <>
@@ -18,6 +19,7 @@ export const TableHead = ({
         handleFilterChange={handleFilterChange}
         handleDeleteFilter={handleDeleteFilter}
         selectedFilters={selectedFilters}
+        filterLabel={filterLabel}
       />
     </>
   );
