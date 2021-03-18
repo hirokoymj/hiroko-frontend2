@@ -1,127 +1,124 @@
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import ListItemText from "@material-ui/core/ListItemText";
-import Select from "@material-ui/core/Select";
-import Checkbox from "@material-ui/core/Checkbox";
-import Chip from "@material-ui/core/Chip";
-import { CATEGORY_ALL } from "Queries/Category";
-import { useQuery } from "@apollo/react-hooks";
-import get from "lodash/get";
+import Grid from "@material-ui/core/Grid";
+import { Field, reduxForm, formValues } from "redux-form";
+import Button from "@material-ui/core/Button";
+import PublishIcon from "@material-ui/icons/Publish";
+import { DashboardLayout } from "Components/Layouts/DashboardLayout";
+import { compose } from "recompose";
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    maxWidth: 300,
+  uploadImageContainer: {
+    border: "2px dashed #4caf50",
+    textAlign: "center",
+    padding: "20px",
   },
-  chips: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  root: {
-    margin: 2,
-  },
-  noLabel: {
-    marginTop: theme.spacing(3),
-  },
-  colorSecondary: {
-    color: "#fff",
-  },
-  deleteIcon: {
-    color: "#c8e6c9",
+  addIcon: {
+    fontSize: 40,
+    color: theme.palette.secondary.main,
   },
 }));
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
+const thumbsContainer = {
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "wrap",
+  marginTop: 16,
 };
 
-export const TestView = () => {
+const thumb = {
+  display: "inline-flex",
+  borderRadius: 2,
+  border: "1px solid #eaeaea",
+  marginBottom: 8,
+  marginRight: 8,
+  width: 100,
+  height: 100,
+  padding: 4,
+  boxSizing: "border-box",
+};
+
+const thumbInner = {
+  display: "flex",
+  minWidth: 0,
+  overflow: "hidden",
+};
+
+const img = {
+  display: "block",
+  width: "auto",
+  height: "100%",
+};
+
+const ImageDropzone = ({ getRootProps, getInputProps }) => {
   const classes = useStyles();
-  const [categoryFilter, setCategoryFilter] = React.useState([]);
-  const { data, loading } = useQuery(CATEGORY_ALL);
 
-  const categories = !loading && get(data, "categoryAll");
-  const filters =
-    !loading &&
-    categories.map(({ name, id }) => {
-      return {
-        name,
-        id,
-      };
-    });
+  return (
+    <section
+      className="container"
+      style={{ border: "1px dashed grey", marginBottom: "25px" }}>
+      <div {...getRootProps({ className: "dropzone" })}>
+        <input {...getInputProps()} />
+        upload photo
+      </div>
+    </section>
+  );
+};
 
-  const handleChange = (event) => {
-    console.log("handleChange");
-    console.log(event.target.value);
-    setCategoryFilter(event.target.value);
-  };
-
-  const handleDeleteFilter = (value) => () => {
-    console.log(value);
-    setCategoryFilter((chips) => {
-      const result = chips.filter((chip) => chip !== value);
-      return result;
-    });
-  };
+export const ImageUpload = (props) => {
+  const classes = useStyles();
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/*",
+    // maxFiles: 1,
+    // multiple: false,
+    onDrop: async (acceptedFiles) => {
+      const { onChange } = props.input;
+      const files = props.input.value;
+      const newFiles = acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      );
+      const allFiles = files.concat(newFiles);
+      onChange(allFiles);
+    },
+  });
 
   return (
     <div>
-      {loading ? (
-        <h1>...loading</h1>
-      ) : (
-        <>
-          <FormControl className={classes.formControl}>
-            <InputLabel>Chip</InputLabel>
-            <Select
-              name="categoryFilter"
-              multiple
-              value={categoryFilter}
-              onChange={handleChange}
-              onMouseDown={(event) => event.stopPropagation()}
-              input={<Input />}
-              renderValue={(selected) => (
-                <div className={classes.chips}>
-                  {selected.map((value) => (
-                    <Chip
-                      key={value}
-                      label={filters.find((d) => d.id === value).name}
-                      onDelete={handleDeleteFilter(value)}
-                      onMouseDown={(event) => event.stopPropagation()}
-                      classes={{
-                        root: classes.root,
-                        colorSecondary: classes.colorSecondary,
-                        deleteIcon: classes.deleteIcon,
-                      }}
-                      color="secondary"
-                    />
-                  ))}
-                </div>
-              )}
-              MenuProps={MenuProps}>
-              {filters.map(({ name, id }) => {
-                return (
-                  <MenuItem key={id} value={id}>
-                    <Checkbox checked={categoryFilter.indexOf(id) > -1} />
-                    <ListItemText primary={name} />
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </>
-      )}
+      <ImageDropzone
+        getRootProps={getRootProps}
+        getInputProps={getInputProps}
+      />
+      <ImageDropzone
+        getRootProps={getRootProps}
+        getInputProps={getInputProps}
+      />
     </div>
   );
 };
+
+// export const ClaimsReimbursmentDetailsTip = compose(
+//   reduxForm({ form: "CLAIMS_REIMBURSEMENT", destroyOnUnmount: false }),
+//   formValues("rentalId")
+// )(({ rentalId }) => {
+
+export const TestView = compose(
+  reduxForm({
+    form: "Photo_Form",
+    initialValues: {
+      photos: [],
+    },
+  }),
+  formValues("photos")
+)(({ handleSubmit, submitting, photos }) => {
+  console.log("TestView");
+  console.log(photos);
+  return (
+    <>
+      <Field name="photos" component={ImageUpload} />
+    </>
+  );
+});
