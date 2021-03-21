@@ -8,117 +8,128 @@ import Button from "@material-ui/core/Button";
 import PublishIcon from "@material-ui/icons/Publish";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { compose } from "recompose";
+import CloseIcon from "@material-ui/icons/Close";
+import { SentimentSatisfiedAltRounded } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-  uploadImageContainer: {
-    border: "2px dashed #4caf50",
-    textAlign: "center",
-    padding: "20px",
-  },
   addIcon: {
     fontSize: 40,
-    color: theme.palette.secondary.main,
+    color: "#bdbdbd",
+  },
+  dropZone: {
+    textAlign: "center",
+    padding: "20px",
+    borderWidth: "2px",
+    borderRadius: "2px",
+    borderColor: "#eeeeee",
+    borderStyle: "dashed",
+    backgroundColor: "#fafafa",
+    color: "#bdbdbd",
+    outline: "none",
+  },
+  thumbsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 16,
   },
 }));
 
-const thumbsContainer = {
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  marginTop: 16,
-};
-
-const thumb = {
-  display: "inline-flex",
-  borderRadius: 2,
-  border: "1px solid #eaeaea",
-  marginBottom: 8,
-  marginRight: 8,
-  width: 100,
-  height: 100,
-  padding: 4,
-  boxSizing: "border-box",
-};
-
-const thumbInner = {
-  display: "flex",
-  minWidth: 0,
-  overflow: "hidden",
-};
-
-const img = {
-  display: "block",
-  width: "auto",
-  height: "100%",
-};
-
-const ImageDropzone = ({ getRootProps, getInputProps }) => {
+export const ImageDropzone = ({
+  file,
+  input: { value = [], onChange, onBlur },
+}) => {
   const classes = useStyles();
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/*",
+    maxFiles: 1,
+    multiple: false,
+    noDragEventsBubbling: false,
+    onDrop: async (acceptedFiles) => {
+      const newFile = acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      );
+      onChange(newFile);
+    },
+  });
+  const onDelete = () => {
+    onChange("");
+  };
+
+  useEffect(() => {
+    if (file) {
+      onChange(value);
+    }
+  }, [value]);
 
   return (
-    <section
-      className="container"
-      style={{ border: "1px dashed grey", marginBottom: "25px" }}>
-      <div {...getRootProps({ className: "dropzone" })}>
+    <section>
+      <div
+        {...getRootProps({
+          className: "dropzone",
+        })}
+        className={classes.dropZone}>
         <input {...getInputProps()} />
-        upload photo
+        {value ? (
+          value.map((file) => (
+            <div key={file.name}>
+              <img
+                src={file.preview}
+                style={{
+                  width: "200px",
+                  maxWidth: "400px",
+                }}
+                alt=""
+              />
+              <CloseIcon style={{ fontSize: "40" }} onClick={onDelete} />
+            </div>
+          ))
+        ) : (
+          <AddIcon className={classes.addIcon} />
+        )}
       </div>
     </section>
   );
 };
 
-export const ImageUpload = (props) => {
-  const classes = useStyles();
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*",
-    // maxFiles: 1,
-    // multiple: false,
-    onDrop: async (acceptedFiles) => {
-      const { onChange } = props.input;
-      const files = props.input.value;
-      const newFiles = acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
-      );
-      const allFiles = files.concat(newFiles);
-      onChange(allFiles);
+export const TestView = reduxForm({
+  form: "Photo_Form",
+  initialValues: {
+    photo1: [
+      {
+        path: "img2.jpeg",
+        preview:
+          "blob:http://localhost:3000/fcbf48ef-934f-4ad4-ba94-fdbda87201e5",
+        name: "img2.jpeg",
+      },
+    ],
+  },
+})(({ handleSubmit, submitting }) => {
+  const onSubmit = (values) => {
+    console.log(values);
+  };
+
+  const file = [
+    {
+      path: "img2.jpeg",
+      preview:
+        "blob:http://localhost:3000/fcbf48ef-934f-4ad4-ba94-fdbda87201e5",
+      name: "img2.jpeg",
     },
-  });
+  ];
 
-  return (
-    <div>
-      <ImageDropzone
-        getRootProps={getRootProps}
-        getInputProps={getInputProps}
-      />
-      <ImageDropzone
-        getRootProps={getRootProps}
-        getInputProps={getInputProps}
-      />
-    </div>
-  );
-};
-
-// export const ClaimsReimbursmentDetailsTip = compose(
-//   reduxForm({ form: "CLAIMS_REIMBURSEMENT", destroyOnUnmount: false }),
-//   formValues("rentalId")
-// )(({ rentalId }) => {
-
-export const TestView = compose(
-  reduxForm({
-    form: "Photo_Form",
-    initialValues: {
-      photos: [],
-    },
-  }),
-  formValues("photos")
-)(({ handleSubmit, submitting, photos }) => {
-  console.log("TestView");
-  console.log(photos);
   return (
     <>
-      <Field name="photos" component={ImageUpload} />
+      <Field name="photo1" component={ImageDropzone} />
+      <hr />
+      <Field name="photo2" component={ImageDropzone} />
+      <hr />
+      <Field name="photo3" component={ImageDropzone} />
+      <button type="submit" onClick={handleSubmit(onSubmit)}>
+        Save
+      </button>
     </>
   );
 });
