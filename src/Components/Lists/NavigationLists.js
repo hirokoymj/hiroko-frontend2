@@ -4,6 +4,7 @@ import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
 import ViewAgendaOutlinedIcon from "@material-ui/icons/ViewAgendaOutlined";
 import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
+import PhotoCameraOutlinedIcon from "@material-ui/icons/PhotoCameraOutlined";
 
 import { ListItemLink } from "Components/Lists/ListItemLink";
 
@@ -44,6 +45,17 @@ export const WeatherListItems = ({ setDrawerClosed }) => {
       to="/forecast"
       text="Weather Forecast"
       icon={<WbSunnyOutlinedIcon />}
+      onClick={setDrawerClosed && setDrawerClosed}
+    />
+  );
+};
+
+export const PhotoGalleryItems = ({ setDrawerClosed }) => {
+  return (
+    <ListItemLink
+      to="/photoLA"
+      text="Photos in Los Angeles"
+      icon={<PhotoCameraOutlinedIcon />}
       onClick={setDrawerClosed && setDrawerClosed}
     />
   );

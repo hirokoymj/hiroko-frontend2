@@ -8,7 +8,10 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { connect } from "react-redux";
 
-import { TechNavItems } from "Components/Lists/NavigationLists";
+import {
+  TechNavItems,
+  PhotoGalleryItems,
+} from "Components/Lists/NavigationLists";
 import { closeNavigation } from "Redux/Navigation/ActionCreator";
 import { Logo } from "Components/Layouts/Logo";
 
@@ -64,8 +67,7 @@ export const MenuDrawer = connect(
       classes={{
         paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
       }}
-      open={open}
-    >
+      open={open}>
       <div className={classes.toolbarIcon}>
         <Logo />
         <IconButton onClick={closeNavigation}>
@@ -77,6 +79,7 @@ export const MenuDrawer = connect(
         <TechNavItems />
       </List>
       <Divider />
+      <PhotoGalleryItems />
     </Drawer>
   );
 });

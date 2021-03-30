@@ -18,7 +18,7 @@ import {
   closeNavigation,
   openNavigation,
 } from "Redux/Navigation/ActionCreator";
-import { UploadForm } from "Components/PageView/UploadForm";
+import { PhotoUploadView } from "Components/PageView/PhotoUploadView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +67,10 @@ export const DashboardController = connect(null, {
             <Route path="/categoryList" component={CategoryView} />
             <Route path="/subCategoryList" component={SubCategoryView} />
             <Route path="/topicList" component={TopicView} />
-            <Route path="/test" component={UploadForm} />
+            <Route
+              path="/photoLA"
+              render={() => <PhotoUploadView location="LA" />}
+            />
           </Switch>
           <PageFooter />
         </main>

@@ -78,8 +78,8 @@ export const ImageDropZone = ({ imgURL = "" }) => {
   );
 };
 
-export const UploadForm = () => {
-  const { data, loading } = useQuery(PHOTOS, { variables: { location: "LA" } });
+export const PhotoUploadView = ({ location }) => {
+  const { data, loading } = useQuery(PHOTOS, { variables: { location } });
   if (!loading) console.log(data);
   const photos = get(data, "photos", []);
   const maxCount = 3;
