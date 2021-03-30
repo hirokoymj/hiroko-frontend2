@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import groupBy from "lodash/groupBy";
 import keys from "lodash/keys";

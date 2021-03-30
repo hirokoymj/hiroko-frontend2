@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import { makeStyles } from "@material-ui/core/styles";
 

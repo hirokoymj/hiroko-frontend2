@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import map from "lodash/map";
 import moment from "moment";
@@ -98,8 +98,7 @@ export const DailyForecast = ({ city, unit }) => {
                     <ListItem
                       divider={index !== mappedDataLen - 1 ? true : false}
                       dense
-                      key={dt}
-                    >
+                      key={dt}>
                       <ListItemText
                         primary={moment.unix(dt).format("ddd, MM/DD")}
                         className={classes.forecastDate}

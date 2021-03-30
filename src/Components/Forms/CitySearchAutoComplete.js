@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CITIES } from "Queries/City";
-import { useLazyQuery } from "@apollo/react-hooks";
+import { useLazyQuery } from "@apollo/client";
 import TextField from "@material-ui/core/TextField";
 import get from "lodash/get";
 import Autocomplete from "@material-ui/lab/Autocomplete";

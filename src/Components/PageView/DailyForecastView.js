@@ -7,7 +7,7 @@ import { reduxForm, Field } from "redux-form";
 import get from "lodash/get";
 import RoomIcon from "@material-ui/icons/Room";
 import Container from "@material-ui/core/Container";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import moment from "moment-timezone";
 import tzlookup from "tz-lookup";
 import Typography from "@material-ui/core/Typography";
@@ -79,8 +79,7 @@ const CitySearchForm = reduxForm({
           variant="contained"
           color="primary"
           disabled={submitting}
-          className={classes.searchButton}
-        >
+          className={classes.searchButton}>
           {submitting ? "Searching" : "Search"}
         </Button>
       </form>
@@ -125,8 +124,7 @@ const CurrentWeatherInfo = ({ city }) => {
               <Typography
                 variant="h4"
                 gutterBottom
-                className={classes.cityCountry}
-              >
+                className={classes.cityCountry}>
                 {cityCountry}
               </Typography>
             </Grid>

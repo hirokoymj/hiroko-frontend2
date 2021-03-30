@@ -1,5 +1,5 @@
 import { destroy } from "redux-form";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/client";
 import get from "lodash/get";
 import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";

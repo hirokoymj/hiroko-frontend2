@@ -18,7 +18,7 @@ import {
   closeNavigation,
   openNavigation,
 } from "Redux/Navigation/ActionCreator";
-import { TestView } from "Components/PageView/TestView";
+import { UploadForm } from "Components/PageView/UploadForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +67,7 @@ export const DashboardController = connect(null, {
             <Route path="/categoryList" component={CategoryView} />
             <Route path="/subCategoryList" component={SubCategoryView} />
             <Route path="/topicList" component={TopicView} />
-            <Route path="/test" component={TestView} />
+            <Route path="/test" component={UploadForm} />
           </Switch>
           <PageFooter />
         </main>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Field, reduxForm } from "redux-form";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -57,8 +57,7 @@ const SubCategoryFormFields = ({ onSubmit, submitting, category_options }) => {
         color="primary"
         disabled={submitting}
         onClick={onSubmit}
-        className={classes.button}
-      >
+        className={classes.button}>
         {submitting ? "Submitting" : "Submit"}
       </Button>
     </>

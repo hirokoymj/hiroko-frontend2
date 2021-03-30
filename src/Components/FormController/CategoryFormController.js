@@ -1,5 +1,5 @@
 import { destroy } from "redux-form";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { useSnackbar } from "notistack";
 
 import { CREATE_CATEGORY } from "Mutations/Category";
