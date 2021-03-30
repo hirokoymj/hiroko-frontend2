@@ -7,10 +7,9 @@ import { BrowserRouter } from "react-router-dom";
 import { ReduxProvider } from "Redux/ReduxProvider";
 import { ThemeProvider } from "Styles/ThemeProvider";
 import { DashboardController } from "Components/DashboardController";
-import { UploadForm } from "Components/PageView/UploadForm";
 
-const URI_PRODUCTION = "https://hirokoymj-backend.herokuapp.com/";
-const URI_LOCAL = "http://localhost:4000/";
+// const URI_PRODUCTION = "https://hirokoymj-backend.herokuapp.com/";
+// const URI_LOCAL = "http://localhost:4000/";
 // const client = new ApolloClient({
 //   uri: URI_PRODUCTION,
 // });
