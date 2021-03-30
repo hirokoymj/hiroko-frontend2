@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { useMutation, gql, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import get from "lodash/get";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDropzone } from "react-dropzone";
@@ -18,10 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   dropzone: {
     padding: "20px",
-    // borderWidth: "2px",
     borderRadius: "2px",
-    // borderColor: blue[500],
-    // borderStyle: "dashed",
     border: `2px dashed ${blue[500]}`,
     backgroundColor: "#fafafa",
     color: "#bdbdbd",
@@ -39,8 +36,6 @@ const useStyles = makeStyles((theme) => ({
     color: blue[500],
   },
 }));
-
-// http://localhost:4000/images/2bAlWn7VTAFZ.jpeg
 
 export const ImageDropZone = ({ imgURL = "" }) => {
   const classes = useStyles({ imgURL });
@@ -73,7 +68,7 @@ export const ImageDropZone = ({ imgURL = "" }) => {
       <div {...getRootProps()}>
         <input {...getInputProps()} />
 
-        {url.includes("http") ? (
+        {url !== "" ? (
           <img src={url} alt="" className={classes.thumbnail} />
         ) : (
           <AddIcon className={classes.addIcon} />
@@ -87,7 +82,6 @@ export const UploadForm = () => {
   const { data, loading } = useQuery(PHOTOS, { variables: { location: "LA" } });
   if (!loading) console.log(data);
   const photos = get(data, "photos", []);
-  console.log(photos);
   const maxCount = 3;
 
   const rowsWithPhoto = photos.map(({ fileName }) => {
@@ -113,28 +107,3 @@ export const UploadForm = () => {
     </DashboardLayout>
   );
 };
-
-// export const UploadForm = () => {
-//   const classes = useStyles();
-//   const [singleUpload] = useMutation(SINGLE_UPLOAD, {
-//     onCompleted: (data) => {
-//       const url = get(data, "singleUpload.url", "");
-//       setUrl(url);
-//     },
-//   });
-//   const [url, setUrl] = useState("http://placehold.jp/200x200.png");
-
-//   const handleFileChange = (e) => {
-//     const file = e.target.files[0];
-//     if (!file) return;
-//     singleUpload({ variables: { file } });
-//   };
-
-//   return (
-//     <div>
-//       <h1>Upload File</h1>
-//       <input type="file" onChange={handleFileChange} />
-//       <img src={url} alt="" className={classes.thumbnail} />
-//     </div>
-//   );
-// };

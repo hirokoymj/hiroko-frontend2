@@ -39,3 +39,10 @@ https://github.com/hirokoymj/hirokoymj-backend
 ## Screenshot - mobile
 
 ![](src/Assets/hirokoymj-com-mobile.png)
+
+## History
+
+03/30/2021
+
+- Installed @apollo/client
+- [@apollo/client](https://www.apollographql.com/docs/react/get-started/)
