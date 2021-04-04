@@ -1,7 +1,7 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
 
-import { config } from "Config/config";
+import config from "Config/config";
 
 export const GoogleMap = ({ center, zoom, geo_lat, geo_lon, children }) => {
   const { GOOGLE_MAP_API_KEY } = config;
@@ -13,8 +13,7 @@ export const GoogleMap = ({ center, zoom, geo_lat, geo_lon, children }) => {
       defaultCenter={center}
       defaultZoom={zoom}
       center={{ lat: geo_lat, lng: geo_lon }}
-      zoom={zoom}
-    >
+      zoom={zoom}>
       {children}
     </GoogleMapReact>
   );

@@ -4,6 +4,7 @@ import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
 import ViewAgendaOutlinedIcon from "@material-ui/icons/ViewAgendaOutlined";
 import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
+import PictureAsPdfOutlinedIcon from "@material-ui/icons/PictureAsPdfOutlined";
 
 import { ListItemLink } from "Components/Lists/ListItemLink";
 
@@ -46,5 +47,24 @@ export const WeatherListItems = ({ setDrawerClosed }) => {
       icon={<WbSunnyOutlinedIcon />}
       onClick={setDrawerClosed && setDrawerClosed}
     />
+  );
+};
+
+export const ResumeListItems = ({ setDrawerClosed }) => {
+  return (
+    <>
+      <ListItemLink
+        to="/Resume_HirokoYamaji_JP.pdf"
+        text="Resume (日本語)"
+        icon={<PictureAsPdfOutlinedIcon />}
+        onClick={setDrawerClosed && setDrawerClosed}
+      />
+      <ListItemLink
+        to="/Resume_HirokoYamaji_EN.pdf"
+        text="Resume (English)"
+        icon={<PictureAsPdfOutlinedIcon />}
+        onClick={setDrawerClosed && setDrawerClosed}
+      />
+    </>
   );
 };

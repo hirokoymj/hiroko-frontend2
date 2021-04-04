@@ -10,9 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   icon: {
     color: "rgba(0, 0, 0, 0.8)",
-    [theme.breakpoints.down("sm")]: {
-      minWidth: "40px",
-    },
+    minWidth: "40px",
   },
 }));
 
@@ -33,8 +31,7 @@ export const ListItemLink = (props) => {
       <ListItem
         button
         component={renderLink}
-        onClick={onClick ? onClick : null}
-      >
+        onClick={onClick ? onClick : null}>
         <ListItemIcon className={classes.icon}>{icon}</ListItemIcon>
         <ListItemText primary={text} />
       </ListItem>
