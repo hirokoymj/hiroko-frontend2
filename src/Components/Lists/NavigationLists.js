@@ -5,8 +5,23 @@ import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
 import ViewAgendaOutlinedIcon from "@material-ui/icons/ViewAgendaOutlined";
 import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
 import PictureAsPdfOutlinedIcon from "@material-ui/icons/PictureAsPdfOutlined";
+import Link from "@material-ui/core/Link";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { makeStyles } from "@material-ui/core/styles";
 
-import { ListItemLink } from "Components/Lists/ListItemLink";
+import { ListItemLink, ListLink } from "Components/Lists/ListItemLink";
+
+const useStyles = makeStyles((theme) => ({
+  icon: {
+    color: "rgba(0, 0, 0, 0.8)",
+    minWidth: "40px",
+  },
+  linkText: {
+    color: "#000",
+    fontSize: "1rem",
+  },
+}));
 
 export const TechNavItems = ({ setDrawerClosed }) => {
   return (
@@ -51,20 +66,34 @@ export const WeatherListItems = ({ setDrawerClosed }) => {
 };
 
 export const ResumeListItems = ({ setDrawerClosed }) => {
+  const classes = useStyles();
+
   return (
     <>
-      <ListItemLink
-        to="/Resume_HirokoYamaji_JP.pdf"
-        text="Resume (日本語)"
-        icon={<PictureAsPdfOutlinedIcon />}
-        onClick={setDrawerClosed && setDrawerClosed}
-      />
-      <ListItemLink
-        to="/Resume_HirokoYamaji_EN.pdf"
-        text="Resume (English)"
-        icon={<PictureAsPdfOutlinedIcon />}
-        onClick={setDrawerClosed && setDrawerClosed}
-      />
+      <ListItem button>
+        <ListItemIcon classes={{ root: classes.icon }}>
+          <PictureAsPdfOutlinedIcon />
+        </ListItemIcon>
+        <Link
+          href="https://www.hirokoymj.com/Resume_HirokoYamaji_JP.pdf"
+          target="_blank"
+          rel="noopener"
+          className={classes.linkText}>
+          職務経歴書
+        </Link>
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon classes={{ root: classes.icon }}>
+          <PictureAsPdfOutlinedIcon />
+        </ListItemIcon>
+        <Link
+          href="https://www.hirokoymj.com/Resume_HirokoYamaji_EN.pdf"
+          target="_blank"
+          rel="noopener"
+          className={classes.linkText}>
+          Resume
+        </Link>
+      </ListItem>
     </>
   );
 };
