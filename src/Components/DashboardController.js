@@ -19,6 +19,7 @@ import {
   openNavigation,
 } from "Redux/Navigation/ActionCreator";
 import { TestView } from "Components/PageView/TestView";
+import { PhotoView } from "Components/PageView/PhotoView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,6 +69,7 @@ export const DashboardController = connect(null, {
             <Route path="/subCategoryList" component={SubCategoryView} />
             <Route path="/topicList" component={TopicView} />
             <Route path="/test" component={TestView} />
+            <Route path="/photo" component={PhotoView} />
           </Switch>
           <PageFooter />
         </main>

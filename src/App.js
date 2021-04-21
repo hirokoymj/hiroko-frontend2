@@ -6,11 +6,13 @@ import { BrowserRouter } from "react-router-dom";
 import { ReduxProvider } from "Redux/ReduxProvider";
 import { ThemeProvider } from "Styles/ThemeProvider";
 import { DashboardController } from "Components/DashboardController";
+import config from "Config/config";
 
-const URI_PRODUCTION = "https://hirokoymj-backend.herokuapp.com/";
-const URI_LOCAL = "http://localhost:4000/";
+const URI = config.APOLLO_CLIENT_URI;
+console.log(URI);
+
 const client = new ApolloClient({
-  uri: URI_PRODUCTION,
+  uri: URI,
 });
 
 const App = () => {
