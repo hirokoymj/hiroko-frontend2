@@ -112,6 +112,10 @@ export const MobileMenuDrawer = connect(
       <List>
         <ResumeListItems />
       </List>
+      <Divider />
+      <List>
+        <PhotoListItems />
+      </List>
     </Drawer>
   );
 });
