@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
+import Grid from "@material-ui/core/Grid";
 
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import img1 from "Assets/img1.jpg";
@@ -25,15 +26,7 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
     width: "240px",
     height: "240px",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
     margin: "10px",
-  },
-  addIcon: {
-    fontSize: "40px",
-    color: blue[500],
   },
 }));
 
@@ -60,7 +53,9 @@ export const PhotoView = () => {
   const rows = [...photoRows, ...emptyRows];
   return (
     <DashboardLayout title="Photo Gallery - Japan" maxWidth="md">
-      <div style={{ display: "flex", flexWrap: "wrap" }}>{rows}</div>
+      <Grid container justify="center">
+        {rows}
+      </Grid>
     </DashboardLayout>
   );
 };
