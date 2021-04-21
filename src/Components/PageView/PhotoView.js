@@ -1,16 +1,12 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import AddIcon from "@material-ui/icons/Add";
 import blue from "@material-ui/core/colors/blue";
 
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
-import img1 from "Assets/hirokoymj-com-desktop.png";
-// import img2 from "Assets/img2.png";
-import img4 from "Assets/img4.png";
-
-// import damageIcon from "Assets/images/claims-damage.png";
-// import reimbursementIcon from "Assets/images/claims-reimbursement.png";
-// import ticketsIcon from "Assets/images/claims-tickets.png";
+import img1 from "Assets/img1.jpg";
+import img2 from "Assets/img2.jpg";
+import img3 from "Assets/img3.jpg";
+import img4 from "Assets/img4.jpg";
 
 const useStyles = makeStyles((theme) => ({
   thumbnail: {
@@ -50,7 +46,7 @@ const ImageTemplate = () => {
 export const PhotoView = () => {
   const classes = useStyles();
   const maxCount = 9;
-  const photos = [img1];
+  const photos = [img1, img2, img3, img4];
   const emptyRows = [];
 
   const photoRows = photos.map((photo) => {

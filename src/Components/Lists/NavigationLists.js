@@ -5,12 +5,13 @@ import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
 import ViewAgendaOutlinedIcon from "@material-ui/icons/ViewAgendaOutlined";
 import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
 import PictureAsPdfOutlinedIcon from "@material-ui/icons/PictureAsPdfOutlined";
+import PhotoCameraOutlinedIcon from "@material-ui/icons/PhotoCameraOutlined";
 import Link from "@material-ui/core/Link";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { ListItemLink, ListLink } from "Components/Lists/ListItemLink";
+import { ListItemLink } from "Components/Lists/ListItemLink";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -95,5 +96,16 @@ export const ResumeListItems = ({ setDrawerClosed }) => {
         </Link>
       </ListItem>
     </>
+  );
+};
+
+export const PhotoListItems = ({ setDrawerClosed }) => {
+  return (
+    <ListItemLink
+      to="/photo"
+      text="Photos in Japan"
+      icon={<PhotoCameraOutlinedIcon />}
+      onClick={setDrawerClosed && setDrawerClosed}
+    />
   );
 };

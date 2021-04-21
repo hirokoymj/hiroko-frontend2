@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import {
   TechNavItems,
   ResumeListItems,
+  PhotoListItems,
 } from "Components/Lists/NavigationLists";
 import { closeNavigation } from "Redux/Navigation/ActionCreator";
 import { Logo } from "Components/Layouts/Logo";
@@ -81,6 +82,10 @@ export const MenuDrawer = connect(
       <Divider />
       <List>
         <ResumeListItems />
+      </List>
+      <Divider />
+      <List>
+        <PhotoListItems />
       </List>
     </Drawer>
   );
