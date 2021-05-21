@@ -25,17 +25,21 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   tempHigh: {
-    width: "20%",
+    width: "10%",
     textAlign: "center",
     color: red[500],
   },
   tempLow: {
-    width: "20%",
+    width: "10%",
     textAlign: "center",
     color: blue[700],
   },
   rain: {
-    width: "20%",
+    width: "10%",
+    textAlign: "center",
+  },
+  humidity: {
+    width: "15%",
     textAlign: "center",
   },
   root: {
@@ -53,6 +57,8 @@ export const DailyForecast = ({ city, unit }) => {
   });
   const { forecastList } = !loading && get(data, "dailyForecast", {});
 
+  console.log(data);
+
   const mappedData = map(forecastList, (forecast) => {
     const {
       dt,
@@ -60,6 +66,7 @@ export const DailyForecast = ({ city, unit }) => {
       icon,
       temperature: { min, max },
       rain,
+      humidity,
     } = forecast;
 
     return {
@@ -69,6 +76,7 @@ export const DailyForecast = ({ city, unit }) => {
       min,
       max,
       rain,
+      humidity,
     };
   });
   const unit_format = unit === "imperial" ? "F" : "C";
@@ -91,15 +99,15 @@ export const DailyForecast = ({ city, unit }) => {
                 <ListItemText primary="High" className={classes.tempHigh} />
                 <ListItemText primary="Low" className={classes.tempLow} />
                 <ListItemText primary="Rain" className={classes.rain} />
+                <ListItemText primary="Humidity" className={classes.humidity} />
               </ListItem>
               {mappedData.map(
-                ({ dt, condition, icon, min, max, rain }, index) => {
+                ({ dt, condition, icon, min, max, rain, humidity }, index) => {
                   return (
                     <ListItem
                       divider={index !== mappedDataLen - 1 ? true : false}
                       dense
-                      key={dt}
-                    >
+                      key={dt}>
                       <ListItemText
                         primary={moment.unix(dt).format("ddd, MM/DD")}
                         className={classes.forecastDate}
@@ -123,6 +131,9 @@ export const DailyForecast = ({ city, unit }) => {
                       </ListItemText>
                       <ListItemText className={classes.rain}>
                         {Math.ceil(rain)}&#37;
+                      </ListItemText>
+                      <ListItemText className={classes.humidity}>
+                        {humidity} %
                       </ListItemText>
                     </ListItem>
                   );
