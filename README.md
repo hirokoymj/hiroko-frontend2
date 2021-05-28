@@ -40,6 +40,5 @@ https://github.com/hirokoymj/hirokoymj-backend
 
 ![](src/Assets/hirokoymj-com-mobile.png)
 
-## VC Code Extension
 
 
