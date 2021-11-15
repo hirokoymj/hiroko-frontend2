@@ -80,7 +80,7 @@ export const SubCategoryTable = ({ openDialog }) => {
 
   const mappedData = map(
     subCategories,
-    ({ id, name, order, category, createdAt }) => {
+    ({ id, name, order, category, createdAt, updatedAt }) => {
       const categoryId = get(category, "id", "");
       const categoryName = get(category, "name", "");
       const actions = (
@@ -94,6 +94,7 @@ export const SubCategoryTable = ({ openDialog }) => {
         </>
       );
       const created = moment(createdAt).format("MM/DD/YYYY");
+      const updated = moment(updatedAt).format("MM/DD/YYYY");
 
       return {
         id,
@@ -103,6 +104,7 @@ export const SubCategoryTable = ({ openDialog }) => {
         categoryName,
         actions,
         created,
+        updated,
       };
     }
   );
@@ -137,6 +139,10 @@ export const SubCategoryTable = ({ openDialog }) => {
               {
                 label: "Created",
                 field: "created",
+              },
+              {
+                label: "Updated",
+                field: "updated",
               },
               {
                 label: "Actions",

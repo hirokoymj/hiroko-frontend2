@@ -78,27 +78,32 @@ export const CategoryTable = ({ openDialog }) => {
     pageInfo
   );
 
-  const mappedData = map(categories, ({ id, name, abbr, createdAt }) => {
-    const actions = (
-      <>
-        <ActionRouterButton
-          to={`/categoryList/${id}`}
-          title="Edit Category"
-          icon="edit"
-        />
-        <ActionLinkButton onClick={(e) => openDialog(e, id)} icon="delete" />
-      </>
-    );
-    const created = moment(createdAt).format("MM/DD/YYYY");
+  const mappedData = map(
+    categories,
+    ({ id, name, abbr, createdAt, updatedAt }) => {
+      const actions = (
+        <>
+          <ActionRouterButton
+            to={`/categoryList/${id}`}
+            title="Edit Category"
+            icon="edit"
+          />
+          <ActionLinkButton onClick={(e) => openDialog(e, id)} icon="delete" />
+        </>
+      );
+      const created = moment(createdAt).format("MM/DD/YYYY");
+      const updated = moment(updatedAt).format("MM/DD/YYYY");
 
-    return {
-      id,
-      name,
-      abbr,
-      created,
-      actions,
-    };
-  });
+      return {
+        id,
+        name,
+        abbr,
+        created,
+        updated,
+        actions,
+      };
+    }
+  );
 
   return (
     <>
@@ -129,6 +134,10 @@ export const CategoryTable = ({ openDialog }) => {
               {
                 label: "Created",
                 field: "created",
+              },
+              {
+                label: "Updated",
+                field: "updated",
               },
               {
                 label: "Actions",
