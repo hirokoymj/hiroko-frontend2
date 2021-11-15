@@ -32,6 +32,14 @@ https://github.com/hirokoymj/hirokoymj-backend
 
 - Apollo Server, GraphQL, MongoDB, Mongoose, REST API, dotEnv
 
+## localhost
+
+```js
+yarn dev
+```
+
+http://localhost:3000/
+
 ## Screenshot - desktop
 
 ![](src/Assets/hirokoymj-com-desktop.png)
@@ -39,6 +47,3 @@ https://github.com/hirokoymj/hirokoymj-backend
 ## Screenshot - mobile
 
 ![](src/Assets/hirokoymj-com-mobile.png)
-
-
-
