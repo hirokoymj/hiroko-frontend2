@@ -82,7 +82,7 @@ export const TopicTable = ({ openDialog }) => {
 
   const mappedData = map(
     topics,
-    ({ id, title, url, category, subCategory, createdAt }) => {
+    ({ id, title, url, category, subCategory, createdAt, updatedAt }) => {
       const categoryName = get(category, "name", "");
       const subCategoryName = get(subCategory, "name", "");
 
@@ -103,6 +103,7 @@ export const TopicTable = ({ openDialog }) => {
         </>
       );
       const created = moment(createdAt).format("MM/DD/YYYY");
+      const updated = moment(updatedAt).format("MM/DD/YYYY");
 
       return {
         id,
@@ -111,6 +112,7 @@ export const TopicTable = ({ openDialog }) => {
         categoryName,
         subCategoryName,
         created,
+        updated,
         actions,
       };
     }
@@ -150,6 +152,10 @@ export const TopicTable = ({ openDialog }) => {
               {
                 label: "Created",
                 field: "created",
+              },
+              {
+                label: "Updated",
+                field: "updated",
               },
               {
                 label: "Actions",

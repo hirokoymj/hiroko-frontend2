@@ -16,6 +16,8 @@ export const TOPICS = gql`
         subCategory {
           ...SubCategoryInfo
         }
+        createdAt
+        updatedAt
       }
       totalCount
       pageInfo {
