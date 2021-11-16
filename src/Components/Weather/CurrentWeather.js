@@ -27,8 +27,9 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: ["Titillium Web", "sans-serif"].join(","),
     fontWeight: 700,
     padding: theme.spacing(0, 2),
-    borderLeft: "1px solid #4C6786",
-    borderRight: "1px solid #4C6786",
+    borderLeft: `1px solid ${theme.palette.secondary.dark}`,
+    borderRight: `1px solid ${theme.palette.secondary.dark}`,
+    backgroundColor: theme.palette.secondary.dark,
   },
 }));
 

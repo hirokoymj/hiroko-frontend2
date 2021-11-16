@@ -80,11 +80,10 @@ const TopicFormFields = connect((state) => ({
         <Button
           type="submit"
           variant="contained"
-          color="primary"
+          color="secondary"
           disabled={submitting}
           onClick={onSubmit}
-          className={classes.button}
-        >
+          className={classes.button}>
           {submitting ? "Submitting" : "Submit"}
         </Button>
       </>

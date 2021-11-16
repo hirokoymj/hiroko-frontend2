@@ -16,10 +16,9 @@ export const Title = ({ text }) => {
     <Typography
       component="h2"
       variant="h5"
-      color="primary"
+      color="secondary"
       className={classes.sectionTitle}
-      noWrap
-    >
+      noWrap>
       {text}
     </Typography>
   );

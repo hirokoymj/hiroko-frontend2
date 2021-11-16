@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     width: "30%",
     margin: "auto",
     marginTop: theme.spacing(3),
+    backgroundColor: theme.palette.secondary.main,
     [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
@@ -87,7 +88,12 @@ export const TopicTable = ({ openDialog }) => {
       const subCategoryName = get(subCategory, "name", "");
 
       const titleLink = (
-        <Link href={url} variant="body2" target="_blank" rel="noreferrer">
+        <Link
+          href={url}
+          variant="body2"
+          target="_blank"
+          rel="noreferrer"
+          color="secondary">
           {title}
         </Link>
       );
@@ -136,6 +142,7 @@ export const TopicTable = ({ openDialog }) => {
           <Table
             data={mappedData}
             loading={loading}
+            hover={true}
             colmuns={[
               {
                 label: "Title",

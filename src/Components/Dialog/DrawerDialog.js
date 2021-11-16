@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
   actionButton: {
     width: "50%",
+    backgroundColor: theme.palette.primary.dark,
+  },
+  cancelBtn: {
+    width: "50%",
   },
   actionsRoot: {
     borderTop: `1px solid ${theme.palette.grey[400]}`,
@@ -61,8 +65,7 @@ export const DrawerDialog = ({
         <IconButton
           aria-label="close"
           className={classes.closeButton}
-          onClick={onClose}
-        >
+          onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -71,9 +74,8 @@ export const DrawerDialog = ({
         <Button
           color="primary"
           variant="outlined"
-          className={classes.actionButton}
-          onClick={onClose}
-        >
+          className={classes.cancelBtn}
+          onClick={onClose}>
           Cancel
         </Button>
         <Button
@@ -82,8 +84,7 @@ export const DrawerDialog = ({
           color="primary"
           disabled={submitting}
           onClick={onSubmit}
-          className={classes.actionButton}
-        >
+          className={classes.actionButton}>
           {submitLabel}
         </Button>
       </DialogActions>

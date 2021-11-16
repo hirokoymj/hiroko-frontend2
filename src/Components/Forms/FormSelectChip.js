@@ -63,12 +63,7 @@ export const FormSelectChip = ({
                   label={filters.find((d) => d.value === value).name}
                   onDelete={handleDeleteFilter(value)}
                   onMouseDown={(event) => event.stopPropagation()}
-                  classes={{
-                    root: classes.root,
-                    colorSecondary: classes.colorSecondary,
-                    deleteIcon: classes.deleteIcon,
-                  }}
-                  color="secondary"
+                  color="primary"
                 />
               );
             })}

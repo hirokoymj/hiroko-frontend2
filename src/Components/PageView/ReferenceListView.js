@@ -9,26 +9,37 @@ import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { TOPIC_BY_CATEGORY_ABBR } from "Queries/Topic";
 import { Title } from "Components/Titles/Title";
 import { ListSkeleton } from "Components/Skeleton/ListSkeleton";
 
+const useStyles = makeStyles((theme) => ({
+  linkRoot: {
+    "&:hover": {
+      backgroundColor: "#fce4ec",
+    },
+  },
+}));
+
 const ListItemLink = (props) => {
   return (
     <ListItem
       button
       component="a"
-      {...props}
       divider
       target="_blank"
       rel="noopener"
+      {...props}
     />
   );
 };
 
 const ReferenceListCard = ({ mappedData }) => {
+  const classes = useStyles();
+
   return (
     <div>
       {mappedData.map(({ cardTitle, topicData }, key) => {
@@ -38,7 +49,10 @@ const ReferenceListCard = ({ mappedData }) => {
             <List>
               {topicData.map((topic, key) => {
                 return (
-                  <ListItemLink href={topic.url} key={key}>
+                  <ListItemLink
+                    href={topic.url}
+                    key={key}
+                    className={classes.linkRoot}>
                     <ListItemText primary={topic.title} />
                   </ListItemLink>
                 );
