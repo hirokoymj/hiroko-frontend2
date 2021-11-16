@@ -12,11 +12,13 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: ["Roboto", "sans-serif"].join(","),
     fontWeight: 700,
     fontSize: "1.5rem",
+    color: theme.palette.secondary.dark,
   },
   lightFont: {
     fontFamily: ["Roboto", "sans-serif"].join(","),
     fontWeight: 300,
     fontSize: "1.5rem",
+    color: theme.palette.primary.dark,
   },
 }));
 
@@ -27,8 +29,7 @@ export const Logo = () => {
     <Link
       component={RouterLink}
       to={{ pathname: "/", state: { title: "7 days Forecast" } }}
-      className={classes.logo}
-    >
+      className={classes.logo}>
       <Typography variant="h6" component="h1">
         <span className={classes.boldFont}>hiroko</span>
         <span className={classes.lightFont}>ymj.com</span>

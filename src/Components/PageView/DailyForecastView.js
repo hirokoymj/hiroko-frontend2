@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     width: "20%",
     borderRadius: 0,
     height: "56px",
+    background: theme.palette.secondary.dark,
+    color: theme.palette.common.white,
   },
   searchField: {
     marginBottom: "0 !important",
@@ -77,10 +79,8 @@ const CitySearchForm = reduxForm({
         <Button
           type="submit"
           variant="contained"
-          color="primary"
           disabled={submitting}
-          className={classes.searchButton}
-        >
+          className={classes.searchButton}>
           {submitting ? "Searching" : "Search"}
         </Button>
       </form>
@@ -125,8 +125,7 @@ const CurrentWeatherInfo = ({ city }) => {
               <Typography
                 variant="h4"
                 gutterBottom
-                className={classes.cityCountry}
-              >
+                className={classes.cityCountry}>
                 {cityCountry}
               </Typography>
             </Grid>

@@ -79,8 +79,7 @@ export const DashboardHeader = connect(
               className={classes.mobileMenuButton}
               color="inherit"
               aria-label="menu"
-              onClick={openNavigation}
-            >
+              onClick={openNavigation}>
               <MenuIcon />
             </IconButton>
             <Typography
@@ -88,8 +87,7 @@ export const DashboardHeader = connect(
               variant="h6"
               color="inherit"
               noWrap
-              className={classes.title}
-            >
+              className={classes.title}>
               {pageTitle}
             </Typography>
           </Toolbar>
@@ -97,8 +95,7 @@ export const DashboardHeader = connect(
       ) : (
         <AppBar
           position="absolute"
-          className={clsx(classes.appBar, open && classes.appBarShift)}
-        >
+          className={clsx(classes.appBar, open && classes.appBarShift)}>
           <Toolbar className={classes.toolbar}>
             <IconButton
               edge="start"
@@ -108,8 +105,7 @@ export const DashboardHeader = connect(
               className={clsx(
                 classes.menuButton,
                 open && classes.menuButtonHidden
-              )}
-            >
+              )}>
               <MenuIcon />
             </IconButton>
             <Typography
@@ -117,8 +113,7 @@ export const DashboardHeader = connect(
               variant="h6"
               color="inherit"
               noWrap
-              className={classes.title}
-            >
+              className={classes.title}>
               {pageTitle}
             </Typography>
             <Link
@@ -127,7 +122,7 @@ export const DashboardHeader = connect(
                 pathname: "/",
                 state: { title: "7 days Forecast" },
               }}
-            >
+              underline="none">
               <CurrentWeather city="tokyo" />
             </Link>
           </Toolbar>

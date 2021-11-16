@@ -3,14 +3,15 @@ import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import PropTypes from "prop-types";
 
-import { hirokoymjTheme } from "./hirokoymjTheme";
+// import { hirokoymjTheme } from "./hirokoymjTheme";
+import { hirokoymjThemeXmas } from "./hirokoymjThemeXmas";
 
-console.log(hirokoymjTheme);
+console.log(hirokoymjThemeXmas);
 
 export const ThemeFunctionsContext = React.createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme] = useState(hirokoymjTheme);
+  const [theme] = useState(hirokoymjThemeXmas);
 
   return (
     <MuiThemeProvider theme={theme}>

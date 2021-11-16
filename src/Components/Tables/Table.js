@@ -7,7 +7,7 @@ import TableRow from "@material-ui/core/TableRow";
 
 import { TableSkeleton } from "Components/Skeleton/TableSkeleton";
 
-export const Table = ({ data, colmuns, loading }) => {
+export const Table = ({ data, colmuns, loading, hover }) => {
   return (
     <>
       {loading ? (
@@ -22,8 +22,7 @@ export const Table = ({ data, colmuns, loading }) => {
                     <TableCell
                       key={key}
                       align={align}
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                      style={{ whiteSpace: "nowrap" }}>
                       {label}
                     </TableCell>
                   );
@@ -33,7 +32,7 @@ export const Table = ({ data, colmuns, loading }) => {
             <TableBody>
               {data.map((d, index) => {
                 return (
-                  <TableRow key={index}>
+                  <TableRow key={index} hover={hover || ""}>
                     {colmuns.map((col, key) => {
                       return (
                         <TableCell scope="row" key={key} align={col.align}>

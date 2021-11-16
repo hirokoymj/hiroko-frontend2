@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "flex-end",
     padding: "0 8px",
+    background: theme.palette.background.default,
     ...theme.mixins.toolbar,
   },
   drawerPaper: {

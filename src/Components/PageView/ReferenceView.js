@@ -9,12 +9,14 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   activeTab: {
-    backgroundImage: "linear-gradient(#f8f6f6 0%,#e8eef4 100%)",
+    backgroundImage: `linear-gradient(${theme.palette.secondary.light} 0%,${theme.palette.secondary.dark} 100%)`,
+    color: theme.palette.secondary.contrastText,
   },
   tab: {
     textTransform: "none",
     fontSize: "1rem",
   },
+  indicatorColor: theme.palette.secondary.dark,
 }));
 
 export const ReferenceView = () => {
@@ -31,8 +33,8 @@ export const ReferenceView = () => {
         <Tabs
           value={activeTab}
           onChange={handleTabChange}
-          indicatorColor="primary"
-          textColor="primary"
+          indicatorColor={classes.indicatorColor}
+          textColor="#000"
           variant="scrollable"
           scrollButtons="on"
           fullWidth>
@@ -73,7 +75,7 @@ export const ReferenceView = () => {
             component={Link}
             to="/tech/html"
             className={clsx(classes.tab, {
-              [classes.activeTab]: activeTab === 3,
+              [classes.activeTab]: activeTab === 4,
             })}
           />
         </Tabs>

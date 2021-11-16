@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import blue from "@material-ui/core/colors/blue";
 import Grid from "@material-ui/core/Grid";
 
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
@@ -20,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
   dropzone: {
     padding: "20px",
     borderRadius: "2px",
-    border: `2px dashed ${blue[500]}`,
-    backgroundColor: "#fafafa",
+    border: `2px dashed ${theme.palette.primary.main}`,
+    backgroundColor: theme.palette.background.light,
     color: "#bdbdbd",
     outline: "none",
     width: "240px",

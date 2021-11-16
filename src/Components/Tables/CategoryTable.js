@@ -149,7 +149,7 @@ export const CategoryTable = ({ openDialog }) => {
           <Button
             onClick={fetchMoreData}
             variant="contained"
-            color="primary"
+            color="secondary"
             disabled={!hasNextPage}
             className={classes.loadMoreButton}>
             {isLoadingMore ? "Loading" : "Loard More"}
