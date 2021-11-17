@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, InjectedFormProps } from "redux-form";
 import { useMutation } from "@apollo/react-hooks";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -18,6 +18,7 @@ import { DELETE_CATEGORY } from "Mutations/Category";
 import { CATEGORIES } from "Queries/Category";
 import { Title } from "Components/Titles/Title";
 import { CategoryEditView } from "Components/PageView/CategoryEditView";
+import { ICategoryFormData, TCategoryFormField } from "Types/forms";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 const CategoryFormFields = ({ onSubmit, submitting }) => {
   const classes = useStyles();
 
@@ -61,7 +63,10 @@ const CategoryFormFields = ({ onSubmit, submitting }) => {
   );
 };
 
-const CategoryForm = reduxForm({
+interface ICategoryFormFieldsProps {
+  onSubmit: any;
+}
+const CategoryForm = reduxForm<ICategoryFormData, ICategoryFormFieldsProps>({
   form: "Category_Form",
 })(({ handleSubmit, submitting }) => {
   return <CategoryFormFields onSubmit={handleSubmit} submitting={submitting} />;

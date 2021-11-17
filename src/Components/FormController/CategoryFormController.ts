@@ -1,24 +1,34 @@
 import { destroy } from "redux-form";
 import { useMutation } from "@apollo/react-hooks";
 import { useSnackbar } from "notistack";
+import { Dispatch } from "redux";
 
 import { CREATE_CATEGORY } from "Mutations/Category";
 import { CATEGORIES } from "Queries/Category";
+import { ICreateCategory, ICategory } from "Types/api/Category";
+import { ICategoryFormData } from "Types/forms";
 
-export const CategoryFormController = ({ children }) => {
+type Props = {
+  children: any;
+};
+
+export const CategoryFormController = ({ children }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [createCategory] = useMutation(CREATE_CATEGORY, {
-    refetchQueries: [
-      {
-        query: CATEGORIES,
-        variables: { limit: 5, cursor: null },
-        fetchPolicy: "network-only",
-      },
-    ],
-  });
+  const [createCategory] = useMutation<ICategory, ICreateCategory>(
+    CREATE_CATEGORY,
+    {
+      refetchQueries: [
+        {
+          query: CATEGORIES,
+          variables: { limit: 5, cursor: null },
+          fetchPolicy: "network-only",
+        },
+      ],
+    }
+  );
 
-  const onSubmit = async (values, dispatch) => {
+  const onSubmit = async (values: ICategoryFormData, dispatch: Dispatch) => {
     try {
       await createCategory({
         variables: {
@@ -36,8 +46,8 @@ export const CategoryFormController = ({ children }) => {
     }
   };
 
-  const validate = (values) => {
-    const errors = {};
+  const validate = (values: ICategoryFormData) => {
+    const errors: { name?: string; abbr?: string } = {};
     if (!values.name) errors.name = "Required";
     if (!values.abbr) errors.abbr = "Required";
 

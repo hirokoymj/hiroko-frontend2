@@ -3,24 +3,43 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";
+import { Dispatch } from "redux";
 
 import { UPDATE_SUB_CATEGORY } from "Mutations/SubCategory";
 import { SUB_CATEGORY_BY_ID } from "Queries/SubCategory";
 import { CATEGORIES } from "Queries/Category";
+import { ICategories } from "Types/api/Category";
+import {
+  ISubCategory,
+  IUpdateSubCategory,
+  ISubCategoryById,
+} from "Types/api/SubCategory";
+import { TSubCategoryFormData } from "Types/forms";
+import { IDropdownOption } from "Types/common";
 
-export const SubCategoryEditFormController = ({ children, subCategoryId }) => {
+type Props = {
+  children: any;
+  subCategoryId: string;
+};
+
+export const SubCategoryEditFormController = ({
+  children,
+  subCategoryId,
+}: Props) => {
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
-  const [updateSubCategory] = useMutation(UPDATE_SUB_CATEGORY);
-  const { data, loading } = useQuery(CATEGORIES);
-  const { data: data_sub_category, loading: loading_sub_category } = useQuery(
-    SUB_CATEGORY_BY_ID,
-    {
-      variables: {
-        id: subCategoryId,
-      },
-    }
+  const [updateSubCategory] = useMutation<ISubCategory, IUpdateSubCategory>(
+    UPDATE_SUB_CATEGORY
   );
+  const { data, loading } = useQuery<ICategories>(CATEGORIES);
+  const { data: data_sub_category, loading: loading_sub_category } = useQuery<
+    ISubCategory,
+    ISubCategoryById
+  >(SUB_CATEGORY_BY_ID, {
+    variables: {
+      id: subCategoryId,
+    },
+  });
 
   const initialValues = !loading_sub_category && {
     categoryId: get(data_sub_category, "subCategoryById.category.id", ""),
@@ -31,22 +50,21 @@ export const SubCategoryEditFormController = ({ children, subCategoryId }) => {
   const categories = !loading && get(data, "categories.categoryFeed", []);
   const category_options =
     !loading &&
-    categories.map(({ id, name }) => {
+    categories.map(({ id, name }: IDropdownOption) => {
       return {
         value: id,
         label: name,
       };
     });
 
-  const onSubmit = async (values, dispatch) => {
+  const onSubmit = async (values: TSubCategoryFormData, dispatch: Dispatch) => {
     try {
-      const { name, order, categoryId } = values;
+      const { name, categoryId } = values;
       await updateSubCategory({
         variables: {
           id: subCategoryId,
           input: {
             name,
-            order: parseInt(order),
             category: categoryId,
           },
         },
@@ -64,8 +82,8 @@ export const SubCategoryEditFormController = ({ children, subCategoryId }) => {
     }
   };
 
-  const validate = (values) => {
-    const errors = {};
+  const validate = (values: TSubCategoryFormData) => {
+    const errors: any = {};
     if (!values.name) errors.name = "Required";
     if (!values.categoryId) errors.categoryId = "Required";
 

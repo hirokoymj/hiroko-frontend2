@@ -47,3 +47,50 @@ http://localhost:3000/
 ## Screenshot - mobile
 
 ![](src/Assets/hirokoymj-com-mobile.png)
+
+## Convert React app to typescript
+
+1. Installing necessary packages.
+
+```js
+yarn add typescript @types/node @types/react @types/react-dom @types/jest
+```
+
+<hr />
+
+**Apollo Client**
+
+https://www.apollographql.com/docs/react/get-started/
+
+```js
+npm install @apollo/client graphql
+```
+
+**Redux Form**
+https://www.npmjs.com/package/@types/redux-form
+
+```js
+yarn add @types/redux-form
+```
+
+**Lodash**
+
+https://www.npmjs.com/package/@types/lodash
+
+```js
+yarn add @types/lodash
+```
+
+2. Creating tsconfig.json
+3. Install another packages.
+
+Redux
+Redux-Form
+react router dom
+
+4. Plan
+
+- Redux state
+- Redux form
+- Query
+- Mutation

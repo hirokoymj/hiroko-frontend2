@@ -41,9 +41,8 @@ export const TopicEditFormController = ({ children, topicId }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [updateTopic] = useMutation(UPDATE_TOPIC);
   const { data, loading } = useQuery(CATEGORIES);
-  const { data: data_subCategory, loading: loading_subCategory } = useQuery(
-    SUB_CATEGORIES
-  );
+  const { data: data_subCategory, loading: loading_subCategory } =
+    useQuery(SUB_CATEGORIES);
   const { data: data_topic, loading: loading_topic } = useQuery(TOPIC_BY_ID, {
     variables: {
       id: topicId,

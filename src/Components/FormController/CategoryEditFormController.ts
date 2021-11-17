@@ -3,18 +3,32 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";
+import { Dispatch } from "redux";
 
 import { UPDATE_CATEGORY } from "Mutations/Category";
 import { CATEGORY_BY_ID } from "Queries/Category";
 import { CATEGORIES } from "Queries/Category";
+import { ICategory, IUpdateCategory, ICategoryById } from "Types/api/Category";
+import { ICategoryFormData } from "Types/forms";
 
-export const CategoryEditFormController = ({ children, categoryId }) => {
+type IProps = {
+  children: any;
+  categoryId: string;
+};
+
+export const CategoryEditFormController = ({
+  children,
+  categoryId,
+}: IProps) => {
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
-  const [updateCategory] = useMutation(UPDATE_CATEGORY, {
-    refetchQueries: [{ query: CATEGORIES }],
-  });
-  const { data, loading } = useQuery(CATEGORY_BY_ID, {
+  const [updateCategory] = useMutation<ICategory, IUpdateCategory>(
+    UPDATE_CATEGORY,
+    {
+      refetchQueries: [{ query: CATEGORIES }],
+    }
+  );
+  const { data, loading } = useQuery<ICategory, ICategoryById>(CATEGORY_BY_ID, {
     variables: {
       id: categoryId,
     },
@@ -26,7 +40,7 @@ export const CategoryEditFormController = ({ children, categoryId }) => {
     abbr: get(data, "categoryById.abbr", ""),
   };
 
-  const onSubmit = async (values, dispatch) => {
+  const onSubmit = async (values: ICategoryFormData, dispatch: Dispatch) => {
     try {
       const { name, abbr } = values;
       await updateCategory({
@@ -51,8 +65,8 @@ export const CategoryEditFormController = ({ children, categoryId }) => {
     }
   };
 
-  const validate = (values) => {
-    const errors = {};
+  const validate = (values: ICategoryFormData) => {
+    const errors: any = {};
     if (!values.name) errors.name = "Required";
     if (!values.abbr) errors.abbr = "Required";
 
