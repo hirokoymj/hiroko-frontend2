@@ -5,6 +5,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { CURRENT_WEATHER_BY_CITY } from "Queries/Weather";
 import { CurrentWeatherSkeleton } from "Components/Skeleton/WeatherSkeleton";
+import {
+  ICurrentWeatherByCityVars,
+  ICurrentWeather,
+} from "Types/api/CurrentWeather";
 
 const useStyles = makeStyles((theme) => ({
   row: {
@@ -33,9 +37,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CurrentWeather = ({ city, unit }) => {
+export const CurrentWeather = ({ city, unit }: ICurrentWeatherByCityVars) => {
   const classes = useStyles();
-  const { data, loading } = useQuery(CURRENT_WEATHER_BY_CITY, {
+  const { data, loading } = useQuery<
+    ICurrentWeather,
+    ICurrentWeatherByCityVars
+  >(CURRENT_WEATHER_BY_CITY, {
     variables: {
       city,
       unit,

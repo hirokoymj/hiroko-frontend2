@@ -4,13 +4,22 @@ import get from "lodash/get";
 import map from "lodash/map";
 import { useHistory } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { Dispatch } from "redux";
 
 import { UPDATE_TOPIC } from "Mutations/Topic";
 import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { CATEGORIES } from "Queries/Category";
 import { TOPIC_BY_ID } from "Queries/Topic";
+import { ICategoryFeed, ICategoriesVars } from "Types/api/Category";
+import { ISubCategoriesVars, ISubCategoryFeed } from "Types/api/SubCategory";
+import { IUpdateTopicVars, ITopic, ITopicByIdVars } from "Types/api/Topic";
+import { TTopicFormData } from "Types/forms";
 
-const makeDropdownOptions = (category_data, subcategory_data, loading) => {
+const makeDropdownOptions = (
+  category_data: any,
+  subcategory_data: any,
+  loading: boolean
+) => {
   const categories =
     !loading && get(category_data, "categories.categoryFeed", []);
   const subcategories =
@@ -36,14 +45,28 @@ const makeDropdownOptions = (category_data, subcategory_data, loading) => {
   };
 };
 
-export const TopicEditFormController = ({ children, topicId }) => {
+interface ITopicEditFormControllerProps {
+  children: any;
+  topicId: string;
+}
+export const TopicEditFormController = (
+  props: ITopicEditFormControllerProps
+) => {
+  const { children, topicId } = props;
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
-  const [updateTopic] = useMutation(UPDATE_TOPIC);
-  const { data, loading } = useQuery(CATEGORIES);
-  const { data: data_subCategory, loading: loading_subCategory } =
-    useQuery(SUB_CATEGORIES);
-  const { data: data_topic, loading: loading_topic } = useQuery(TOPIC_BY_ID, {
+  const [updateTopic] = useMutation<ITopic, IUpdateTopicVars>(UPDATE_TOPIC);
+  const { data, loading } = useQuery<ICategoryFeed, ICategoriesVars>(
+    CATEGORIES
+  );
+  const { data: data_subCategory, loading: loading_subCategory } = useQuery<
+    ISubCategoryFeed,
+    ISubCategoriesVars
+  >(SUB_CATEGORIES);
+  const { data: data_topic, loading: loading_topic } = useQuery<
+    ITopic,
+    ITopicByIdVars
+  >(TOPIC_BY_ID, {
     variables: {
       id: topicId,
     },
@@ -62,7 +85,7 @@ export const TopicEditFormController = ({ children, topicId }) => {
     subCategory: get(data_topic, "topicById.subCategory.id"),
   };
 
-  const onSubmit = async (values, dispatch) => {
+  const onSubmit = async (values: TTopicFormData, dispatch: Dispatch) => {
     try {
       await updateTopic({
         variables: {
@@ -86,8 +109,8 @@ export const TopicEditFormController = ({ children, topicId }) => {
     }
   };
 
-  const validate = (values) => {
-    const errors = {};
+  const validate = (values: TTopicFormData) => {
+    const errors: any = {};
     if (!values.category) errors.category = "Required";
     if (!values.subCategory) errors.subCategory = "Required";
     if (!values.title) errors.title = "Required";

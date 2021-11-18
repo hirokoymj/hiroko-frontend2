@@ -7,7 +7,7 @@ export interface ICurrentWeather {
   weather: IWeather;
 }
 
-export interface ICurrentWeatherVars {
+export interface ICurrentWeatherByCityVars {
   city: string;
   unit?: Units;
 }

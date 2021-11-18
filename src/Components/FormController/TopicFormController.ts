@@ -3,13 +3,22 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import get from "lodash/get";
 import map from "lodash/map";
 import { useSnackbar } from "notistack";
+import { Dispatch } from "redux";
 
 import { CREATE_TOPIC } from "Mutations/Topic";
 import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { CATEGORIES } from "Queries/Category";
 import { TOPICS } from "Queries/Topic";
+import { ICategoryFeed, ICategoriesVars } from "Types/api/Category";
+import { ISubCategoriesVars, ISubCategoryFeed } from "Types/api/SubCategory";
+import { ICreateTopicVars, ITopic } from "Types/api/Topic";
+import { TTopicFormData } from "Types/forms";
 
-const makeDropdownOptions = (category_data, subcategory_data, loading) => {
+const makeDropdownOptions = (
+  category_data: any,
+  subcategory_data: any,
+  loading: boolean
+) => {
   const categories =
     !loading && get(category_data, "categories.categoryFeed", []);
   const subcategories =
@@ -35,9 +44,14 @@ const makeDropdownOptions = (category_data, subcategory_data, loading) => {
   };
 };
 
-export const TopicFormController = ({ children }) => {
+type ITopicFormControllerProps = {
+  children: any;
+};
+export const TopicFormController = ({
+  children,
+}: ITopicFormControllerProps) => {
   const { enqueueSnackbar } = useSnackbar();
-  const [createTopic] = useMutation(CREATE_TOPIC, {
+  const [createTopic] = useMutation<ITopic, ICreateTopicVars>(CREATE_TOPIC, {
     refetchQueries: [
       {
         query: TOPICS,
@@ -46,10 +60,13 @@ export const TopicFormController = ({ children }) => {
       },
     ],
   });
-  const { data, loading } = useQuery(CATEGORIES);
-  const { data: data_subCategory, loading: loading_subCategory } = useQuery(
-    SUB_CATEGORIES
+  const { data, loading } = useQuery<ICategoryFeed, ICategoriesVars>(
+    CATEGORIES
   );
+  const { data: data_subCategory, loading: loading_subCategory } = useQuery<
+    ISubCategoryFeed,
+    ISubCategoriesVars
+  >(SUB_CATEGORIES);
 
   const { category_options, subCategory_options } = makeDropdownOptions(
     data,
@@ -57,7 +74,7 @@ export const TopicFormController = ({ children }) => {
     loading || loading_subCategory
   );
 
-  const onSubmit = async (values, dispatch) => {
+  const onSubmit = async (values: TTopicFormData, dispatch: Dispatch) => {
     try {
       await createTopic({
         variables: {
@@ -76,8 +93,8 @@ export const TopicFormController = ({ children }) => {
     }
   };
 
-  const validate = (values) => {
-    const errors = {};
+  const validate = (values: TTopicFormData) => {
+    const errors: any = {};
     if (!values.category) errors.category = "Required";
     if (!values.subCategory) errors.subCategory = "Required";
     if (!values.title) errors.title = "Required";

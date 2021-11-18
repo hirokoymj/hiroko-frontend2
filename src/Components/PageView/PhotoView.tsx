@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
@@ -8,7 +8,7 @@ import img2 from "Assets/img2.jpg";
 import img3 from "Assets/img3.jpg";
 import img4 from "Assets/img4.jpg";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   thumbnail: {
     width: "240px",
     height: "240px",
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
     borderRadius: "2px",
     border: `2px dashed ${theme.palette.primary.main}`,
-    backgroundColor: theme.palette.background.light,
+    backgroundColor: `${theme.palette.background.paper}`,
     color: "#bdbdbd",
     outline: "none",
     width: "240px",
