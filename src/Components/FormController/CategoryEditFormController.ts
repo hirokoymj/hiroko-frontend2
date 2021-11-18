@@ -8,7 +8,11 @@ import { Dispatch } from "redux";
 import { UPDATE_CATEGORY } from "Mutations/Category";
 import { CATEGORY_BY_ID } from "Queries/Category";
 import { CATEGORIES } from "Queries/Category";
-import { ICategory, IUpdateCategory, ICategoryById } from "Types/api/Category";
+import {
+  ICategory,
+  IUpdateCategoryVars,
+  ICategoryByIdVars,
+} from "Types/api/Category";
 import { ICategoryFormData } from "Types/forms";
 
 type IProps = {
@@ -22,17 +26,20 @@ export const CategoryEditFormController = ({
 }: IProps) => {
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
-  const [updateCategory] = useMutation<ICategory, IUpdateCategory>(
+  const [updateCategory] = useMutation<ICategory, IUpdateCategoryVars>(
     UPDATE_CATEGORY,
     {
       refetchQueries: [{ query: CATEGORIES }],
     }
   );
-  const { data, loading } = useQuery<ICategory, ICategoryById>(CATEGORY_BY_ID, {
-    variables: {
-      id: categoryId,
-    },
-  });
+  const { data, loading } = useQuery<ICategory, ICategoryByIdVars>(
+    CATEGORY_BY_ID,
+    {
+      variables: {
+        id: categoryId,
+      },
+    }
+  );
 
   const initialValues = !loading && {
     id: get(data, "categoryById.id"),

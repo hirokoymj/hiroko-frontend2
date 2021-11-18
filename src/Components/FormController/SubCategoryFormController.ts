@@ -7,8 +7,8 @@ import { Dispatch } from "redux";
 import { CREATE_SUB_CATEGORY } from "Mutations/SubCategory";
 import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { CATEGORIES } from "Queries/Category";
-import { ICreateSubCategory, ISubCategory } from "Types/api/SubCategory";
-import { ICategories } from "Types/api/Category";
+import { ICreateSubCategoryVars, ISubCategory } from "Types/api/SubCategory";
+import { ICategoryFeed, ICategoriesVars } from "Types/api/Category";
 import { IDropdownOption } from "Types/common";
 import { TSubCategoryFormData } from "Types/forms";
 
@@ -18,7 +18,7 @@ type Props = {
 
 export const SubCategoryFormController = ({ children }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
-  const [createSubCategory] = useMutation<ISubCategory, ICreateSubCategory>(
+  const [createSubCategory] = useMutation<ISubCategory, ICreateSubCategoryVars>(
     CREATE_SUB_CATEGORY,
     {
       refetchQueries: [
@@ -30,7 +30,9 @@ export const SubCategoryFormController = ({ children }: Props) => {
       ],
     }
   );
-  const { data, loading } = useQuery<ICategories>(CATEGORIES);
+  const { data, loading } = useQuery<ICategoryFeed, ICategoriesVars>(
+    CATEGORIES
+  );
 
   const categories = !loading && get(data, "categories.categoryFeed");
 

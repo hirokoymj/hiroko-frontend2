@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, InjectedFormProps } from "redux-form";
 import { useParams, useHistory } from "react-router-dom";
 
 import { CategoryEditFormController } from "Components/FormController/CategoryEditFormController";
@@ -7,10 +7,16 @@ import { FormTextField } from "../Forms/FormTextField";
 import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { DrawerDialog } from "Components/Dialog/DrawerDialog";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
+import { ICategoryFormData } from "Types/forms";
 
-const CategoryEditFormDrawer = reduxForm({
-  form: "Category_Edit_Form",
-})(({ handleSubmit, submitting, loading, open, onClose }) => {
+interface IProps extends InjectedFormProps<ICategoryFormData> {
+  loading: boolean;
+  open: boolean;
+  onClose: any;
+}
+
+const CategoryEditFormFields = (props: IProps) => {
+  const { handleSubmit, submitting, loading, open, onClose } = props;
   return (
     <DrawerDialog
       open={open}
@@ -18,8 +24,7 @@ const CategoryEditFormDrawer = reduxForm({
       onClose={onClose}
       onSubmit={handleSubmit}
       submitting={submitting}
-      submitLabel="Edit"
-    >
+      submitLabel="Edit">
       {loading ? (
         <FormSkeleton fieldCount={2} />
       ) : (
@@ -45,11 +50,15 @@ const CategoryEditFormDrawer = reduxForm({
       )}
     </DrawerDialog>
   );
-});
+};
+
+const CategoryEditFormDrawer = reduxForm<ICategoryFormData, IProps>({
+  form: "Category_Edit_Form",
+})(CategoryEditFormFields);
 
 export const CategoryEditView = () => {
-  const { id } = useParams();
-  const [open, setOpen] = useState(true);
+  const { id } = useParams<{ id: string }>();
+  const [open, setOpen] = useState<boolean>(true);
   const history = useHistory();
 
   const onClose = () => {
@@ -60,7 +69,7 @@ export const CategoryEditView = () => {
   return (
     <DashboardLayout>
       <CategoryEditFormController categoryId={id}>
-        {(props) => (
+        {(props: any) => (
           <CategoryEditFormDrawer {...props} open={open} onClose={onClose} />
         )}
       </CategoryEditFormController>

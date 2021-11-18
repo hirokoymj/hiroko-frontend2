@@ -5,7 +5,7 @@ import { Dispatch } from "redux";
 
 import { CREATE_CATEGORY } from "Mutations/Category";
 import { CATEGORIES } from "Queries/Category";
-import { ICreateCategory, ICategory } from "Types/api/Category";
+import { ICreateCategoryVars, ICategory } from "Types/api/Category";
 import { ICategoryFormData } from "Types/forms";
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 export const CategoryFormController = ({ children }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [createCategory] = useMutation<ICategory, ICreateCategory>(
+  const [createCategory] = useMutation<ICategory, ICreateCategoryVars>(
     CREATE_CATEGORY,
     {
       refetchQueries: [

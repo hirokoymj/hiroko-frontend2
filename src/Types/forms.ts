@@ -1,7 +1,7 @@
 import { ICategory } from "Types/api/Category";
 import { ISubCategory } from "Types/api/SubCategory";
 import { ITopic } from "Types/api/Topic";
-import { InjectedFormProps } from "redux-form";
+import { ICoord } from "Types/api/DailyForcast";
 
 export type ICategoryFormData = Pick<ICategory, "name" | "abbr">;
 
@@ -14,6 +14,6 @@ export type TTopicFormData = Pick<ITopic, "url" | "title"> & {
   subCategory: string;
 };
 
-export type TCategoryFormField = InjectedFormProps<ICategoryFormData>;
-
-// type InjectedProps = InjectedFormProps<TestFormData, TestFormComponentProps>;
+export type TDailyForecasetFormData = Pick<ICoord, "lat" | "lon"> & {
+  myCity: string;
+};

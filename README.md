@@ -52,6 +52,8 @@ http://localhost:3000/
 
 1. Installing necessary packages.
 
+https://create-react-app.dev/docs/adding-typescript/
+
 ```js
 yarn add typescript @types/node @types/react @types/react-dom @types/jest
 ```

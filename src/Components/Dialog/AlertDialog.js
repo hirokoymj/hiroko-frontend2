@@ -50,6 +50,8 @@ export const AlertDialog = ({
   action,
   actionLabel,
   onClose,
+  cancelLabel,
+  cancel,
 }) => {
   const classes = useStyles();
 
@@ -60,8 +62,7 @@ export const AlertDialog = ({
         <IconButton
           aria-label="close"
           className={classes.closeButton}
-          onClick={onClose}
-        >
+          onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -75,17 +76,15 @@ export const AlertDialog = ({
           color="primary"
           variant="outlined"
           className={classes.actionButton}
-          onClick={onClose}
-        >
-          Cancel
+          onClick={onClose}>
+          {cancelLabel | "Cancel"}
         </Button>
         <Button
           type="submit"
           variant="contained"
           color="primary"
           onClick={action}
-          className={classes.actionButton}
-        >
+          className={classes.actionButton}>
           {actionLabel}
         </Button>
       </DialogActions>

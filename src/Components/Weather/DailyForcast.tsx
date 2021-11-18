@@ -14,6 +14,7 @@ import blue from "@material-ui/core/colors/blue";
 
 import { DAILY_FORECAST } from "Queries/Weather";
 import { DailyForecastSkeleton } from "Components/Skeleton/WeatherSkeleton";
+import { IDailyForecast, IDailyForcastVars } from "Types/api/DailyForcast";
 
 const useStyles = makeStyles((theme) => ({
   forecastDate: {
@@ -47,14 +48,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const DailyForecast = ({ city, unit }) => {
+export const DailyForecast = (props: IDailyForcastVars) => {
   const classes = useStyles();
-  const { data, loading } = useQuery(DAILY_FORECAST, {
-    variables: {
-      city,
-      unit,
-    },
-  });
+  const { city, unit } = props;
+  const { data, loading } = useQuery<IDailyForecast, IDailyForcastVars>(
+    DAILY_FORECAST,
+    {
+      variables: {
+        city,
+        unit,
+      },
+    }
+  );
   const { forecastList } = !loading && get(data, "dailyForecast", {});
 
   console.log(data);

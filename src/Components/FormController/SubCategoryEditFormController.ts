@@ -8,11 +8,11 @@ import { Dispatch } from "redux";
 import { UPDATE_SUB_CATEGORY } from "Mutations/SubCategory";
 import { SUB_CATEGORY_BY_ID } from "Queries/SubCategory";
 import { CATEGORIES } from "Queries/Category";
-import { ICategories } from "Types/api/Category";
+import { ICategoriesVars, ICategoryFeed } from "Types/api/Category";
 import {
   ISubCategory,
-  IUpdateSubCategory,
-  ISubCategoryById,
+  IUpdateSubCategoryVars,
+  ISubCategoryByIdVars,
 } from "Types/api/SubCategory";
 import { TSubCategoryFormData } from "Types/forms";
 import { IDropdownOption } from "Types/common";
@@ -28,13 +28,15 @@ export const SubCategoryEditFormController = ({
 }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
-  const [updateSubCategory] = useMutation<ISubCategory, IUpdateSubCategory>(
+  const [updateSubCategory] = useMutation<ISubCategory, IUpdateSubCategoryVars>(
     UPDATE_SUB_CATEGORY
   );
-  const { data, loading } = useQuery<ICategories>(CATEGORIES);
+  const { data, loading } = useQuery<ICategoryFeed, ICategoriesVars>(
+    CATEGORIES
+  );
   const { data: data_sub_category, loading: loading_sub_category } = useQuery<
     ISubCategory,
-    ISubCategoryById
+    ISubCategoryByIdVars
   >(SUB_CATEGORY_BY_ID, {
     variables: {
       id: subCategoryId,

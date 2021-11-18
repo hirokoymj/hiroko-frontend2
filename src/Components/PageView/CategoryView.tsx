@@ -18,7 +18,7 @@ import { DELETE_CATEGORY } from "Mutations/Category";
 import { CATEGORIES } from "Queries/Category";
 import { Title } from "Components/Titles/Title";
 import { CategoryEditView } from "Components/PageView/CategoryEditView";
-import { ICategoryFormData, TCategoryFormField } from "Types/forms";
+import { ICategoryFormData } from "Types/forms";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -30,8 +30,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CategoryFormFields = ({ onSubmit, submitting }) => {
+type CategoryFormFieldsProps = InjectedFormProps<ICategoryFormData>;
+
+const CategoryFormFields = (props: CategoryFormFieldsProps) => {
   const classes = useStyles();
+  const { handleSubmit, submitting } = props;
 
   return (
     <>
@@ -55,7 +58,7 @@ const CategoryFormFields = ({ onSubmit, submitting }) => {
         variant="contained"
         color="secondary"
         disabled={submitting}
-        onClick={onSubmit}
+        onClick={handleSubmit}
         className={classes.button}>
         {submitting ? "Submitting" : "Submit"}
       </Button>
@@ -63,19 +66,14 @@ const CategoryFormFields = ({ onSubmit, submitting }) => {
   );
 };
 
-interface ICategoryFormFieldsProps {
-  onSubmit: any;
-}
-const CategoryForm = reduxForm<ICategoryFormData, ICategoryFormFieldsProps>({
+const CategoryForm = reduxForm<ICategoryFormData>({
   form: "Category_Form",
-})(({ handleSubmit, submitting }) => {
-  return <CategoryFormFields onSubmit={handleSubmit} submitting={submitting} />;
-});
+})(CategoryFormFields);
 
 export const CategoryView = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const [open, setOpen] = useState(false);
-  const [categoryId, setCategoryId] = useState("");
+  const [open, setOpen] = useState<boolean>(false);
+  const [categoryId, setCategoryId] = useState<string>("");
   const [deleteCategory] = useMutation(DELETE_CATEGORY, {
     refetchQueries: [
       {
@@ -88,7 +86,7 @@ export const CategoryView = () => {
 
   const handleClose = () => setOpen(false);
 
-  const handleOpen = (e, id) => {
+  const handleOpen = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
     e.preventDefault();
     setCategoryId(id);
     setOpen(true);
@@ -121,7 +119,7 @@ export const CategoryView = () => {
             <Paper>
               <Title text="Create Category" />
               <CategoryFormController>
-                {(props) => <CategoryForm {...props} />}
+                {(props: any) => <CategoryForm {...props} />}
               </CategoryFormController>
             </Paper>
           </Grid>
