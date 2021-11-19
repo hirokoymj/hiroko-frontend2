@@ -40,7 +40,7 @@ type Props = typeof mapDispatchToProps & {
   fullWidth?: boolean;
   title?: string;
 };
-type StyleProps = Pick<Props, "fullWidth">;
+// type StyleProps = Pick<Props, "fullWidth">;
 
 const DashboardLayoutController = (props: Props) => {
   const { setTitle, children, maxWidth, fullWidth, title } = props;

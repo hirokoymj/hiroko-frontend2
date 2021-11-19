@@ -13,7 +13,6 @@ import { SubCategoryFormController } from "Components/FormController/SubCategory
 import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSelect } from "Components/Forms/FormSelect";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
-import { Title } from "Components/Titles/Title";
 import { SubCategoryTable } from "Components/Tables/SubCategoryTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_SUB_CATEGORY } from "Mutations/SubCategory";
