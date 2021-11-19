@@ -4,9 +4,9 @@ import Link from "@material-ui/core/Link";
 import IconButton from "@material-ui/core/IconButton";
 import EmailIcon from "@material-ui/icons/Email";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   footer: {
     padding: theme.spacing(2),
     bottom: 0,
@@ -19,7 +19,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const IconButtonLink = ({ icon, to }) => {
+type IconButtonLinkProps = {
+  icon: React.ReactNode;
+  to: string;
+};
+const IconButtonLink = ({ icon, to }: IconButtonLinkProps) => {
   const classes = useStyles();
 
   return (
