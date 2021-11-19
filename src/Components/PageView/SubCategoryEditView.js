@@ -29,8 +29,7 @@ const SubCategoryEditFormDrawer = reduxForm({
         onClose={onClose}
         onSubmit={handleSubmit}
         submitting={submitting}
-        submitLabel="Edit"
-      >
+        submitLabel="Edit">
         {loading ? (
           <FormSkeleton fieldCount={3} />
         ) : (
@@ -71,7 +70,7 @@ export const SubCategoryEditView = () => {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayout title="Sub Category Edit">
       <SubCategoryEditFormController subCategoryId={id}>
         {(props) => (
           <SubCategoryEditFormDrawer {...props} open={open} onClose={onClose} />

@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import get from "lodash/get";
 import RoomIcon from "@material-ui/icons/Room";
 import Container from "@material-ui/core/Container";
@@ -19,6 +19,11 @@ import { GoogleMap } from "Components/Weather/GoogleMap";
 import { config } from "Config/config";
 import { CURRENT_WEATHER_BY_CITY } from "Queries/Weather";
 import { CurrentWeatherInfoSkeleton } from "Components/Skeleton/WeatherSkeleton";
+import {
+  ICurrentWeatherByCityVars,
+  ICurrentWeather,
+} from "Types/api/CurrentWeather";
+import { TDailyForecasetFormData } from "Types/forms";
 
 const useStyles = makeStyles((theme) => ({
   searchForm: {
@@ -61,11 +66,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CitySearchForm = reduxForm({
-  form: "CITY_SEARCH_FORM",
-})(({ handleSubmit, submitting }) => {
-  const classes = useStyles();
+type ICitySearchFormProps = InjectedFormProps<TDailyForecasetFormData>;
 
+const CitySearchForm = reduxForm<TDailyForecasetFormData>({
+  form: "CITY_SEARCH_FORM",
+})((props: ICitySearchFormProps) => {
+  const classes = useStyles();
+  const { handleSubmit, submitting } = props;
   return (
     <Paper square={true} classes={{ root: classes.root }}>
       <form onSubmit={handleSubmit} className={classes.searchForm}>
@@ -88,9 +95,12 @@ const CitySearchForm = reduxForm({
   );
 });
 
-const CurrentWeatherInfo = ({ city }) => {
+const CurrentWeatherInfo = ({ city }: { city: string }) => {
   const classes = useStyles();
-  const { data, loading } = useQuery(CURRENT_WEATHER_BY_CITY, {
+  const { data, loading } = useQuery<
+    ICurrentWeather,
+    ICurrentWeatherByCityVars
+  >(CURRENT_WEATHER_BY_CITY, {
     variables: {
       city,
     },
@@ -158,7 +168,7 @@ export const DailyForecastView = () => {
   const [geo_lat, setLat] = useState(TOKYO_LOCATION.lat);
   const [geo_lon, setLon] = useState(TOKYO_LOCATION.lon);
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: TDailyForecasetFormData) => {
     try {
       const city = get(values, "myCity.myCity.name", "");
       const lat = get(values, "myCity.myCity.coord.lat", 0);
@@ -186,8 +196,8 @@ export const DailyForecastView = () => {
                 <RoomIcon
                   color="error"
                   fontSize="large"
-                  lat={geo_lat}
-                  lng={geo_lon}
+                  // lat={geo_lat}
+                  // lng={geo_lon}
                 />
               </GoogleMap>
             </div>

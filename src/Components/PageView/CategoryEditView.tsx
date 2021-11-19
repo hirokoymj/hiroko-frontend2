@@ -67,7 +67,7 @@ export const CategoryEditView = () => {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayout title="Category Edit">
       <CategoryEditFormController categoryId={id}>
         {(props: any) => (
           <CategoryEditFormDrawer {...props} open={open} onClose={onClose} />
