@@ -33,7 +33,7 @@ export interface ITopic {
 export interface ITopicByCategoryVars {
   categoryId: string;
 }
-export interface topicByCategoryAbbrVars {
+export interface ITopicByCategoryAbbrVars {
   abbr: string;
 }
 // Mutation

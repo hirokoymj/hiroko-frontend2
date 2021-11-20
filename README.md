@@ -83,8 +83,21 @@ https://www.npmjs.com/package/@types/lodash
 yarn add @types/lodash
 ```
 
-2. Creating tsconfig.json
-3. Install another packages.
+**Q: How to fix the error: `Line 0: Parsing error: Cannot read property 'map' of undefined`**
+
+**A: Installing react-scripts@^4.0.1 and above version.**
+
+```js
+yarn add react-scripts
+```
+
+References:
+
+- [react-scripts](https://www.npmjs.com/package/react-scripts)
+- [StackOverflow: Line 0: Parsing error: Cannot read property 'map' of undefined](https://stackoverflow.com/questions/62079477/line-0-parsing-error-cannot-read-property-map-of-undefined)
+
+1. Creating tsconfig.json
+2. Install another packages.
 
 Redux
 Redux-Form

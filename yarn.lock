@@ -2396,6 +2396,13 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/recompose@^0.30.9":
+  version "0.30.9"
+  resolved "https://registry.yarnpkg.com/@types/recompose/-/recompose-0.30.9.tgz#51bdde3819e8446ec3f36f2070d498af3122f966"
+  integrity sha512-rw72/l+ZJbV5xsSsneGjvTZpTjGR7qFNFUW5jcOJr74n4TYIQLiLLFB8I8FMKM/fusjvGK0/Lmyyg8UEPoqZNQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/redux-form@^8.3.3":
   version "8.3.3"
   resolved "https://registry.yarnpkg.com/@types/redux-form/-/redux-form-8.3.3.tgz#67869d6da2936bb2806509e86356422d2d6eb288"
