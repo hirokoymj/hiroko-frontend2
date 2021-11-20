@@ -4,12 +4,12 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     top: 0,
     height: "calc(100% - 20px)",
@@ -47,6 +47,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type Props = {
+  open: boolean;
+  title: string;
+  onClose: () => void;
+  children: React.ReactNode;
+  submitLabel: string;
+  onSubmit: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  submitting: boolean;
+};
+
 export const DrawerDialog = ({
   open,
   title,
@@ -55,7 +65,7 @@ export const DrawerDialog = ({
   submitLabel,
   onSubmit,
   submitting,
-}) => {
+}: Props) => {
   const classes = useStyles();
 
   return (

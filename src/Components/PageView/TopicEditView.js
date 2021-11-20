@@ -100,7 +100,7 @@ export const TopicEditView = () => {
   };
 
   return (
-    <DashboardLayout>
+    <DashboardLayout title="Topic">
       <TopicEditFormController topicId={id}>
         {(props) => (
           <TopicEditFormDrawer {...props} open={open} onClose={onClose} />

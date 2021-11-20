@@ -5,12 +5,12 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   titleRoot: {
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
     textAlign: "center",
@@ -43,6 +43,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type Props = {
+  open: boolean;
+  title: string;
+  content: string | JSX.Element;
+  action: () => void;
+  actionLabel: string;
+  cancelLabel?: string;
+  cancel?: () => void;
+  onClose: React.MouseEventHandler<HTMLButtonElement> | undefined;
+};
+
 export const AlertDialog = ({
   open,
   title,
@@ -52,7 +63,7 @@ export const AlertDialog = ({
   onClose,
   cancelLabel,
   cancel,
-}) => {
+}: Props) => {
   const classes = useStyles();
 
   return (
@@ -77,7 +88,7 @@ export const AlertDialog = ({
           variant="outlined"
           className={classes.actionButton}
           onClick={onClose}>
-          {cancelLabel | "Cancel"}
+          {cancelLabel}
         </Button>
         <Button
           type="submit"
