@@ -1,9 +1,9 @@
 import React from "react";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   title: {
     marginBottom: theme.spacing(1),
   },
@@ -17,7 +17,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const FormSkeleton = ({ fieldCount }) => {
+type Props = {
+  fieldCount: number;
+};
+
+export const FormSkeleton = ({ fieldCount }: Props) => {
   const classes = useStyles();
 
   var fieldItems = [];
