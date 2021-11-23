@@ -1,15 +1,20 @@
 import { combineReducers } from "redux";
+import { Reducer } from "redux";
 
 import { SET_TITLE, RESET_TITLE } from "./Actions";
 
-const title = (state = "", action) => {
-  switch (action.type) {
+const initialState = "";
+
+const title: Reducer<typeof initialState> = (
+  state = initialState,
+  { type, title }
+) => {
+  switch (type) {
     case SET_TITLE: {
-      const { title } = action;
       return title;
     }
     case RESET_TITLE:
-      return "";
+      return title;
     default:
       return state;
   }

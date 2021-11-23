@@ -96,16 +96,16 @@ References:
 - [react-scripts](https://www.npmjs.com/package/react-scripts)
 - [StackOverflow: Line 0: Parsing error: Cannot read property 'map' of undefined](https://stackoverflow.com/questions/62079477/line-0-parsing-error-cannot-read-property-map-of-undefined)
 
-1. Creating tsconfig.json
-2. Install another packages.
+```js
+yarn add @types/node
+```
 
-Redux
-Redux-Form
-react router dom
+### Redux Toolkit
 
-4. Plan
+https://redux.js.org/redux-toolkit/overview
 
-- Redux state
-- Redux form
-- Query
-- Mutation
+```js
+yarn add @reduxjs/toolkit
+```
+
+### Creating tsconfig.json
