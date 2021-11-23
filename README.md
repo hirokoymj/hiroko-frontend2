@@ -68,12 +68,31 @@ https://www.apollographql.com/docs/react/get-started/
 npm install @apollo/client graphql
 ```
 
+```js
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql,
+} from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "https://48p1r2roz4.sse.codesandbox.io",
+  cache: new InMemoryCache(),
+});
+```
+
+<hr />
+
 **Redux Form**
 https://www.npmjs.com/package/@types/redux-form
 
 ```js
 yarn add @types/redux-form
 ```
+
+<hr />
 
 **Lodash**
 

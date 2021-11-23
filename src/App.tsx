@@ -1,7 +1,6 @@
 import React from "react";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
 import { BrowserRouter } from "react-router-dom";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 import { ReduxProvider } from "Redux/ReduxProvider";
 import { ThemeProvider } from "Styles/ThemeProvider";
@@ -13,6 +12,7 @@ console.log(URI);
 
 const client = new ApolloClient({
   uri: URI,
+  cache: new InMemoryCache(),
 });
 
 const App = () => {
