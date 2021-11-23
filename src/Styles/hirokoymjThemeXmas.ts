@@ -19,7 +19,6 @@ export const hirokoymjThemeXmas = createMuiTheme({
     },
     background: {
       default: "#f2f3f3",
-      light: "#fafafa",
     },
   },
   typography: {

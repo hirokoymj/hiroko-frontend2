@@ -135,4 +135,14 @@ https://www.npmjs.com/package/@types/google-map-react
 yarn add @types/google-map-react
 ```
 
+### Material UI TypeScript
+
+https://www.npmjs.com/package/@types/material-ui
+
+[DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/material-ui)
+
+```js
+yarn add @types/material-ui
+```
+
 ### Creating tsconfig.json
