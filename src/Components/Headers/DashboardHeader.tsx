@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import { useTheme, makeStyles } from "@material-ui/core/styles";
+import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
@@ -13,10 +13,11 @@ import Link from "@material-ui/core/Link";
 
 import { openNavigation } from "Redux/Navigation/ActionCreator";
 import { CurrentWeather } from "Components/Weather/CurrentWeather";
+import { RootState } from "Redux/ReduxProvider";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
     padding: theme.spacing(0, 5, 0, 3),
   },
@@ -58,11 +59,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
 export const DashboardHeader = connect(
-  (state) => ({
+  (state: RootState) => ({
     open: state.navigation.navigationOpen,
     pageTitle: state.pageTitle.title,
   }),
