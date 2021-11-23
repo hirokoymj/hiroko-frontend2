@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react";
 
-export const useCurrentLocation = () => {
-  const [location, setLocation] = useState();
-  const [error, setError] = useState(null);
+interface IPosition {
+  coords: ILocation;
+}
 
-  const handleSuccess = (position) => {
+interface ILocation {
+  latitude: number;
+  longitude: number;
+}
+
+export const useCurrentLocation = () => {
+  const [location, setLocation] = useState<ILocation>();
+  const [error, setError] = useState<string>("");
+
+  const handleSuccess = (position: IPosition) => {
     const { latitude, longitude } = position.coords;
     setLocation({
       latitude,
@@ -12,7 +21,7 @@ export const useCurrentLocation = () => {
     });
   };
 
-  const handleError = (error) => {
+  const handleError = (error: any) => {
     setError(error.message);
   };
 

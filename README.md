@@ -127,4 +127,12 @@ https://redux.js.org/redux-toolkit/overview
 yarn add @reduxjs/toolkit
 ```
 
+### Google Map React
+
+https://www.npmjs.com/package/@types/google-map-react
+
+```js
+yarn add @types/google-map-react
+```
+
 ### Creating tsconfig.json

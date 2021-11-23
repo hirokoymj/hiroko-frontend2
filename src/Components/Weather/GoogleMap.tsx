@@ -3,7 +3,20 @@ import GoogleMapReact from "google-map-react";
 
 import config from "Config/config";
 
-export const GoogleMap = ({ center, zoom, geo_lat, geo_lon, children }) => {
+interface IProps {
+  center: { lat: number; lng: number };
+  zoom: number;
+  geo_lat: number;
+  geo_lon: number;
+  children: React.ReactNode;
+}
+export const GoogleMap = ({
+  center,
+  zoom,
+  geo_lat,
+  geo_lon,
+  children,
+}: IProps) => {
   const { GOOGLE_MAP_API_KEY } = config;
   return (
     <GoogleMapReact
