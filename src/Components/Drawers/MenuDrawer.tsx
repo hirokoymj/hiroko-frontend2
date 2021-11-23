@@ -15,6 +15,7 @@ import {
 } from "Components/Lists/NavigationLists";
 import { closeNavigation } from "Redux/Navigation/ActionCreator";
 import { Logo } from "Components/Layouts/Logo";
+import { RootState } from "Redux/ReduxProvider";
 
 const drawerWidth = 240;
 
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const MenuDrawer = connect(
-  (state) => ({
+  (state: RootState) => ({
     open: state.navigation.navigationOpen,
   }),
   { closeNavigation }
@@ -93,7 +94,7 @@ export const MenuDrawer = connect(
 });
 
 export const MobileMenuDrawer = connect(
-  (state) => ({
+  (state: RootState) => ({
     open: state.navigation.navigationOpen,
   }),
   { closeNavigation }
@@ -107,7 +108,7 @@ export const MobileMenuDrawer = connect(
       </div>
       <Divider />
       <List>
-        <TechNavItems setDrawerClosed={closeNavigation} />
+        <TechNavItems />
       </List>
       <Divider />
       <List>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 

@@ -9,11 +9,11 @@ import PhotoCameraOutlinedIcon from "@material-ui/icons/PhotoCameraOutlined";
 import Link from "@material-ui/core/Link";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 
 import { ListItemLink } from "Components/Lists/ListItemLink";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   icon: {
     color: "rgba(0, 0, 0, 0.8)",
     minWidth: "40px",
@@ -24,49 +24,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const TechNavItems = ({ setDrawerClosed }) => {
+export const TechNavItems = () => {
   return (
     <>
       <ListItemLink
         to="/tech"
         text="Tech References"
         icon={<LibraryBooksOutlinedIcon />}
-        onClick={setDrawerClosed && setDrawerClosed}
       />
       <ListItemLink
         to="/categoryList"
         text="Category"
         icon={<ViewAgendaOutlinedIcon />}
-        onClick={setDrawerClosed && setDrawerClosed}
       />
       <ListItemLink
         to="/subCategoryList"
         text="Sub Category"
         icon={<AccountTreeOutlinedIcon />}
-        onClick={setDrawerClosed && setDrawerClosed}
       />
       <ListItemLink
         to="/topicList"
         text="Topic"
         icon={<DescriptionOutlinedIcon />}
-        onClick={setDrawerClosed && setDrawerClosed}
       />
     </>
   );
 };
 
-export const WeatherListItems = ({ setDrawerClosed }) => {
-  return (
-    <ListItemLink
-      to="/forecast"
-      text="Weather Forecast"
-      icon={<WbSunnyOutlinedIcon />}
-      onClick={setDrawerClosed && setDrawerClosed}
-    />
-  );
-};
-
-export const ResumeListItems = ({ setDrawerClosed }) => {
+export const ResumeListItems = () => {
   const classes = useStyles();
 
   return (
@@ -99,13 +84,22 @@ export const ResumeListItems = ({ setDrawerClosed }) => {
   );
 };
 
-export const PhotoListItems = ({ setDrawerClosed }) => {
+export const WeatherListItems = () => {
+  return (
+    <ListItemLink
+      to="/forecast"
+      text="Weather Forecast"
+      icon={<WbSunnyOutlinedIcon />}
+    />
+  );
+};
+
+export const PhotoListItems = () => {
   return (
     <ListItemLink
       to="/photo"
       text="Photos in Japan"
       icon={<PhotoCameraOutlinedIcon />}
-      onClick={setDrawerClosed && setDrawerClosed}
     />
   );
 };

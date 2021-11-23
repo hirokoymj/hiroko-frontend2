@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import { hirokoymjTheme } from "./hirokoymjTheme";
+// import { hirokoymjTheme } from "./hirokoymjTheme";
 import { hirokoymjThemeXmas } from "./hirokoymjThemeXmas";
 
 type Props = {
