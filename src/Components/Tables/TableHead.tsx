@@ -5,7 +5,7 @@ import { Title } from "Components/Titles/Title";
 
 type Props = {
   title: string;
-  filters: { name: string; value: string };
+  filters: [{ name: string; value: string }];
   handleFilterChange: (event: any) => void;
   selectedFilters: [];
   handleDeleteFilter: (value: string) => void;

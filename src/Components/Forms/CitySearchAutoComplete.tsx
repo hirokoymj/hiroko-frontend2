@@ -8,6 +8,7 @@ import { createFilterOptions } from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import { WrappedFieldProps } from "redux-form";
 
 const useStyles = makeStyles((theme) => ({
   flagImg: {
@@ -15,16 +16,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const filterOptions = createFilterOptions({
+const filterOptions: any = createFilterOptions({
   limit: 15,
 });
+
+type Props = WrappedFieldProps & {
+  label: string;
+  className: any;
+};
+
+interface IRenderOption {
+  name: string;
+  country: string;
+}
 
 export const CitySearchAutoComplete = ({
   input,
   label,
   className,
   ...custom
-}) => {
+}: Props) => {
   const classes = useStyles();
   const [options, setOptions] = useState([]);
   const [value, setValue] = React.useState(null);
@@ -43,7 +54,7 @@ export const CitySearchAutoComplete = ({
   return (
     <Autocomplete
       value={value}
-      onChange={(event, newValue, reason) => {
+      onChange={(event, newValue: any, reason: string) => {
         setValue(newValue);
         if (reason === "select-option") {
           setOptions([...options]);
@@ -63,7 +74,7 @@ export const CitySearchAutoComplete = ({
       loading={loading}
       id="city-search"
       options={options}
-      getOptionSelected={(option, value) => {
+      getOptionSelected={(option: any, value: any) => {
         return option.id === value.id;
       }}
       getOptionLabel={(option) => option && option.name}
@@ -93,7 +104,7 @@ export const CitySearchAutoComplete = ({
           />
         );
       }}
-      renderOption={(option) => {
+      renderOption={(option: IRenderOption) => {
         const { name, country } = option;
         return (
           <Grid container alignItems="center">

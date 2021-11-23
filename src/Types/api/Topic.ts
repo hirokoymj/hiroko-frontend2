@@ -9,8 +9,8 @@ import { ISubCategory } from "Types/api/SubCategory";
 // Query
 export interface ITopicsVars {
   limit?: number;
-  cursor?: string;
-  filter?: [string];
+  cursor?: string | null;
+  filter?: any;
 }
 export interface ITopicFeed {
   topicFeed: [ITopic];
