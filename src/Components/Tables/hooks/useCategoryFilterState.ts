@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 
@@ -9,7 +9,7 @@ type TCategoryOption = Pick<ICategory, "name" | "id">;
 
 export const useCategoryFilterState = () => {
   const { data, loading: category_loading } = useQuery<ICategory>(CATEGORY_ALL);
-  const [selectedFilters, setSelectedFilters] = React.useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
   const categories = !category_loading && get(data, "categoryAll");
   const filters =
     !category_loading &&
