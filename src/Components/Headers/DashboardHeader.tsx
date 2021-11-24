@@ -59,13 +59,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const DashboardHeader = connect(
-  (state: RootState) => ({
+const mapStateToProps = (state: RootState) => {
+  return {
     open: state.navigation.navigationOpen,
     pageTitle: state.pageTitle.title,
-  }),
-  { openNavigation }
-)(({ openNavigation, open, pageTitle }) => {
+  };
+};
+
+const mapDispatchToProps = {
+  openNavigation,
+};
+
+type IProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+
+export const DashboardHeaderController = (props: IProps) => {
+  const { openNavigation, open, pageTitle } = props;
   const classes = useStyles();
 
   const theme = useTheme();
@@ -77,10 +85,9 @@ export const DashboardHeader = connect(
           <Toolbar>
             <IconButton
               edge="start"
-              className={classes.mobileMenuButton}
+              classes={{ root: classes.mobileMenuButton }}
               color="inherit"
-              aria-label="menu"
-              onClick={openNavigation}>
+              onClick={() => openNavigation}>
               <MenuIcon />
             </IconButton>
             <Typography
@@ -101,12 +108,13 @@ export const DashboardHeader = connect(
             <IconButton
               edge="start"
               color="inherit"
-              aria-label="open drawer"
-              onClick={openNavigation}
-              className={clsx(
-                classes.menuButton,
-                open && classes.menuButtonHidden
-              )}>
+              onClick={() => openNavigation}
+              classes={{
+                root: clsx(
+                  classes.menuButton,
+                  open && classes.menuButtonHidden
+                ),
+              }}>
               <MenuIcon />
             </IconButton>
             <Typography
@@ -131,4 +139,9 @@ export const DashboardHeader = connect(
       )}
     </>
   );
-});
+};
+
+export const DashboardHeader = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DashboardHeaderController);

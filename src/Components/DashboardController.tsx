@@ -19,6 +19,7 @@ import {
   openNavigation,
 } from "Redux/Navigation/ActionCreator";
 import { PhotoView } from "Components/PageView/PhotoView";
+import { RootState } from "Redux/ReduxProvider";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,10 +33,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const DashboardController = connect(null, {
+const mapDispatchToProps = {
   closeNavigation,
   openNavigation,
-})(({ closeNavigation, openNavigation }) => {
+};
+
+type Props = typeof mapDispatchToProps & {};
+
+export const DashboardRoutes: React.FC<Props> = (props) => {
+  const { closeNavigation, openNavigation } = props;
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
@@ -74,4 +80,9 @@ export const DashboardController = connect(null, {
       </SnackbarProvider>
     </div>
   );
-});
+};
+
+export const DashboardController = connect(
+  null,
+  mapDispatchToProps
+)(DashboardRoutes);

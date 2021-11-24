@@ -56,12 +56,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const MenuDrawer = connect(
-  (state: RootState) => ({
+const mapStateToProps = (state: RootState) => {
+  return {
     open: state.navigation.navigationOpen,
-  }),
-  { closeNavigation }
-)(({ closeNavigation, open }) => {
+  };
+};
+
+const mapDispatchToProps = {
+  closeNavigation,
+};
+type IProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+
+export const MenuDrawerController = (props: IProps) => {
+  const { closeNavigation, open } = props;
   const classes = useStyles();
 
   return (
@@ -91,14 +98,10 @@ export const MenuDrawer = connect(
       </List>
     </Drawer>
   );
-});
+};
 
-export const MobileMenuDrawer = connect(
-  (state: RootState) => ({
-    open: state.navigation.navigationOpen,
-  }),
-  { closeNavigation }
-)(({ closeNavigation, open }) => {
+export const MobileMenuDrawerController = (props: IProps) => {
+  const { closeNavigation, open } = props;
   const classes = useStyles();
 
   return (
@@ -120,4 +123,14 @@ export const MobileMenuDrawer = connect(
       </List>
     </Drawer>
   );
-});
+};
+
+export const MenuDrawer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MenuDrawerController);
+
+export const MobileMenuDrawer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MobileMenuDrawerController);
