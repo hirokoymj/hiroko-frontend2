@@ -4,24 +4,30 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import MenuItem from "@material-ui/core/MenuItem";
+import { WrappedFieldProps } from "redux-form";
+
+type Props = WrappedFieldProps & {
+  label: string;
+  options: [];
+  variant: "filled" | "outlined" | "standard";
+  margin: "dense" | "none" | "normal";
+};
 
 export const FormSelect = ({
   input,
   label,
   meta: { touched, error },
   options,
-  defaultValue,
   variant,
   margin,
   ...custom
-}) => {
+}: Props) => {
   return (
     <FormControl
       error={touched && error}
       fullWidth
       variant={variant}
-      margin={margin ? margin : ""}
-    >
+      margin={margin && margin}>
       <InputLabel id={input.name}>{label}</InputLabel>
       <Select
         labelId={input.name}
@@ -33,8 +39,7 @@ export const FormSelect = ({
           onBlur: input.onBlur,
         }}
         label={label}
-        {...custom}
-      >
+        {...custom}>
         {options.map(({ value, label }) => (
           <MenuItem key={value} value={value}>
             {label}

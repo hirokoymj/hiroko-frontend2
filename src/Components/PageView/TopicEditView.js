@@ -28,9 +28,6 @@ const TopicEditFormDrawer = compose(
     onClose,
     categoryId,
   }) => {
-    console.log("TopicEditFormDrawer");
-    console.log(subCategory_options);
-    console.log(categoryId);
     return (
       <>
         <DrawerDialog
@@ -90,7 +87,6 @@ const TopicEditFormDrawer = compose(
 
 export const TopicEditView = () => {
   const { id } = useParams();
-  console.log(id);
   const [open, setOpen] = useState(true);
   const history = useHistory();
 

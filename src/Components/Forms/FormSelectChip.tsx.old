@@ -32,15 +32,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface IFilterOption {
-  name: any;
-  value: any;
+  name: string;
+  value: string;
 }
 
 type Props = {
-  filters: any;
+  filters: [{ name: string; value: string }];
   handleFilterChange: (event: any) => void;
   selectedFilters: [];
-  handleDeleteFilter: any;
+  handleDeleteFilter: (value: string) => void;
   filterLabel: string;
 };
 /*
@@ -68,12 +68,12 @@ export const FormSelectChip = ({
         input={<Input />}
         renderValue={(selected: any) => (
           <div className={classes.chips}>
-            {selected.map((value: any) => {
+            {selected.map((value: string) => {
               return (
                 <Chip
                   key={value}
                   label={filters.find((d) => d.value === value).name}
-                  onDelete={handleDeleteFilter(value)}
+                  onDelete={() => handleDeleteFilter(value)}
                   onMouseDown={(event: any) => event.stopPropagation()}
                   color="primary"
                 />
@@ -81,7 +81,7 @@ export const FormSelectChip = ({
             })}
           </div>
         )}>
-        {filters.map(({ name, value }: IFilterOption) => {
+        {filters.map(({ name, value }) => {
           return (
             <MenuItem key={value} value={value}>
               <Checkbox checked={selectedFilters.indexOf(value) > -1} />
