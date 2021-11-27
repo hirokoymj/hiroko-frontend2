@@ -86,8 +86,7 @@ export const CategoryView = () => {
 
   const handleClose = () => setOpen(false);
 
-  const handleOpen = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
-    e.preventDefault();
+  const handleOpen = (id: string) => {
     setCategoryId(id);
     setOpen(true);
   };

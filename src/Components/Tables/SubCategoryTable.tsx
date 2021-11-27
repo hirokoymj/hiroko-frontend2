@@ -9,9 +9,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { Table } from "Components/Tables/Table";
 import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
-import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
+import { ActionButton } from "Components/Buttons/ActionButton";
 import { useCategoryFilterState } from "Components/Tables/hooks/useCategoryFilterState";
 import { TableHead } from "Components/Tables/TableHead";
+import { IActionProps } from "Types/common";
+import { ISubCategoriesVars, ISubCategoryFeed } from "Types/api/SubCategory";
+import { IPageInfo } from "Types/api/Category";
+import { ApolloError } from "apollo-client";
 
 const useStyles = makeStyles((theme) => ({
   loadMoreButton: {
@@ -24,7 +28,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useLoadMore = (loading, error, fetchMore, pageInfo) => {
+interface IFetchMoreResult {
+  subCategories: ISubCategoryFeed;
+}
+
+const useLoadMore = (
+  loading: boolean,
+  error: ApolloError | undefined,
+  fetchMore: Function,
+  pageInfo: IPageInfo
+) => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const { hasNextPage, endCursor } = pageInfo;
   const limit = 5;
@@ -35,7 +48,10 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
         setIsLoadingMore(true);
         fetchMore({
           variables: { cursor: endCursor, limit },
-          updateQuery: (prevResult, { fetchMoreResult }) => {
+          updateQuery: (
+            prevResult: IFetchMoreResult,
+            { fetchMoreResult }: any
+          ) => {
             fetchMoreResult.subCategories.subCategoryFeed = [
               ...prevResult.subCategories.subCategoryFeed,
               ...fetchMoreResult.subCategories.subCategoryFeed,
@@ -51,7 +67,9 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
   return { fetchMoreData, isLoadingMore, hasNextPage };
 };
 
-export const SubCategoryTable = ({ openDialog }) => {
+type ISubCategoryTableProps = Pick<IActionProps, "openDialog">;
+
+export const SubCategoryTable = ({ openDialog }: ISubCategoryTableProps) => {
   const classes = useStyles();
   const {
     category_loading,
@@ -60,9 +78,12 @@ export const SubCategoryTable = ({ openDialog }) => {
     handleFilterChange,
     handleDeleteFilter,
   } = useCategoryFilterState();
-  const { data, loading, error, fetchMore } = useQuery(SUB_CATEGORIES, {
+  const { data, loading, error, fetchMore } = useQuery<
+    ISubCategoryFeed,
+    ISubCategoriesVars
+  >(SUB_CATEGORIES, {
     variables: {
-      cursor: null,
+      cursor: "",
       limit: 5,
       ...(selectedFilters.length !== 0 && {
         filter: selectedFilters,
@@ -90,7 +111,7 @@ export const SubCategoryTable = ({ openDialog }) => {
             title="Edit Sub Category"
             icon="edit"
           />
-          <ActionLinkButton onClick={(e) => openDialog(e, id)} icon="delete" />
+          <ActionButton onClick={() => openDialog(id)} icon="delete" />
         </>
       );
       const created = moment(createdAt).format("MM/DD/YYYY");
@@ -116,7 +137,6 @@ export const SubCategoryTable = ({ openDialog }) => {
       ) : (
         <>
           <TableHead
-            loading={loading || category_loading}
             title="Sub Category List"
             filters={filters}
             handleFilterChange={handleFilterChange}

@@ -134,8 +134,7 @@ export const TopicView = () => {
 
   const handleClose = () => setOpen(false);
 
-  const handleOpen = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
-    e.preventDefault();
+  const handleOpen = (id: string) => {
     setTopicId(id);
     setOpen(true);
   };

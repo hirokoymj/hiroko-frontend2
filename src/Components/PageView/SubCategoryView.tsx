@@ -99,8 +99,7 @@ export const SubCategoryView = () => {
 
   const handleClose = () => setOpen(false);
 
-  const handleOpen = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
-    e.preventDefault();
+  const handleOpen = (id: string) => {
     setSubCategoryId(id);
     setOpen(true);
   };

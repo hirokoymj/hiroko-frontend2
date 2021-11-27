@@ -8,7 +8,7 @@
 export interface ICategoriesVars {
   limit: number;
   cursor: string;
-  filter: [string];
+  filter?: any;
 }
 export interface ICategoryFeed {
   categoryFeed: [ICategory];

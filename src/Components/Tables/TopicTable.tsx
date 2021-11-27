@@ -5,7 +5,7 @@ import map from "lodash/map";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 
 import { TOPICS } from "Queries/Topic";
 import { Table } from "Components/Tables/Table";
@@ -13,8 +13,12 @@ import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
 import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
 import { useCategoryFilterState } from "Components/Tables/hooks/useCategoryFilterState";
 import { TableHead } from "Components/Tables/TableHead";
+import { IActionProps } from "Types/common";
+import { ITopicsVars, ITopicFeed } from "Types/api/Topic";
+import { IPageInfo } from "Types/api/Category";
+import { ApolloError } from "apollo-client";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   loadMoreButton: {
     width: "30%",
     margin: "auto",
@@ -26,8 +30,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useLoadMore = (loading, error, fetchMore, pageInfo) => {
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
+interface IFetchMoreResult {
+  topics: ITopicFeed;
+}
+
+const useLoadMore = (
+  loading: boolean,
+  error: ApolloError | undefined,
+  fetchMore: Function,
+  pageInfo: IPageInfo
+) => {
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const { hasNextPage, endCursor } = pageInfo;
   const limit = 5;
 
@@ -37,7 +50,10 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
         setIsLoadingMore(true);
         fetchMore({
           variables: { cursor: endCursor, limit },
-          updateQuery: (prevResult, { fetchMoreResult }) => {
+          updateQuery: (
+            prevResult: IFetchMoreResult,
+            { fetchMoreResult }: any
+          ) => {
             fetchMoreResult.topics.topicFeed = [
               ...prevResult.topics.topicFeed,
               ...fetchMoreResult.topics.topicFeed,
@@ -53,7 +69,9 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
   return { fetchMoreData, isLoadingMore, hasNextPage };
 };
 
-export const TopicTable = ({ openDialog }) => {
+type ITopicTableProps = Pick<IActionProps, "openDialog">;
+
+export const TopicTable = ({ openDialog }: ITopicTableProps) => {
   const classes = useStyles();
   const {
     category_loading,
@@ -62,15 +80,18 @@ export const TopicTable = ({ openDialog }) => {
     handleFilterChange,
     handleDeleteFilter,
   } = useCategoryFilterState();
-  const { data, loading, error, fetchMore } = useQuery(TOPICS, {
-    variables: {
-      cursor: null,
-      limit: 5,
-      ...(selectedFilters.length !== 0 && {
-        filter: selectedFilters,
-      }),
-    },
-  });
+  const { data, loading, error, fetchMore } = useQuery<ITopicFeed, ITopicsVars>(
+    TOPICS,
+    {
+      variables: {
+        cursor: null,
+        limit: 5,
+        ...(selectedFilters.length !== 0 && {
+          filter: selectedFilters,
+        }),
+      },
+    }
+  );
 
   const topics = !loading && get(data, "topics.topicFeed", []);
   const pageInfo = !loading && get(data, "topics.pageInfo", {});
@@ -105,7 +126,7 @@ export const TopicTable = ({ openDialog }) => {
             title="Edit Topic"
             icon="edit"
           />
-          <ActionLinkButton onClick={(e) => openDialog(e, id)} icon="delete" />
+          <ActionLinkButton onClick={() => openDialog(id)} icon="delete" />
         </>
       );
       const created = moment(createdAt).format("MM/DD/YYYY");
@@ -131,7 +152,6 @@ export const TopicTable = ({ openDialog }) => {
       ) : (
         <>
           <TableHead
-            loading={loading || category_loading}
             title="Topic List"
             filters={filters}
             handleFilterChange={handleFilterChange}

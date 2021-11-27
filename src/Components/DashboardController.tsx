@@ -19,7 +19,6 @@ import {
   openNavigation,
 } from "Redux/Navigation/ActionCreator";
 import { PhotoView } from "Components/PageView/PhotoView";
-import { RootState } from "Redux/ReduxProvider";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -7,9 +7,9 @@ type Props = {
   title: string;
   filters: [{ name: string; value: string }];
   handleFilterChange: (event: any) => void;
-  selectedFilters: [];
+  selectedFilters?: string[];
   handleDeleteFilter: (value: string) => void;
-  filterLabel: string;
+  filterLabel?: string;
 };
 
 export const TableHead = ({

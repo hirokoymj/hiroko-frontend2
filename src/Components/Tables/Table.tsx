@@ -7,17 +7,18 @@ import TableRow from "@material-ui/core/TableRow";
 
 import { TableSkeleton } from "Components/Skeleton/TableSkeleton";
 
+interface IColmun {
+  label: string;
+  field: string;
+  align?: "left" | "center" | "right" | "justify";
+}
+interface IColmunItems extends Array<IColmun> {}
+
 type IProps = {
-  data: [];
-  colmuns: [
-    {
-      label: string;
-      align: "inherit" | "left" | "center" | "right" | "justify";
-      field: string;
-    }
-  ];
+  data: any;
+  colmuns: IColmunItems;
   loading: boolean;
-  hover: boolean;
+  hover?: boolean;
 };
 export const Table = ({ data, colmuns, loading, hover }: IProps) => {
   return (
@@ -42,7 +43,7 @@ export const Table = ({ data, colmuns, loading, hover }: IProps) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((d, index) => {
+              {data.map((d: any, index: number) => {
                 return (
                   <TableRow key={index} hover={hover}>
                     {colmuns.map((col, key) => {

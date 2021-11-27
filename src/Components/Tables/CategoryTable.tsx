@@ -9,9 +9,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CATEGORIES } from "Queries/Category";
 import { Table } from "Components/Tables/Table";
 import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
-import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
+import { ActionButton } from "Components/Buttons/ActionButton";
 import { TableHead } from "Components/Tables/TableHead";
 import { useCategoryFilterState } from "Components/Tables/hooks/useCategoryFilterState";
+import { ICategoriesVars, ICategoryFeed, IPageInfo } from "Types/api/Category";
+import { ApolloError } from "apollo-client";
+import { IActionProps } from "Types/common";
 
 const useStyles = makeStyles((theme) => ({
   loadMoreButton: {
@@ -24,8 +27,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const useLoadMore = (loading, error, fetchMore, pageInfo) => {
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
+interface IFetchMoreResult {
+  categories: ICategoryFeed;
+}
+
+const useLoadMore = (
+  loading: boolean,
+  error: ApolloError | undefined,
+  fetchMore: Function,
+  pageInfo: IPageInfo
+) => {
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const { hasNextPage, endCursor } = pageInfo;
   const limit = 5;
 
@@ -35,7 +47,10 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
         setIsLoadingMore(true);
         fetchMore({
           variables: { cursor: endCursor, limit },
-          updateQuery: (prevResult, { fetchMoreResult }) => {
+          updateQuery: (
+            prevResult: IFetchMoreResult,
+            { fetchMoreResult }: any
+          ) => {
             fetchMoreResult.categories.categoryFeed = [
               ...prevResult.categories.categoryFeed,
               ...fetchMoreResult.categories.categoryFeed,
@@ -51,7 +66,9 @@ const useLoadMore = (loading, error, fetchMore, pageInfo) => {
   return { fetchMoreData, isLoadingMore, hasNextPage };
 };
 
-export const CategoryTable = ({ openDialog }) => {
+type ICategoryTableProps = Pick<IActionProps, "openDialog">;
+
+export const CategoryTable = ({ openDialog }: ICategoryTableProps) => {
   const classes = useStyles();
   const {
     category_loading,
@@ -60,9 +77,12 @@ export const CategoryTable = ({ openDialog }) => {
     handleFilterChange,
     handleDeleteFilter,
   } = useCategoryFilterState();
-  const { data, loading, error, fetchMore } = useQuery(CATEGORIES, {
+  const { data, loading, error, fetchMore } = useQuery<
+    ICategoryFeed,
+    ICategoriesVars
+  >(CATEGORIES, {
     variables: {
-      cursor: null,
+      cursor: "",
       limit: 5,
       ...(selectedFilters.length !== 0 && {
         filter: selectedFilters,
@@ -71,6 +91,7 @@ export const CategoryTable = ({ openDialog }) => {
   });
   const categories = !loading && get(data, "categories.categoryFeed", []);
   const pageInfo = !loading && get(data, "categories.pageInfo", {});
+  const hooksParams = { loading, error, fetchMore, pageInfo };
   const { isLoadingMore, fetchMoreData, hasNextPage } = useLoadMore(
     loading,
     error,
@@ -88,7 +109,7 @@ export const CategoryTable = ({ openDialog }) => {
             title="Edit Category"
             icon="edit"
           />
-          <ActionLinkButton onClick={(e) => openDialog(e, id)} icon="delete" />
+          <ActionButton onClick={() => openDialog(id)} icon="delete" />
         </>
       );
       const created = moment(createdAt).format("MM/DD/YYYY");
@@ -112,7 +133,6 @@ export const CategoryTable = ({ openDialog }) => {
       ) : (
         <>
           <TableHead
-            loading={loading || category_loading}
             title="Category List"
             filters={filters}
             handleFilterChange={handleFilterChange}
