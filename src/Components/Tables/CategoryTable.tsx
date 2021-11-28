@@ -91,7 +91,6 @@ export const CategoryTable = ({ openDialog }: ICategoryTableProps) => {
   });
   const categories = !loading && get(data, "categories.categoryFeed", []);
   const pageInfo = !loading && get(data, "categories.pageInfo", {});
-  const hooksParams = { loading, error, fetchMore, pageInfo };
   const { isLoadingMore, fetchMoreData, hasNextPage } = useLoadMore(
     loading,
     error,

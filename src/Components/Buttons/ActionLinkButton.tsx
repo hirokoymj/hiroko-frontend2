@@ -1,9 +1,7 @@
 import React from "react";
-import Link from "@material-ui/core/Link";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
-import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme: Theme) => ({
   iconButtonRoot: {
@@ -21,8 +19,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 400,
   },
 }));
-
-type TMouseEvent = React.MouseEvent<HTMLButtonElement>;
 
 type Props = {
   icon: string;
