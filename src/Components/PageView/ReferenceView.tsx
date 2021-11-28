@@ -5,25 +5,31 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { ReferenceListView } from "Components/PageView/ReferenceListView";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
+  tabsRoot: {
+    color: "#000",
+    fontWeight: "bold",
+  },
+  indicatorColor: {
+    background: `${theme.palette.secondary.dark}`,
+  },
+  tab: {
+    textTransform: "none",
+    fontSize: "1.1rem",
+  },
   activeTab: {
     backgroundImage: `linear-gradient(${theme.palette.secondary.light} 0%,${theme.palette.secondary.dark} 100%)`,
     color: theme.palette.secondary.contrastText,
   },
-  tab: {
-    textTransform: "none",
-    fontSize: "1rem",
-  },
-  indicatorColor: theme.palette.secondary.dark,
 }));
 
 export const ReferenceView = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const classes = useStyles({ activeTab });
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const classes = useStyles();
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setActiveTab(newValue);
   };
 
@@ -33,50 +39,57 @@ export const ReferenceView = () => {
         <Tabs
           value={activeTab}
           onChange={handleTabChange}
-          indicatorColor={classes.indicatorColor}
-          textColor="#000"
           variant="scrollable"
           scrollButtons="on"
-          fullWidth>
+          aria-label="techTabs"
+          classes={{
+            root: classes.tabsRoot,
+            indicator: classes.indicatorColor,
+          }}>
           <Tab
             label="React"
             component={Link}
             to="/tech/react"
-            className={clsx(classes.tab, {
-              [classes.activeTab]: activeTab === 0,
-            })}
+            value={0}
+            classes={{
+              root: clsx(classes.tab, activeTab === 0 && classes.activeTab),
+            }}
           />
           <Tab
             label="JavaScript"
             component={Link}
             to="/tech/js"
-            className={clsx(classes.tab, {
-              [classes.activeTab]: activeTab === 1,
-            })}
+            value={1}
+            classes={{
+              root: clsx(classes.tab, activeTab === 1 && classes.activeTab),
+            }}
           />
           <Tab
             label="GraphQL"
             component={Link}
             to="/tech/graphQL"
-            className={clsx(classes.tab, {
-              [classes.activeTab]: activeTab === 2,
-            })}
+            value={2}
+            classes={{
+              root: clsx(classes.tab, activeTab === 2 && classes.activeTab),
+            }}
           />
           <Tab
             label="Git"
             component={Link}
             to="/tech/git"
-            className={clsx(classes.tab, {
-              [classes.activeTab]: activeTab === 3,
-            })}
+            value={3}
+            classes={{
+              root: clsx(classes.tab, activeTab === 3 && classes.activeTab),
+            }}
           />
           <Tab
             label="HTML/CSS"
             component={Link}
             to="/tech/html"
-            className={clsx(classes.tab, {
-              [classes.activeTab]: activeTab === 4,
-            })}
+            value={4}
+            classes={{
+              root: clsx(classes.tab, activeTab === 4 && classes.activeTab),
+            }}
           />
         </Tabs>
       </AppBar>
