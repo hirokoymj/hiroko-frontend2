@@ -12,11 +12,10 @@ interface IColmun {
   field: string;
   align?: "left" | "center" | "right" | "justify";
 }
-interface IColmunItems extends Array<IColmun> {}
 
 type IProps = {
   data: any;
-  colmuns: IColmunItems;
+  colmuns: IColmun[];
   loading: boolean;
   hover?: boolean;
 };
