@@ -61,15 +61,6 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//   closeNavigation: () => {
-//     dispatch(actionCreator.closeNavigation());
-//   },
-//   openNavigation: () => {
-//     dispatch(actionCreator.openNavigation());
-//   },
-// });
-
 const mapDispatchToProps = {
   closeNavigation: actionCreator.closeNavigation,
   openNavigation: actionCreator.openNavigation,
@@ -97,10 +88,6 @@ export const MenuDrawerController = (props: IProps) => {
       <Divider />
       <List>
         <TechNavItems />
-      </List>
-      <Divider />
-      <List>
-        <ResumeListItems />
       </List>
       <Divider />
       <List>
