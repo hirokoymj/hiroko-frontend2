@@ -82,6 +82,7 @@ const CitySearchForm = reduxForm<TDailyForecasetFormData>({
           variant="filled"
           label="Search city"
           className={classes.searchField}
+          helperText="Japan and US only (ex. Tokyo, Los Angeles, Chicago)"
         />
         <Button
           type="submit"

@@ -23,6 +23,7 @@ const filterOptions: any = createFilterOptions({
 type Props = WrappedFieldProps & {
   label: string;
   className: any;
+  helperText: string;
 };
 
 interface IRenderOption {
@@ -34,6 +35,7 @@ export const CitySearchAutoComplete = ({
   input,
   label,
   className,
+  helperText,
   ...custom
 }: Props) => {
   const classes = useStyles();
@@ -87,7 +89,7 @@ export const CitySearchAutoComplete = ({
             label={label}
             variant="outlined"
             className={className}
-            helperText="Japan and US only (ex. Los Angeles, Osaka)"
+            helperText={helperText}
             InputProps={{
               ...params.InputProps,
               className: className,

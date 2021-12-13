@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.dark,
+    },
   },
   menuButtonHidden: {
     display: "none",
@@ -55,6 +58,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   mobileMenuButton: {
     marginRight: theme.spacing(2),
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.dark,
+    },
   },
 }));
 
@@ -73,6 +79,7 @@ type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 export const DashboardHeaderController = (props: Props) => {
   const { openNavigation, closeNavigation, navigation, pageTitle } = props;
   const classes = useStyles();
+  // const navigation = useSelector((state => state.header.navigationOpen);
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
