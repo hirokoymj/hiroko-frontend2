@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { connect } from "react-redux";
-import { setTitle } from "Redux/Title/ActionCreator";
+import { actionCreator } from "Redux/Header/ActionCreator";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -30,24 +30,29 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+// const mapDispatchToProps = (dispatch: Dispatch) => ({
+//   setTitle: (title: string) => dispatch({ type: actions.SET_TITLE, title }),
+// });
+
 const mapDispatchToProps = {
-  setTitle,
+  setTitle: actionCreator.setTitle,
 };
 
 type Props = typeof mapDispatchToProps & {
   children: any;
   maxWidth?: "lg" | "xs" | "sm" | "md" | "xl";
   fullWidth?: boolean;
-  title?: string;
+  title: string;
 };
-// type StyleProps = Pick<Props, "fullWidth">;
 
 const DashboardLayoutController = (props: Props) => {
   const { setTitle, children, maxWidth, fullWidth, title } = props;
   const classes = useStyles({ fullWidth });
-
+  console.log("DashboardLayoutController: " + title);
   useEffect(() => {
-    setTitle(title);
+    if (title) {
+      setTitle(title);
+    }
   }, [setTitle, title]);
 
   return (

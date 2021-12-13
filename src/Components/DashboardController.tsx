@@ -1,4 +1,5 @@
 import React from "react";
+import { Dispatch } from "redux";
 import { Switch, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { SnackbarProvider } from "notistack";
@@ -14,10 +15,11 @@ import { TopicView } from "Components/PageView/TopicView";
 import { ReferenceView } from "Components/PageView/ReferenceView";
 import { PageFooter } from "Components/Layouts/Footer";
 import { DailyForecastView } from "Components/PageView/DailyForecastView";
-import {
-  closeNavigation,
-  openNavigation,
-} from "Redux/Navigation/ActionCreator";
+// import {
+//   closeNavigation,
+//   openNavigation,
+// } from "Redux/Navigation/ActionCreator";
+import { actions } from "Redux/Header/Actions";
 import { PhotoView } from "Components/PageView/PhotoView";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,14 +34,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const mapDispatchToProps = {
-  closeNavigation,
-  openNavigation,
-};
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  closeNavigation: () => {
+    dispatch({ type: actions.CLOSE_NAVIGATION });
+  },
+  openNavigation: () => {
+    dispatch({ type: actions.OPEN_NAVIGATION });
+  },
+});
 
-type Props = typeof mapDispatchToProps & {};
+type DashboardRoutesProps = ReturnType<typeof mapDispatchToProps>;
 
-export const DashboardRoutes: React.FC<Props> = (props) => {
+export const DashboardRoutes = (props: DashboardRoutesProps) => {
   const { closeNavigation, openNavigation } = props;
   const classes = useStyles();
   const theme = useTheme();

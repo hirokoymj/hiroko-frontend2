@@ -4,13 +4,11 @@ import { reducer as formReducer } from "redux-form";
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 
-import navigationReducer from "Redux/Navigation/Reducers";
-import titleReducer from "Redux/Title/Reducers";
+import headerReducer from "Redux/Header/Reducers";
 
 const rootReducer = combineReducers({
   form: formReducer,
-  navigation: navigationReducer,
-  pageTitle: titleReducer,
+  header: headerReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

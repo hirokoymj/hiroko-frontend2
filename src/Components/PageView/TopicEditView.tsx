@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import {
   Field,
-  formValues,
   reduxForm,
   InjectedFormProps,
   formValueSelector,
 } from "redux-form";
-import { compose } from "recompose";
 import { useParams, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 

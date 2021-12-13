@@ -1,4 +1,3 @@
-import React from "react";
 import clsx from "clsx";
 import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -11,9 +10,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
-import { openNavigation } from "Redux/Navigation/ActionCreator";
 import { CurrentWeather } from "Components/Weather/CurrentWeather";
 import { RootState } from "Redux/ReduxProvider";
+import { actionCreator } from "Redux/Header/ActionCreator";
 
 const drawerWidth = 240;
 
@@ -59,21 +58,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    open: state.navigation.navigationOpen,
-    pageTitle: state.pageTitle.title,
-  };
-};
+const mapStateToProps = (state: RootState) => ({
+  navigation: state.header.navigationOpen,
+  pageTitle: state.header.title,
+});
 
 const mapDispatchToProps = {
-  openNavigation,
+  openNavigation: actionCreator.openNavigation,
+  closeNavigation: actionCreator.closeNavigation,
 };
 
-type IProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
-export const DashboardHeaderController = (props: IProps) => {
-  const { openNavigation, open, pageTitle } = props;
+export const DashboardHeaderController = (props: Props) => {
+  const { openNavigation, closeNavigation, navigation, pageTitle } = props;
   const classes = useStyles();
 
   const theme = useTheme();
@@ -87,7 +85,7 @@ export const DashboardHeaderController = (props: IProps) => {
               edge="start"
               classes={{ root: classes.mobileMenuButton }}
               color="inherit"
-              onClick={() => openNavigation}>
+              onClick={navigation ? closeNavigation : openNavigation}>
               <MenuIcon />
             </IconButton>
             <Typography
@@ -103,16 +101,16 @@ export const DashboardHeaderController = (props: IProps) => {
       ) : (
         <AppBar
           position="absolute"
-          className={clsx(classes.appBar, open && classes.appBarShift)}>
+          className={clsx(classes.appBar, navigation && classes.appBarShift)}>
           <Toolbar className={classes.toolbar}>
             <IconButton
               edge="start"
               color="inherit"
-              onClick={() => openNavigation}
+              onClick={navigation ? closeNavigation : openNavigation}
               classes={{
                 root: clsx(
                   classes.menuButton,
-                  open && classes.menuButtonHidden
+                  navigation && classes.menuButtonHidden
                 ),
               }}>
               <MenuIcon />

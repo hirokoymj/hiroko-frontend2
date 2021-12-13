@@ -1,4 +1,3 @@
-import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -13,9 +12,9 @@ import {
   ResumeListItems,
   PhotoListItems,
 } from "Components/Lists/NavigationLists";
-import { closeNavigation } from "Redux/Navigation/ActionCreator";
 import { Logo } from "Components/Layouts/Logo";
 import { RootState } from "Redux/ReduxProvider";
+import { actionCreator } from "Redux/Header/ActionCreator";
 
 const drawerWidth = 240;
 
@@ -58,17 +57,28 @@ const useStyles = makeStyles((theme) => ({
 
 const mapStateToProps = (state: RootState) => {
   return {
-    open: state.navigation.navigationOpen,
+    open: state.header.navigationOpen,
   };
 };
 
+// const mapDispatchToProps = (dispatch: Dispatch) => ({
+//   closeNavigation: () => {
+//     dispatch(actionCreator.closeNavigation());
+//   },
+//   openNavigation: () => {
+//     dispatch(actionCreator.openNavigation());
+//   },
+// });
+
 const mapDispatchToProps = {
-  closeNavigation,
+  closeNavigation: actionCreator.closeNavigation,
+  openNavigation: actionCreator.openNavigation,
 };
+
 type IProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 export const MenuDrawerController = (props: IProps) => {
-  const { closeNavigation, open } = props;
+  const { closeNavigation, openNavigation, open } = props;
   const classes = useStyles();
 
   return (
@@ -80,7 +90,7 @@ export const MenuDrawerController = (props: IProps) => {
       open={open}>
       <div className={classes.toolbarIcon}>
         <Logo />
-        <IconButton onClick={closeNavigation}>
+        <IconButton onClick={open ? closeNavigation : openNavigation}>
           <ChevronLeftIcon />
         </IconButton>
       </div>
@@ -101,11 +111,11 @@ export const MenuDrawerController = (props: IProps) => {
 };
 
 export const MobileMenuDrawerController = (props: IProps) => {
-  const { closeNavigation, open } = props;
+  const { openNavigation, closeNavigation, open } = props;
   const classes = useStyles();
 
   return (
-    <Drawer open={open} onClose={closeNavigation}>
+    <Drawer open={open} onClose={open ? closeNavigation : openNavigation}>
       <div className={classes.logo}>
         <Logo />
       </div>
