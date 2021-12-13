@@ -15,23 +15,6 @@ export type HeaderActionType =
       type: actions.RESET_TITLE;
     };
 
-// export const openNavigation = () => ({
-//   type: actions.OPEN_NAVIGATION,
-// });
-
-// export const closeNavigation = () => ({
-//   type: actions.CLOSE_NAVIGATION,
-// });
-
-// export const setTitle = (title: string) => ({
-//   type: actions.SET_TITLE,
-//   title,
-// });
-
-// export const resetTitle = () => ({
-//   type: actions.RESET_TITLE,
-// });
-
 export const actionCreator = {
   openNavigation: () => ({
     type: actions.OPEN_NAVIGATION,
