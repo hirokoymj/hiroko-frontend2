@@ -137,6 +137,7 @@ export const CategoryTable = ({ openDialog }: ICategoryTableProps) => {
             handleFilterChange={handleFilterChange}
             handleDeleteFilter={handleDeleteFilter}
             selectedFilters={selectedFilters}
+            filterLabel="Filter by Category"
           />
           <Table
             data={mappedData}

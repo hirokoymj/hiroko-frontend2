@@ -10,3 +10,8 @@ export interface IHandleOpenVars {
 export interface IActionProps {
   openDialog: (id: string) => void;
 }
+
+export interface ITableFilterOption {
+  name: string;
+  value: string;
+}

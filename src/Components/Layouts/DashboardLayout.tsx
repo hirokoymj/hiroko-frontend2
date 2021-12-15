@@ -48,7 +48,6 @@ type Props = typeof mapDispatchToProps & {
 const DashboardLayoutController = (props: Props) => {
   const { setTitle, children, maxWidth, fullWidth, title } = props;
   const classes = useStyles({ fullWidth });
-  console.log("DashboardLayoutController: " + title);
   useEffect(() => {
     if (title) {
       setTitle(title);

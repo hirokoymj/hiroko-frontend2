@@ -2,22 +2,23 @@ import React from "react";
 
 import { FormSelectChip } from "Components/Forms/FormSelectChip";
 import { Title } from "Components/Titles/Title";
+import { ITableFilterOption } from "Types/common";
 
 type Props = {
   title: string;
-  filters: [{ name: string; value: string }];
+  filters: ITableFilterOption[];
   handleFilterChange: (event: any) => void;
-  selectedFilters?: string[];
-  handleDeleteFilter: (value: string) => void;
+  handleDeleteFilter: (value: string) => any;
   filterLabel?: string;
+  selectedFilters?: string[];
 };
 
 export const TableHead = ({
   title,
   filters,
   handleFilterChange,
-  selectedFilters,
   handleDeleteFilter,
+  selectedFilters,
   filterLabel,
 }: Props) => {
   return (
@@ -27,8 +28,8 @@ export const TableHead = ({
         filters={filters}
         handleFilterChange={handleFilterChange}
         handleDeleteFilter={handleDeleteFilter}
-        selectedFilters={selectedFilters}
-        filterLabel={filterLabel}
+        selectedFilters={selectedFilters || []}
+        filterLabel={filterLabel || ""}
       />
     </>
   );

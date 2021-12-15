@@ -1,4 +1,3 @@
-import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -8,6 +7,8 @@ import Select from "@material-ui/core/Select";
 import Chip from "@material-ui/core/Chip";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
+
+import { ITableFilterOption } from "Types/common";
 
 const useStyles = makeStyles((theme) => ({
   chips: {
@@ -31,17 +32,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/*
- * 1. A filter option is an array of object. - [{name: xxx, value: xxx}]
- * 2. A filter state is just an array, NOT array-of-object. - [123, 456, 789]
- */
+type Props = {
+  filters: ITableFilterOption[];
+  handleFilterChange: (event: any) => void;
+  handleDeleteFilter: (value: string) => any;
+  selectedFilters: string[];
+  filterLabel: string;
+};
+
 export const FormSelectChip = ({
   filters,
-  selectedFilters,
   handleFilterChange,
   handleDeleteFilter,
+  selectedFilters = [],
   filterLabel = "Filter",
-}) => {
+}: Props) => {
   const classes = useStyles();
 
   return (
@@ -54,15 +59,16 @@ export const FormSelectChip = ({
         onChange={handleFilterChange}
         onMouseDown={(event) => event.stopPropagation()}
         input={<Input />}
-        renderValue={(selected) => (
+        renderValue={(selected: any) => (
           <div className={classes.chips}>
-            {selected.map((value) => {
+            {selected.map((value: string) => {
+              const found = filters.find((d) => d.value === value);
               return (
                 <Chip
                   key={value}
-                  label={filters.find((d) => d.value === value).name}
+                  label={found ? found.name : ""}
                   onDelete={handleDeleteFilter(value)}
-                  onMouseDown={(event) => event.stopPropagation()}
+                  onMouseDown={(event: any) => event.stopPropagation()}
                   color="primary"
                 />
               );
