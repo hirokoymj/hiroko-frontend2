@@ -18,7 +18,7 @@ import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_SUB_CATEGORY } from "Mutations/SubCategory";
 import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
-import { SubCategoryEditView } from "Components/PageView/SubCategoryEditView";
+import { SubCategoryEditView } from "Containers/SubCategoryEditView";
 import { TSubCategoryFormData } from "Types/forms";
 
 const useStyles = makeStyles((theme) => ({

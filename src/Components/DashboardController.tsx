@@ -9,18 +9,14 @@ import { connect } from "react-redux";
 
 import { DashboardHeader } from "Components/Headers/DashboardHeader";
 import { MenuDrawer, MobileMenuDrawer } from "Components/Drawers/MenuDrawer";
-import { CategoryView } from "Components/PageView/CategoryView";
-import { SubCategoryView } from "Components/PageView/SubCategoryView";
-import { TopicView } from "Components/PageView/TopicView";
-import { ReferenceView } from "Components/PageView/ReferenceView";
+import { CategoryView } from "Containers/CategoryView";
+import { SubCategoryView } from "Containers/SubCategoryView";
+import { TopicView } from "Containers/TopicView";
+import { ReferenceView } from "Containers/ReferenceView";
 import { PageFooter } from "Components/Layouts/Footer";
-import { DailyForecastView } from "Components/PageView/DailyForecastView";
-// import {
-//   closeNavigation,
-//   openNavigation,
-// } from "Redux/Navigation/ActionCreator";
+import { DailyForecastView } from "Containers/DailyForecastView";
 import { actions } from "Redux/Header/Actions";
-import { PhotoView } from "Components/PageView/PhotoView";
+import { PhotoView } from "Containers/PhotoView";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -23,7 +23,7 @@ import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_TOPIC } from "Mutations/Topic";
 import { TOPICS } from "Queries/Topic";
 import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
-import { TopicEditView } from "Components/PageView/TopicEditView";
+import { TopicEditView } from "Containers/TopicEditView";
 import { makeStyles } from "@material-ui/core/styles";
 import { IDeleteTopicVars, ITopic } from "Types/api/Topic";
 import { TTopicFormData } from "Types/forms";

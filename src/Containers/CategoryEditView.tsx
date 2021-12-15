@@ -3,7 +3,7 @@ import { Field, reduxForm, InjectedFormProps } from "redux-form";
 import { useParams, useHistory } from "react-router-dom";
 
 import { CategoryEditFormController } from "Components/FormController/CategoryEditFormController";
-import { FormTextField } from "../Forms/FormTextField";
+import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { DrawerDialog } from "Components/Dialog/DrawerDialog";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";

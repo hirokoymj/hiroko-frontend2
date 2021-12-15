@@ -10,14 +10,14 @@ import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { CategoryFormController } from "Components/FormController/CategoryFormController";
-import { FormTextField } from "../Forms/FormTextField";
+import { FormTextField } from "Components/Forms/FormTextField";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { CategoryTable } from "Components/Tables/CategoryTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
 import { DELETE_CATEGORY } from "Mutations/Category";
 import { CATEGORIES } from "Queries/Category";
 import { Title } from "Components/Titles/Title";
-import { CategoryEditView } from "Components/PageView/CategoryEditView";
+import { CategoryEditView } from "Containers/CategoryEditView";
 import { ICategoryFormData } from "Types/forms";
 
 const useStyles = makeStyles((theme) => ({
