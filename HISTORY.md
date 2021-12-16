@@ -1,4 +1,10 @@
-# Convert React app to typescript
+## Set up a default router
+
+- forgot to set up a default router so the current issue is when a user goes to domain/abc, the brank page is displayed.
+
+- https://www.hirokoymj.com/test
+
+## Convert React app to typescript
 
 1. Installing necessary packages.
 
