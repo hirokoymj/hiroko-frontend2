@@ -26,7 +26,11 @@ import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { TopicEditView } from "Containers/TopicEditView";
 import { makeStyles } from "@material-ui/core/styles";
 import { IDeleteTopicVars, ITopic } from "Types/api/Topic";
-import { TTopicFormData } from "Types/forms";
+import {
+  TTopicFormData,
+  ICategoryOptions,
+  ISubCategoryOptions,
+} from "Types/forms";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -39,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface IProps extends InjectedFormProps<TTopicFormData> {
-  category_options: [];
-  subCategory_options: [];
+  category_options: ICategoryOptions[];
+  subCategory_options: ISubCategoryOptions[];
   loading: boolean;
   categoryId: string;
 }

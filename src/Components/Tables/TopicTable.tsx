@@ -10,7 +10,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { TOPICS } from "Queries/Topic";
 import { Table } from "Components/Tables/Table";
 import { ActionRouterButton } from "Components/Buttons/ActionRouterButton";
-import { ActionLinkButton } from "Components/Buttons/ActionLinkButton";
+import { ActionButton } from "Components/Buttons/ActionButton";
 import { useCategoryFilterState } from "Components/Tables/hooks/useCategoryFilterState";
 import { TableHead } from "Components/Tables/TableHead";
 import { IActionProps } from "Types/common";
@@ -126,7 +126,7 @@ export const TopicTable = ({ openDialog }: ITopicTableProps) => {
             title="Edit Topic"
             icon="edit"
           />
-          <ActionLinkButton onClick={() => openDialog(id)} icon="delete" />
+          <ActionButton onClick={() => openDialog(id)} icon="delete" />
         </>
       );
       const created = moment(createdAt).format("MM/DD/YYYY");
