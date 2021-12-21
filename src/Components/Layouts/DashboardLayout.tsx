@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { connect } from "react-redux";
-import { actionCreator } from "Redux/Header/ActionCreator";
+import { setTitle } from "Redux/Title/titleSlice";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -30,29 +30,23 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//   setTitle: (title: string) => dispatch({ type: actions.SET_TITLE, title }),
-// });
-
-const mapDispatchToProps = {
-  setTitle: actionCreator.setTitle,
-};
-
-type Props = typeof mapDispatchToProps & {
+interface IProps {
   children: any;
   maxWidth?: "lg" | "xs" | "sm" | "md" | "xl";
   fullWidth?: boolean;
   title: string;
-};
+}
 
-const DashboardLayoutController = (props: Props) => {
-  const { setTitle, children, maxWidth, fullWidth, title } = props;
+export const DashboardLayout = (props: IProps) => {
+  const { children, maxWidth, fullWidth, title } = props;
+  const dispatch = useDispatch();
+
   const classes = useStyles({ fullWidth });
   useEffect(() => {
     if (title) {
-      setTitle(title);
+      dispatch(setTitle(title));
     }
-  }, [setTitle, title]);
+  }, [dispatch, title]);
 
   return (
     <div className={classes.root}>
@@ -64,8 +58,3 @@ const DashboardLayoutController = (props: Props) => {
     </div>
   );
 };
-
-export const DashboardLayout = connect(
-  null,
-  mapDispatchToProps
-)(DashboardLayoutController);

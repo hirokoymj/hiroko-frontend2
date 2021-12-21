@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -12,7 +12,7 @@ import Link from "@material-ui/core/Link";
 
 import { CurrentWeather } from "Components/Weather/CurrentWeather";
 import { RootState } from "Redux/ReduxProvider";
-import { actionCreator } from "Redux/Header/ActionCreator";
+import { toggleNavigation } from "Redux/Navigation/navigationSlice";
 
 const drawerWidth = 240;
 
@@ -64,22 +64,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const mapStateToProps = (state: RootState) => ({
-  navigation: state.header.navigationOpen,
-  pageTitle: state.header.title,
-});
-
-const mapDispatchToProps = {
-  openNavigation: actionCreator.openNavigation,
-  closeNavigation: actionCreator.closeNavigation,
-};
-
-type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
-
-export const DashboardHeaderController = (props: Props) => {
-  const { openNavigation, closeNavigation, navigation, pageTitle } = props;
+export const DashboardHeader = () => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state: RootState) => state.navigation.isOpen);
+  const pageTitle = useSelector((state: RootState) => state.title.text);
   const classes = useStyles();
-  // const navigation = useSelector((state => state.header.navigationOpen);
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
@@ -92,7 +81,7 @@ export const DashboardHeaderController = (props: Props) => {
               edge="start"
               classes={{ root: classes.mobileMenuButton }}
               color="inherit"
-              onClick={navigation ? closeNavigation : openNavigation}>
+              onClick={() => dispatch(toggleNavigation())}>
               <MenuIcon />
             </IconButton>
             <Typography
@@ -108,16 +97,16 @@ export const DashboardHeaderController = (props: Props) => {
       ) : (
         <AppBar
           position="absolute"
-          className={clsx(classes.appBar, navigation && classes.appBarShift)}>
+          className={clsx(classes.appBar, isOpen && classes.appBarShift)}>
           <Toolbar className={classes.toolbar}>
             <IconButton
               edge="start"
               color="inherit"
-              onClick={navigation ? closeNavigation : openNavigation}
+              onClick={() => dispatch(toggleNavigation())}
               classes={{
                 root: clsx(
                   classes.menuButton,
-                  navigation && classes.menuButtonHidden
+                  isOpen && classes.menuButtonHidden
                 ),
               }}>
               <MenuIcon />
@@ -145,8 +134,3 @@ export const DashboardHeaderController = (props: Props) => {
     </>
   );
 };
-
-export const DashboardHeader = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DashboardHeaderController);

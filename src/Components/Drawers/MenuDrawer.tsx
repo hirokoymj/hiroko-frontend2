@@ -1,11 +1,11 @@
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   TechNavItems,
@@ -14,11 +14,11 @@ import {
 } from "Components/Lists/NavigationLists";
 import { Logo } from "Components/Layouts/Logo";
 import { RootState } from "Redux/ReduxProvider";
-import { actionCreator } from "Redux/Header/ActionCreator";
+import { toggleNavigation } from "Redux/Navigation/navigationSlice";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
@@ -55,33 +55,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    open: state.header.navigationOpen,
-  };
-};
-
-const mapDispatchToProps = {
-  closeNavigation: actionCreator.closeNavigation,
-  openNavigation: actionCreator.openNavigation,
-};
-
-type IProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
-
-export const MenuDrawerController = (props: IProps) => {
-  const { closeNavigation, openNavigation, open } = props;
+export const MenuDrawer = () => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state: RootState) => state.navigation.isOpen);
   const classes = useStyles();
 
   return (
     <Drawer
       variant="permanent"
       classes={{
-        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+        paper: clsx(classes.drawerPaper, !isOpen && classes.drawerPaperClose),
       }}
-      open={open}>
+      open={isOpen}>
       <div className={classes.toolbarIcon}>
         <Logo />
-        <IconButton onClick={open ? closeNavigation : openNavigation}>
+        <IconButton onClick={() => dispatch(toggleNavigation())}>
           <ChevronLeftIcon />
         </IconButton>
       </div>
@@ -97,12 +85,13 @@ export const MenuDrawerController = (props: IProps) => {
   );
 };
 
-export const MobileMenuDrawerController = (props: IProps) => {
-  const { openNavigation, closeNavigation, open } = props;
+export const MobileMenuDrawer = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const isOpen = useSelector((state: RootState) => state.navigation.isOpen);
 
   return (
-    <Drawer open={open} onClose={open ? closeNavigation : openNavigation}>
+    <Drawer open={isOpen} onClose={() => dispatch(toggleNavigation())}>
       <div className={classes.logo}>
         <Logo />
       </div>
@@ -121,13 +110,3 @@ export const MobileMenuDrawerController = (props: IProps) => {
     </Drawer>
   );
 };
-
-export const MenuDrawer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MenuDrawerController);
-
-export const MobileMenuDrawer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MobileMenuDrawerController);
