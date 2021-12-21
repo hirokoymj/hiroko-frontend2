@@ -1,11 +1,9 @@
-import React from "react";
-import { Dispatch } from "redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { SnackbarProvider } from "notistack";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
-import { connect } from "react-redux";
+import { useTheme, Theme } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
 
 import { DashboardHeader } from "Components/Headers/DashboardHeader";
 import { MenuDrawer, MobileMenuDrawer } from "Components/Drawers/MenuDrawer";
@@ -15,10 +13,14 @@ import { TopicView } from "Containers/TopicView";
 import { ReferenceView } from "Containers/ReferenceView";
 import { PageFooter } from "Components/Layouts/Footer";
 import { DailyForecastView } from "Containers/DailyForecastView";
-import { actions } from "Redux/Header/Actions";
 import { PhotoView } from "Containers/PhotoView";
+import { CounterView } from "Containers/CounterView";
+import {
+  closeNavigation,
+  openNavigation,
+} from "Redux/Navigation/navigationSlice";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: "flex",
   },
@@ -30,26 +32,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  closeNavigation: () => {
-    dispatch({ type: actions.CLOSE_NAVIGATION });
-  },
-  openNavigation: () => {
-    dispatch({ type: actions.OPEN_NAVIGATION });
-  },
-});
-
-type DashboardRoutesProps = ReturnType<typeof mapDispatchToProps>;
-
-export const DashboardRoutes = (props: DashboardRoutesProps) => {
-  const { closeNavigation, openNavigation } = props;
+export const DashboardController = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
   if (matches) {
-    closeNavigation();
+    dispatch(closeNavigation());
   } else {
-    openNavigation();
+    dispatch(openNavigation());
   }
 
   return (
@@ -75,6 +67,7 @@ export const DashboardRoutes = (props: DashboardRoutesProps) => {
             <Route path="/subCategoryList" component={SubCategoryView} />
             <Route path="/topicList" component={TopicView} />
             <Route path="/photo" component={PhotoView} />
+            <Route path="/test" component={CounterView} />
             <Route render={() => <Redirect to="/" />} />
           </Switch>
           <PageFooter />
@@ -83,8 +76,3 @@ export const DashboardRoutes = (props: DashboardRoutesProps) => {
     </div>
   );
 };
-
-export const DashboardController = connect(
-  null,
-  mapDispatchToProps
-)(DashboardRoutes);

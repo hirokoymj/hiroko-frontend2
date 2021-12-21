@@ -4,11 +4,15 @@ import { reducer as formReducer } from "redux-form";
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 
-import headerReducer from "Redux/Header/Reducers";
+import countReducer from "Redux/Counter/counterSlice";
+import navigationReducer from "Redux/Navigation/navigationSlice";
+import titleReducer from "Redux/Title/titleSlice";
 
 const rootReducer = combineReducers({
   form: formReducer,
-  header: headerReducer,
+  counter: countReducer,
+  navigation: navigationReducer,
+  title: titleReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
