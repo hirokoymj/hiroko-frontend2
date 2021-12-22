@@ -3,7 +3,7 @@ import { createTheme } from "@material-ui/core/styles";
 export const xmasTheme = createTheme({
   palette: {
     primary: {
-      light: "#fce4ec",
+      light: "#57975b",
       main: "#2e7d32",
       dark: "#1b5e20",
       contrastText: "#fff",

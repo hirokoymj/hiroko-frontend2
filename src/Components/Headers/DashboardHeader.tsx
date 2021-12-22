@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   menuButton: {
     marginRight: 36,
     "&:hover": {
-      backgroundColor: theme.palette.accent.main,
+      backgroundColor: theme.palette.primary.dark,
     },
   },
   menuButtonHidden: {
