@@ -3,11 +3,16 @@ import { createTheme } from "@material-ui/core/styles";
 export const commonTheme = createTheme({
   palette: {
     primary: {
-      main: "#002653",
+      light: "#4dabf5",
+      main: "#2196f3",
+      dark: "#1769aa",
+      contrastText: "#fff",
     },
     secondary: {
-      main: "#4CAF50",
-      light: "#c8e6c9",
+      light: "#6fb2ee",
+      main: "#4b9fea",
+      dark: "#346fa3",
+      contrastText: "#fff",
     },
     text: {
       primary: "#000",
@@ -16,7 +21,7 @@ export const commonTheme = createTheme({
       default: "#f2f3f3",
     },
     accent: {
-      main: "#fce4ec",
+      main: "#e7f7fe",
     },
   },
   typography: {
