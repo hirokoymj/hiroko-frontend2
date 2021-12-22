@@ -53,6 +53,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: "center",
     padding: theme.spacing(1, 5),
   },
+  leftIcon: {
+    padding: "10px",
+    marginLeft: theme.spacing(1),
+    "&:hover": {
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.palette.accent.main,
+    },
+  },
 }));
 
 export const MenuDrawer = () => {
@@ -69,7 +77,9 @@ export const MenuDrawer = () => {
       open={isOpen}>
       <div className={classes.toolbarIcon}>
         <Logo />
-        <IconButton onClick={() => dispatch(toggleNavigation())}>
+        <IconButton
+          onClick={() => dispatch(toggleNavigation())}
+          classes={{ root: classes.leftIcon }}>
           <ChevronLeftIcon />
         </IconButton>
       </div>

@@ -1,6 +1,6 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 
-export const hirokoymjTheme = createMuiTheme({
+export const commonTheme = createTheme({
   palette: {
     primary: {
       main: "#002653",
@@ -14,6 +14,9 @@ export const hirokoymjTheme = createMuiTheme({
     },
     background: {
       default: "#f2f3f3",
+    },
+    accent: {
+      main: "#fce4ec",
     },
   },
   typography: {

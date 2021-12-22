@@ -1,9 +1,9 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 
-export const hirokoymjThemeXmas = createMuiTheme({
+export const xmasTheme = createTheme({
   palette: {
     primary: {
-      light: "#388e3c",
+      light: "#fce4ec",
       main: "#2e7d32",
       dark: "#1b5e20",
       contrastText: "#fff",
@@ -19,6 +19,9 @@ export const hirokoymjThemeXmas = createMuiTheme({
     },
     background: {
       default: "#f2f3f3",
+    },
+    accent: {
+      main: "#fce4ec",
     },
   },
   typography: {

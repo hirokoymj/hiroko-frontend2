@@ -20,7 +20,7 @@ import { ITopic, ITopicByCategoryAbbrVars } from "Types/api/Topic";
 const useStyles = makeStyles((theme: Theme) => ({
   linkRoot: {
     "&:hover": {
-      backgroundColor: "#fce4ec",
+      backgroundColor: theme.palette.accent.main,
     },
   },
 }));

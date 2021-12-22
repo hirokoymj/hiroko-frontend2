@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   menuButton: {
     marginRight: 36,
     "&:hover": {
-      backgroundColor: theme.palette.secondary.dark,
+      backgroundColor: theme.palette.accent.main,
     },
   },
   menuButtonHidden: {
@@ -55,12 +55,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     fontFamily: ["Titillium Web", "sans-serif"].join(","),
     fontSize: "1.5rem",
-  },
-  mobileMenuButton: {
-    marginRight: theme.spacing(2),
-    "&:hover": {
-      backgroundColor: theme.palette.secondary.dark,
-    },
   },
 }));
 
@@ -79,7 +73,7 @@ export const DashboardHeader = () => {
           <Toolbar>
             <IconButton
               edge="start"
-              classes={{ root: classes.mobileMenuButton }}
+              classes={{ root: classes.menuButton }}
               color="inherit"
               onClick={() => dispatch(toggleNavigation())}>
               <MenuIcon />

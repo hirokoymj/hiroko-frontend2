@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   icon: {
     color: "#939AA8",
+    "&:hover": {
+      color: theme.palette.secondary.dark,
+      backgroundColor: theme.palette.accent.main,
+    },
   },
 }));
 
