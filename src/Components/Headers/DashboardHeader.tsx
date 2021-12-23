@@ -97,6 +97,11 @@ export const DashboardHeader = () => {
               className={classes.title}>
               {pageTitle}
             </Typography>
+            <Switch
+              checked={themeChecked}
+              onChange={handleSwitchChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />
           </Toolbar>
         </AppBar>
       ) : (
