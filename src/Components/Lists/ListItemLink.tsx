@@ -10,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
     color: "rgba(0, 0, 0, 0.8)",
     minWidth: "40px",
   },
+  listButton: {
+    "&:hover": {
+      backgroundColor: theme.palette.accent.main,
+    },
+  },
 }));
 
 type Props = {
@@ -30,31 +35,12 @@ export const ListItemLink = (props: Props) => {
   );
 
   return (
-    <li>
-      <ListItem button component={renderLink}>
-        <ListItemIcon className={classes.icon}>{icon}</ListItemIcon>
-        <ListItemText primary={text} />
-      </ListItem>
-    </li>
+    <ListItem
+      button
+      component={renderLink}
+      classes={{ root: classes.listButton }}>
+      <ListItemIcon className={classes.icon}>{icon}</ListItemIcon>
+      <ListItemText primary={text} />
+    </ListItem>
   );
 };
-
-// export const ListLink = ({ icon, text, to }) => {
-//   const classes = useStyles();
-//   const preventDefault = (event) => event.preventDefault();
-
-//   return (
-//     <ListItem>
-//       <Link href={to} onClick={preventDefault}>
-//         <ListItemIcon className={classes.icon}>{icon}</ListItemIcon>
-//         <ListItemText primary={text} />
-//       </Link>
-//     </ListItem>
-//   );
-// };
-
-// ListItemLink.propTypes = {
-//   icon: PropTypes.element,
-//   text: PropTypes.string.isRequired,
-//   to: PropTypes.string.isRequired,
-// };
