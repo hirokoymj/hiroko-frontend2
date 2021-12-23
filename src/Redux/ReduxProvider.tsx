@@ -7,12 +7,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import countReducer from "Redux/Counter/counterSlice";
 import navigationReducer from "Redux/Navigation/navigationSlice";
 import titleReducer from "Redux/Title/titleSlice";
+import themeReducer from "Redux/Theme/themeSlice";
 
 const rootReducer = combineReducers({
   form: formReducer,
   counter: countReducer,
   navigation: navigationReducer,
   title: titleReducer,
+  theme: themeReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

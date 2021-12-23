@@ -1,3 +1,4 @@
+import { useState } from "react";
 import clsx from "clsx";
 import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -9,10 +10,12 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
+import Switch from "@material-ui/core/Switch";
 
 import { CurrentWeather } from "Components/Weather/CurrentWeather";
 import { RootState } from "Redux/ReduxProvider";
 import { toggleNavigation } from "Redux/Navigation/navigationSlice";
+import { setTheme } from "Redux/Theme/themeSlice";
 
 const drawerWidth = 240;
 
@@ -62,10 +65,18 @@ export const DashboardHeader = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state: RootState) => state.navigation.isOpen);
   const pageTitle = useSelector((state: RootState) => state.title.text);
+  const [themeChecked, setThemeChecked] = useState(true);
   const classes = useStyles();
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const handleSwitchChange = (event: any) => {
+    setThemeChecked(event.target.checked);
+    const themeName = event.target.checked ? "seasonal" : "common";
+    dispatch(setTheme(themeName));
+  };
+
   return (
     <>
       {matches ? (
@@ -113,6 +124,11 @@ export const DashboardHeader = () => {
               className={classes.title}>
               {pageTitle}
             </Typography>
+            <Switch
+              checked={themeChecked}
+              onChange={handleSwitchChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />
             <Link
               component={RouterLink}
               to={{

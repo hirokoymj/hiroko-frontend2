@@ -12,6 +12,9 @@ import {
   toggleNavigation,
 } from "Redux/Navigation/navigationSlice";
 import { setTitle, resetTitle } from "Redux/Title/titleSlice";
+import { setTheme } from "Redux/Theme/themeSlice";
+
+import Switch from "@material-ui/core/Switch";
 
 export const CounterView = () => {
   const count = useSelector((state: RootState) => state.counter.value);
@@ -19,13 +22,23 @@ export const CounterView = () => {
   const title = useSelector((state: RootState) => state.title.text);
   const dispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState("2");
+  const [checked, setChecked] = useState(true);
 
   const handleChange = (event: any) => {
     setIncrementAmount(event.target.value);
   };
 
+  const handleSwitchChange = (event: any) => {
+    setChecked(event.target.checked);
+    const themeName = event.target.checked ? "seasonal" : "common";
+    dispatch(setTheme(themeName));
+  };
+
   return (
     <div>
+      <Switch checked={checked} onChange={handleSwitchChange} />
+      <hr />
+
       <div>
         <button
           aria-label="Increment value"
