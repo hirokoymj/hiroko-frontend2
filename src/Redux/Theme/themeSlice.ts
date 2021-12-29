@@ -5,7 +5,8 @@ export interface ThemeState {
 }
 
 const initialState: ThemeState = {
-  currentTheme: "seasonal",
+  // currentTheme: "seasonal",
+  currentTheme: "common",
 };
 
 export const themeSlice = createSlice({
