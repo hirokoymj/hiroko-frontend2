@@ -1,6 +1,11 @@
 import { useState } from "react";
 import clsx from "clsx";
-import { useTheme, makeStyles, Theme } from "@material-ui/core/styles";
+import {
+  useTheme,
+  makeStyles,
+  Theme,
+  withStyles,
+} from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useSelector, useDispatch } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,6 +16,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 import Switch from "@material-ui/core/Switch";
+import { orange } from "@material-ui/core/colors";
 
 import { CurrentWeather } from "Components/Weather/CurrentWeather";
 import { RootState } from "Redux/ReduxProvider";
@@ -61,6 +67,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+const OrangeSwitch = withStyles({
+  switchBase: {},
+  checked: {
+    color: orange[300],
+    "&$checked": {
+      color: orange[500],
+    },
+    "&$checked + $track": {
+      backgroundColor: orange[500],
+    },
+  },
+  track: {},
+})(Switch);
+
 export const DashboardHeader = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector((state: RootState) => state.navigation.isOpen);
@@ -73,7 +93,7 @@ export const DashboardHeader = () => {
 
   const handleSwitchChange = (event: any) => {
     setThemeChecked(event.target.checked);
-    const themeName = event.target.checked ? "seasonal" : "common";
+    const themeName = event.target.checked ? "common" : "seasonal";
     dispatch(setTheme(themeName));
   };
 
@@ -97,7 +117,7 @@ export const DashboardHeader = () => {
               className={classes.title}>
               {pageTitle}
             </Typography>
-            <Switch
+            <OrangeSwitch
               checked={themeChecked}
               onChange={handleSwitchChange}
               inputProps={{ "aria-label": "controlled" }}
@@ -129,7 +149,7 @@ export const DashboardHeader = () => {
               className={classes.title}>
               {pageTitle}
             </Typography>
-            <Switch
+            <OrangeSwitch
               checked={themeChecked}
               onChange={handleSwitchChange}
               inputProps={{ "aria-label": "controlled" }}
