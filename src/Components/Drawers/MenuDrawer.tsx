@@ -111,10 +111,6 @@ export const MobileMenuDrawer = () => {
       </List>
       <Divider />
       <List>
-        <ResumeListItems />
-      </List>
-      <Divider />
-      <List>
         <PhotoListItems />
       </List>
     </Drawer>

@@ -57,7 +57,7 @@ export const PageFooter = () => {
       />
       <IconButtonLink
         icon={<AssignmentIcon fontSize="large" />}
-        to="https://www.hirokoymj.com/HirokoYamaji_Resume.pdf"
+        to="/Hiroko_Yamaji_Resume.pdf"
       />
     </footer>
   );
