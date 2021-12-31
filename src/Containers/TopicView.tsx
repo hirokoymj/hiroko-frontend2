@@ -26,11 +26,7 @@ import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { TopicEditView } from "Containers/TopicEditView";
 import { makeStyles } from "@material-ui/core/styles";
 import { IDeleteTopicVars, ITopic } from "Types/api/Topic";
-import {
-  TTopicFormData,
-  ICategoryOptions,
-  ISubCategoryOptions,
-} from "Types/forms";
+import { TTopicFormData, IFormSelectOptions } from "Types/forms";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -43,24 +39,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface IProps extends InjectedFormProps<TTopicFormData> {
-  category_options: ICategoryOptions[];
-  subCategory_options: ISubCategoryOptions[];
+  category_options: IFormSelectOptions[];
+  subCategory_options: IFormSelectOptions[];
   loading: boolean;
   categoryId: string;
 }
 
-const TopicFormFields = connect((state) => ({
-  categoryId: formValueSelector("Create_Topic_Form")(state, "category"),
-}))((props: IProps) => {
+const TopicFormFields = (props: IProps) => {
   const classes = useStyles();
   const {
     handleSubmit,
     submitting,
     category_options,
     subCategory_options,
-    categoryId,
     loading,
   } = props;
+
   return (
     <>
       {loading ? (
@@ -81,10 +75,7 @@ const TopicFormFields = connect((state) => ({
             fullWidth
             variant="outlined"
             label="Sub Category"
-            options={subCategory_options.filter(
-              (option: { categoryId: string }) =>
-                option.categoryId === categoryId
-            )}
+            options={subCategory_options}
           />
           <Field
             name="title"
@@ -113,13 +104,20 @@ const TopicFormFields = connect((state) => ({
       )}
     </>
   );
-});
+};
 
 const TopicForm = reduxForm<TTopicFormData, IProps>({
   form: "Create_Topic_Form",
 })(TopicFormFields);
 
-export const TopicView = () => {
+interface ITopicView {
+  categoryId: string;
+}
+
+export const TopicView = connect((state) => ({
+  categoryId: formValueSelector("Create_Topic_Form")(state, "category"),
+}))((props: ITopicView) => {
+  const { categoryId } = props;
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState<boolean>(false);
   const [topicId, setTopicId] = useState<string>("");
@@ -168,7 +166,7 @@ export const TopicView = () => {
         <Grid container spacing={3} justify="center">
           <Grid item xs={12} md={6}>
             <Paper>
-              <TopicFormController>
+              <TopicFormController categoryId={categoryId}>
                 {(props: any) => <TopicForm {...props} />}
               </TopicFormController>
             </Paper>
@@ -198,4 +196,4 @@ export const TopicView = () => {
       </DashboardLayout>
     </>
   );
-};
+});

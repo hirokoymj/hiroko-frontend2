@@ -1,54 +1,28 @@
 import { destroy } from "redux-form";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import get from "lodash/get";
-import map from "lodash/map";
 import { useSnackbar } from "notistack";
 import { Dispatch } from "redux";
 
 import { CREATE_TOPIC } from "Mutations/Topic";
-import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { CATEGORIES } from "Queries/Category";
 import { TOPICS } from "Queries/Topic";
 import { ICategoryFeed, ICategoriesVars } from "Types/api/Category";
-import { ISubCategoriesVars, ISubCategoryFeed } from "Types/api/SubCategory";
 import { ICreateTopicVars, ITopic } from "Types/api/Topic";
 import { TTopicFormData } from "Types/forms";
-
-const makeDropdownOptions = (
-  category_data: any,
-  subcategory_data: any,
-  loading: boolean
-) => {
-  const categories =
-    !loading && get(category_data, "categories.categoryFeed", []);
-  const subcategories =
-    !loading && get(subcategory_data, "subCategories.subCategoryFeed", []);
-
-  const category_options = map(categories, ({ id, name }) => {
-    return {
-      value: id,
-      label: name,
-    };
-  });
-  const subCategory_options = map(subcategories, ({ id, name, category }) => {
-    return {
-      value: id,
-      label: name,
-      categoryId: category.id,
-    };
-  });
-
-  return {
-    category_options,
-    subCategory_options,
-  };
-};
+import { SUB_CATEGORY_BY_CATEGORY } from "Queries/SubCategory";
+import {
+  ISubCategory,
+  ISubCategoryByCategoryVars,
+} from "Types/api/SubCategory";
+import { makeDropdownOptions } from "Components/FormController/common";
 
 type ITopicFormControllerProps = {
   children: any;
+  categoryId: string;
 };
 export const TopicFormController = ({
   children,
+  categoryId,
 }: ITopicFormControllerProps) => {
   const { enqueueSnackbar } = useSnackbar();
   const [createTopic] = useMutation<ITopic, ICreateTopicVars>(CREATE_TOPIC, {
@@ -63,15 +37,24 @@ export const TopicFormController = ({
   const { data, loading } = useQuery<ICategoryFeed, ICategoriesVars>(
     CATEGORIES
   );
-  const { data: data_subCategory, loading: loading_subCategory } = useQuery<
-    ISubCategoryFeed,
-    ISubCategoriesVars
-  >(SUB_CATEGORIES);
 
-  const { category_options, subCategory_options } = makeDropdownOptions(
+  const { data: subCategoryData, loading: subCategoryLoading } = useQuery<
+    ISubCategory,
+    ISubCategoryByCategoryVars
+  >(SUB_CATEGORY_BY_CATEGORY, {
+    variables: {
+      categoryId: categoryId === "undefined" ? "" : categoryId,
+    },
+  });
+  const category_options = makeDropdownOptions(
     data,
-    data_subCategory,
-    loading || loading_subCategory
+    "categories.categoryFeed",
+    loading
+  );
+  const subCategory_options = makeDropdownOptions(
+    subCategoryData,
+    "subCategoryByCategory",
+    subCategoryLoading
   );
 
   const onSubmit = async (values: TTopicFormData, dispatch: Dispatch) => {
@@ -83,7 +66,6 @@ export const TopicFormController = ({
           },
         },
       });
-      console.log("Success");
       dispatch(destroy("Create_Topic_Form"));
       enqueueSnackbar("New topic has been created!", {
         variant: "success",
@@ -108,6 +90,6 @@ export const TopicFormController = ({
     validate,
     category_options,
     subCategory_options,
-    loading: loading || loading_subCategory,
+    loading: loading || subCategoryLoading,
   });
 };

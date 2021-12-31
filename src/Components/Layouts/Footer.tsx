@@ -4,7 +4,6 @@ import Link from "@material-ui/core/Link";
 import IconButton from "@material-ui/core/IconButton";
 import EmailIcon from "@material-ui/icons/Email";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
