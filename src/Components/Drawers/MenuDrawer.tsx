@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   TechNavItems,
-  ResumeListItems,
+  // ResumeListItems,
   PhotoListItems,
 } from "Components/Lists/NavigationLists";
 import { Logo } from "Components/Layouts/Logo";

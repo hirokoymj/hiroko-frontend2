@@ -14,25 +14,18 @@ import { FormSelect } from "Components/Forms/FormSelect";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { DrawerDialog } from "Components/Dialog/DrawerDialog";
-import { TTopicFormData } from "Types/forms";
+import { TTopicFormData, IFormSelectOptions } from "Types/forms";
 import { RootState } from "Redux/ReduxProvider";
 
 interface IProps extends InjectedFormProps<TTopicFormData> {
-  category_options: [];
-  subCategory_options: [];
+  category_options: IFormSelectOptions[];
+  subCategory_options: IFormSelectOptions[];
   loading: boolean;
   open: boolean;
   onClose: any;
-  categoryId: string;
 }
 
-const mapStateToProps = (state: RootState) => ({
-  categoryId: formValueSelector("Topic_Edit_Form")(state, "category"),
-});
-
-const TopicEditFormFields = reduxForm<TTopicFormData, IProps>({
-  form: "Topic_Edit_Form",
-})((props) => {
+const TopicEditFormFields = (props: IProps) => {
   const {
     handleSubmit,
     submitting,
@@ -41,7 +34,6 @@ const TopicEditFormFields = reduxForm<TTopicFormData, IProps>({
     loading,
     open,
     onClose,
-    categoryId,
   } = props;
   return (
     <DrawerDialog
@@ -70,9 +62,7 @@ const TopicEditFormFields = reduxForm<TTopicFormData, IProps>({
             fullWidth
             variant="outlined"
             label="Sub Category"
-            options={subCategory_options.filter(
-              (option: any) => option.categoryId === categoryId
-            )}
+            options={subCategory_options}
             margin="normal"
           />
           <Field
@@ -95,27 +85,36 @@ const TopicEditFormFields = reduxForm<TTopicFormData, IProps>({
       )}
     </DrawerDialog>
   );
-});
+};
 
-const TopicEditFormDrawer = connect(mapStateToProps, null)(TopicEditFormFields);
+const TopicEditForm = reduxForm<TTopicFormData, IProps>({
+  form: "Topic_Edit_Form",
+})(TopicEditFormFields);
 
-export const TopicEditView = () => {
+interface ITopiEditView {
+  categoryId: string;
+}
+
+export const TopicEditView = connect((state: RootState) => ({
+  categoryId: formValueSelector("Topic_Edit_Form")(state, "category"),
+}))((props: ITopiEditView) => {
   const { id } = useParams<{ id: string }>();
   const [open, setOpen] = useState(true);
   const history = useHistory();
+  const { categoryId } = props;
 
   const onClose = () => {
     setOpen(false);
-    history.push("/categoryList");
+    history.push("/topicList");
   };
 
   return (
     <DashboardLayout title="Topic">
-      <TopicEditFormController topicId={id}>
+      <TopicEditFormController topicId={id} categoryId={categoryId}>
         {(props: any) => (
-          <TopicEditFormDrawer {...props} open={open} onClose={onClose} />
+          <TopicEditForm {...props} open={open} onClose={onClose} />
         )}
       </TopicEditFormController>
     </DashboardLayout>
   );
-};
+});

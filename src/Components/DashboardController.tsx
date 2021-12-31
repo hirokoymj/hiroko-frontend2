@@ -68,7 +68,7 @@ export const DashboardController = () => {
             <Route path="/topicList" component={TopicView} />
             <Route path="/photo" component={PhotoView} />
             <Route path="/test" component={CounterView} />
-            {/* <Route render={() => <Redirect to="/" />} /> */}
+            <Route render={() => <Redirect to="/" />} />
           </Switch>
           <PageFooter />
         </main>
