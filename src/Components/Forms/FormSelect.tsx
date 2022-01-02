@@ -5,12 +5,14 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import MenuItem from "@material-ui/core/MenuItem";
 import { WrappedFieldProps } from "redux-form";
+import { IFormSelectOptions } from "Types/forms";
 
 type Props = WrappedFieldProps & {
   label: string;
   options: [];
   variant: "filled" | "outlined" | "standard";
   margin: "dense" | "none" | "normal";
+  onChange: any;
 };
 
 export const FormSelect = ({
@@ -20,8 +22,9 @@ export const FormSelect = ({
   options,
   variant,
   margin,
+  onChange,
   ...custom
-}: Props) => {
+}: any) => {
   return (
     <FormControl
       error={touched && error}
@@ -40,7 +43,7 @@ export const FormSelect = ({
         }}
         label={label}
         {...custom}>
-        {options.map(({ value, label }) => (
+        {options.map(({ value, label }: IFormSelectOptions) => (
           <MenuItem key={value} value={value}>
             {label}
           </MenuItem>
