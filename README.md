@@ -31,3 +31,10 @@ http://localhost:3000/
 ![](src/Assets/hirokoymj-com-desktop.png)
 
 ![](src/Assets/hirokoymj-com-mobile.png)
+
+**Bug fix**
+
+- The data of the table won't refresh after deleting. Need to check delete mutation. Selected filter options should be added in redux.
+
+- TextField looks like Label.
+- A title when open a drawer. **Fixed**

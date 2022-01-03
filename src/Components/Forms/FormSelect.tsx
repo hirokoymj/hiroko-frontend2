@@ -12,7 +12,7 @@ type Props = WrappedFieldProps & {
   options: [];
   variant: "filled" | "outlined" | "standard";
   margin: "dense" | "none" | "normal";
-  onChange: any;
+  disabled: boolean;
 };
 
 export const FormSelect = ({
@@ -22,7 +22,7 @@ export const FormSelect = ({
   options,
   variant,
   margin,
-  onChange,
+  disabled,
   ...custom
 }: any) => {
   return (
@@ -42,6 +42,7 @@ export const FormSelect = ({
           onBlur: input.onBlur,
         }}
         label={label}
+        disabled={disabled && disabled}
         {...custom}>
         {options.map(({ value, label }: IFormSelectOptions) => (
           <MenuItem key={value} value={value}>

@@ -5,8 +5,6 @@ import { useParams, useHistory } from "react-router-dom";
 import { SubCategoryEditFormController } from "Components/FormController/SubCategoryEditFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSelect } from "Components/Forms/FormSelect";
-
-import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { DrawerDialog } from "Components/Dialog/DrawerDialog";
 import { TSubCategoryFormData } from "Types/forms";
@@ -70,12 +68,12 @@ export const SubCategoryEditView = () => {
   };
 
   return (
-    <DashboardLayout title="Sub Category Edit">
+    <div>
       <SubCategoryEditFormController subCategoryId={id}>
         {(props: any) => (
           <SubCategoryEditFormDrawer {...props} open={open} onClose={onClose} />
         )}
       </SubCategoryEditFormController>
-    </DashboardLayout>
+    </div>
   );
 };
