@@ -6,7 +6,6 @@ import { CategoryEditFormController } from "Components/FormController/CategoryEd
 import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { DrawerDialog } from "Components/Dialog/DrawerDialog";
-import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { ICategoryFormData } from "Types/forms";
 
 interface IProps extends InjectedFormProps<ICategoryFormData> {
@@ -67,12 +66,12 @@ export const CategoryEditView = () => {
   };
 
   return (
-    <DashboardLayout title="Category Edit">
+    <div>
       <CategoryEditFormController categoryId={id}>
         {(props: any) => (
           <CategoryEditFormDrawer {...props} open={open} onClose={onClose} />
         )}
       </CategoryEditFormController>
-    </DashboardLayout>
+    </div>
   );
 };

@@ -11,8 +11,6 @@ import { connect } from "react-redux";
 import { TopicEditFormController } from "Components/FormController/TopicEditFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
 import { FormSelect } from "Components/Forms/FormSelect";
-import { DashboardLayout } from "Components/Layouts/DashboardLayout";
-import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { DrawerDialog } from "Components/Dialog/DrawerDialog";
 import { TTopicFormData, IFormSelectOptions } from "Types/forms";
 import { RootState } from "Redux/ReduxProvider";
@@ -107,12 +105,12 @@ export const TopicEditView = connect((state: RootState) => ({
   };
 
   return (
-    <DashboardLayout title="Topic">
+    <div>
       <TopicEditFormController topicId={id} categoryId={categoryId}>
         {(props: any) => (
           <TopicEditForm {...props} open={open} onClose={onClose} />
         )}
       </TopicEditFormController>
-    </DashboardLayout>
+    </div>
   );
 });
