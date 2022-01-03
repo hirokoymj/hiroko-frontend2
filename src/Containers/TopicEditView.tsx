@@ -43,46 +43,44 @@ const TopicEditFormFields = (props: IProps) => {
       onSubmit={handleSubmit}
       submitting={submitting}
       submitLabel="Edit">
-      {loading ? (
-        <FormSkeleton fieldCount={4} />
-      ) : (
-        <>
-          <Field
-            name="category"
-            component={FormSelect}
-            fullWidth
-            variant="outlined"
-            label="Category"
-            options={category_options}
-            margin="normal"
-          />
-          <Field
-            name="subCategory"
-            component={FormSelect}
-            fullWidth
-            variant="outlined"
-            label="Sub Category"
-            options={subCategory_options}
-            margin="normal"
-          />
-          <Field
-            name="title"
-            component={FormTextField}
-            fullWidth
-            variant="outlined"
-            label="Title"
-            margin="normal"
-          />
-          <Field
-            name="url"
-            component={FormTextField}
-            fullWidth
-            variant="outlined"
-            label="URL"
-            margin="normal"
-          />
-        </>
-      )}
+      <>
+        <Field
+          name="category"
+          component={FormSelect}
+          fullWidth
+          variant="outlined"
+          label="Category"
+          options={category_options}
+          margin="normal"
+          disabled={loading}
+        />
+        <Field
+          name="subCategory"
+          component={FormSelect}
+          fullWidth
+          variant="outlined"
+          label="Sub Category"
+          options={subCategory_options}
+          margin="normal"
+          disabled={loading}
+        />
+        <Field
+          name="title"
+          component={FormTextField}
+          fullWidth
+          variant="outlined"
+          label="Title"
+          margin="normal"
+        />
+        <Field
+          name="url"
+          component={FormTextField}
+          fullWidth
+          variant="outlined"
+          label="URL"
+          margin="normal"
+        />
+      </>
     </DrawerDialog>
   );
 };
