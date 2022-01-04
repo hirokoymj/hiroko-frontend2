@@ -85,7 +85,7 @@ export const TopicTable = ({ openDialog }: ITopicTableProps) => {
     {
       variables: {
         cursor: null,
-        limit: 5,
+        limit: 10,
         ...(selectedFilters.length !== 0 && {
           filter: selectedFilters,
         }),

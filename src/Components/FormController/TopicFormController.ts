@@ -2,6 +2,7 @@ import { destroy } from "redux-form";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useSnackbar } from "notistack";
 import { Dispatch } from "redux";
+import { useSelector } from "react-redux";
 
 import { CREATE_TOPIC } from "Mutations/Topic";
 import { CATEGORIES } from "Queries/Category";
@@ -10,6 +11,7 @@ import { ICategoryFeed, ICategoriesVars } from "Types/api/Category";
 import { ICreateTopicVars, ITopic } from "Types/api/Topic";
 import { TTopicFormData } from "Types/forms";
 import { makeDropdownOptions } from "Components/FormController/common";
+import { RootState } from "Redux/ReduxProvider";
 
 type ITopicFormControllerProps = {
   children: any;
@@ -18,11 +20,20 @@ export const TopicFormController = ({
   children,
 }: ITopicFormControllerProps) => {
   const { enqueueSnackbar } = useSnackbar();
+  const selectedFilters = useSelector(
+    (state: RootState) => state.categoryFilter.value
+  );
   const [createTopic] = useMutation<ITopic, ICreateTopicVars>(CREATE_TOPIC, {
     refetchQueries: [
       {
         query: TOPICS,
-        variables: { limit: 5, cursor: null },
+        variables: {
+          limit: 10,
+          cursor: null,
+          ...(selectedFilters.length !== 0 && {
+            filter: selectedFilters,
+          }),
+        },
         fetchPolicy: "network-only",
       },
     ],

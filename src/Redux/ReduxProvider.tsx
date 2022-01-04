@@ -8,6 +8,7 @@ import countReducer from "Redux/Counter/counterSlice";
 import navigationReducer from "Redux/Navigation/navigationSlice";
 import titleReducer from "Redux/Title/titleSlice";
 import themeReducer from "Redux/Theme/themeSlice";
+import categoryFilterReducer from "Redux/Filter/categoryFilterSlice";
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   navigation: navigationReducer,
   title: titleReducer,
   theme: themeReducer,
+  categoryFilter: categoryFilterReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

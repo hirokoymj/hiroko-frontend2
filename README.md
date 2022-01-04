@@ -34,7 +34,7 @@ http://localhost:3000/
 
 **Bug fix**
 
-- The data of the table won't refresh after deleting. Need to check delete mutation. Selected filter options should be added in redux.
+- [TopicView] The data of the table won't refresh after deleting. Need to check delete mutation. Selected filter options should be added in redux. - Fixed
 
 - TextField looks like Label.
 - A title when open a drawer. **Fixed**

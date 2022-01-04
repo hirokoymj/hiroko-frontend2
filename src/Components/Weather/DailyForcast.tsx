@@ -62,8 +62,6 @@ export const DailyForecast = (props: IDailyForcastVars) => {
   );
   const { forecastList } = !loading && get(data, "dailyForecast", {});
 
-  console.log(data);
-
   const mappedData = map(forecastList, (forecast) => {
     const {
       dt,

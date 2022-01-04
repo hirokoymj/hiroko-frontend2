@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { TopicFormController } from "Components/FormController/TopicFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
@@ -27,6 +28,7 @@ import {
   ISubCategoryByCategoryVars,
 } from "Types/api/SubCategory";
 import { makeDropdownOptions } from "Components/FormController/common";
+import { RootState } from "Redux/ReduxProvider";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -121,13 +123,23 @@ export const TopicView = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState<boolean>(false);
   const [topicId, setTopicId] = useState<string>("");
+  const selectedFilters = useSelector(
+    (state: RootState) => state.categoryFilter.value
+  );
+
   const [deleteTopic, { loading }] = useMutation<ITopic, IDeleteTopicVars>(
     DELETE_TOPIC,
     {
       refetchQueries: [
         {
           query: TOPICS,
-          variables: { limit: 5, cursor: null },
+          variables: {
+            limit: 10,
+            cursor: null,
+            ...(selectedFilters.length !== 0 && {
+              filter: selectedFilters,
+            }),
+          },
           fetchPolicy: "network-only",
         },
       ],

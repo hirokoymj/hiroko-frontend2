@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
+import { useDispatch } from "react-redux";
+import {
+  setCategoryFilter,
+  updateCategoryFilter,
+} from "Redux/Filter/categoryFilterSlice";
 
 import { CATEGORY_ALL } from "Queries/Category";
 import { ICategory } from "Types/api/Category";
@@ -19,16 +24,17 @@ export const useCategoryFilterState = () => {
         value: id,
       };
     });
+  const dispatch = useDispatch();
 
   const handleFilterChange = (event: any) => {
     setSelectedFilters(event.target.value);
+    dispatch(setCategoryFilter(event.target.value));
   };
 
   const handleDeleteFilter = (value: string) => () => {
-    setSelectedFilters((chips) => {
-      const result = chips.filter((chip) => chip !== value);
-      return result;
-    });
+    const result = selectedFilters.filter((filter) => filter !== value);
+    setSelectedFilters(result);
+    dispatch(updateCategoryFilter(result));
   };
 
   return {
