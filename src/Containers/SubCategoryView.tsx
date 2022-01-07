@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Field, reduxForm, InjectedFormProps } from "redux-form";
 import { useMutation } from "@apollo/react-hooks";
 import Button from "@material-ui/core/Button";
@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 
 import { SubCategoryFormController } from "Components/FormController/SubCategoryFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
@@ -20,6 +21,8 @@ import { SUB_CATEGORIES } from "Queries/SubCategory";
 import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
 import { SubCategoryEditView } from "Containers/SubCategoryEditView";
 import { TSubCategoryFormData } from "Types/forms";
+import { RootState } from "Redux/ReduxProvider";
+import { IDeleteSubCategoryVars, ISubCategory } from "Types/api/SubCategory";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -85,19 +88,33 @@ const SubCategoryForm = reduxForm<TSubCategoryFormData, IProps>({
 
 export const SubCategoryView = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const selectedFilters = useSelector(
+    (state: RootState) => state.categoryFilter.value
+  );
   const [open, setOpen] = useState(false);
   const [subCategoryId, setSubCategoryId] = useState("");
-  const [deleteSubCategory] = useMutation(DELETE_SUB_CATEGORY, {
-    refetchQueries: [
-      {
-        query: SUB_CATEGORIES,
-        variables: { limit: 5, cursor: null },
-        fetchPolicy: "network-only",
-      },
-    ],
-  });
+  const [deleteSubCategory] = useMutation<ISubCategory, IDeleteSubCategoryVars>(
+    DELETE_SUB_CATEGORY,
+    {
+      refetchQueries: [
+        {
+          query: SUB_CATEGORIES,
+          variables: {
+            limit: 10,
+            cursor: null,
+            ...(selectedFilters.length !== 0 && {
+              filter: selectedFilters,
+            }),
+          },
+          fetchPolicy: "network-only",
+        },
+      ],
+    }
+  );
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleOpen = (id: string) => {
     setSubCategoryId(id);

@@ -34,7 +34,7 @@ http://localhost:3000/
 
 **Bug fix**
 
-- [TopicView] The data of the table won't refresh after deleting. Need to check delete mutation. Selected filter options should be added in redux. - Fixed
-
-- TextField looks like Label.
-- A title when open a drawer. **Fixed**
+1. [TopicView] The data of the table won't refresh after deleting. Need to check delete mutation. Selected filter options should be added in redux. - Fixed
+2. [CategoryView, SubCategoryView] - Has same issues of 1.
+3. A title when open a drawer. **Fixed**
+4. [Category Filter] - add space between each selected chip.

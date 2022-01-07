@@ -83,8 +83,8 @@ export const SubCategoryTable = ({ openDialog }: ISubCategoryTableProps) => {
     ISubCategoriesVars
   >(SUB_CATEGORIES, {
     variables: {
-      cursor: "",
-      limit: 5,
+      cursor: null,
+      limit: 10,
       ...(selectedFilters.length !== 0 && {
         filter: selectedFilters,
       }),

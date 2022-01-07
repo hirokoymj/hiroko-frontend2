@@ -126,7 +126,6 @@ export const TopicView = () => {
   const selectedFilters = useSelector(
     (state: RootState) => state.categoryFilter.value
   );
-
   const [deleteTopic, { loading }] = useMutation<ITopic, IDeleteTopicVars>(
     DELETE_TOPIC,
     {
