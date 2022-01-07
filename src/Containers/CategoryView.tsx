@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 
 import { CategoryFormController } from "Components/FormController/CategoryFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
@@ -19,6 +20,8 @@ import { CATEGORIES } from "Queries/Category";
 import { Title } from "Components/Titles/Title";
 import { CategoryEditView } from "Containers/CategoryEditView";
 import { ICategoryFormData } from "Types/forms";
+import { RootState } from "Redux/ReduxProvider";
+import { IDeleteCategoryVars, ICategory } from "Types/api/Category";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -72,17 +75,29 @@ const CategoryForm = reduxForm<ICategoryFormData>({
 
 export const CategoryView = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const selectedFilters = useSelector(
+    (state: RootState) => state.categoryFilter.value
+  );
   const [open, setOpen] = useState<boolean>(false);
   const [categoryId, setCategoryId] = useState<string>("");
-  const [deleteCategory] = useMutation(DELETE_CATEGORY, {
-    refetchQueries: [
-      {
-        query: CATEGORIES,
-        variables: { limit: 5, cursor: null },
-        fetchPolicy: "network-only",
-      },
-    ],
-  });
+  const [deleteCategory] = useMutation<ICategory, IDeleteCategoryVars>(
+    DELETE_CATEGORY,
+    {
+      refetchQueries: [
+        {
+          query: CATEGORIES,
+          variables: {
+            limit: 10,
+            cursor: null,
+            ...(selectedFilters.length !== 0 && {
+              filter: selectedFilters,
+            }),
+          },
+          fetchPolicy: "network-only",
+        },
+      ],
+    }
+  );
 
   const handleClose = () => setOpen(false);
 

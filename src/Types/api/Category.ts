@@ -7,7 +7,7 @@
 
 export interface ICategoriesVars {
   limit: number;
-  cursor: string;
+  cursor?: string | null;
   filter?: any;
 }
 export interface ICategoryFeed {

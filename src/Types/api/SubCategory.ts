@@ -5,7 +5,7 @@ import { ICategory, IPageInfo } from "../api/Category";
 // subCategoryByCategory(categoryId: ID): [SubCategory!]
 export interface ISubCategoriesVars {
   limit: number;
-  cursor: string;
+  cursor?: string | null;
   filter?: any;
 }
 

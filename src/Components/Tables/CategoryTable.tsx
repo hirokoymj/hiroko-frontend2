@@ -82,8 +82,8 @@ export const CategoryTable = ({ openDialog }: ICategoryTableProps) => {
     ICategoriesVars
   >(CATEGORIES, {
     variables: {
-      cursor: "",
-      limit: 5,
+      cursor: null,
+      limit: 10,
       ...(selectedFilters.length !== 0 && {
         filter: selectedFilters,
       }),
