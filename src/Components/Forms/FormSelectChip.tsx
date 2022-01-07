@@ -11,13 +11,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { ITableFilterOption } from "Types/common";
 
 const useStyles = makeStyles((theme) => ({
-  chips: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  root: {
-    margin: 2,
-  },
   colorSecondary: {
     color: "#fff",
   },
@@ -29,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
     width: "60%",
+  },
+  chipRoot: {
+    marginRight: theme.spacing(1),
   },
 }));
 
@@ -60,7 +56,7 @@ export const FormSelectChip = ({
         onMouseDown={(event) => event.stopPropagation()}
         input={<Input />}
         renderValue={(selected: any) => (
-          <div className={classes.chips}>
+          <div>
             {selected.map((value: string) => {
               const found = filters.find((d) => d.value === value);
               return (
@@ -70,6 +66,7 @@ export const FormSelectChip = ({
                   onDelete={handleDeleteFilter(value)}
                   onMouseDown={(event: any) => event.stopPropagation()}
                   color="primary"
+                  classes={{ root: classes.chipRoot }}
                 />
               );
             })}
