@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Field, reduxForm, InjectedFormProps } from "redux-form";
 import { useMutation } from "@apollo/react-hooks";
 import Button from "@material-ui/core/Button";
