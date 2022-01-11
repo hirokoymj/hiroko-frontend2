@@ -16,7 +16,7 @@
 
 - **Redux**: Redux is to provide global variables to be directly accessible from any components.
 
-- **Apollo Client**: Enable to get data from database through GraphQL.
+- **Apollo Client**: Enable to get data from database using GraphQL.
 
 ### Run localhost
 
