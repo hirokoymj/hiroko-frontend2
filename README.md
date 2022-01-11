@@ -14,9 +14,9 @@
 
 - **Material UI**: Material UI is the UI library to build an own designed web application faster.
 
-- **Redux**: Redux is to provide the global valuables to be directly accessible from any components called `Redux state`.
+- **Redux**: Redux is to provide global variables to be directly accessible from any components.
 
-- **Apollo Client**: Enable to access data in database through GraphQL.
+- **Apollo Client**: Enable to get data from database through GraphQL.
 
 ### Run localhost
 
