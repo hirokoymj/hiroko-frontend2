@@ -7,6 +7,7 @@ export type ICategoryFormData = Pick<ICategory, "name" | "abbr">;
 
 export type TSubCategoryFormData = Pick<ISubCategory, "name"> & {
   categoryId: string;
+  order: string;
 };
 
 export type TTopicFormData = Pick<ITopic, "url" | "title"> & {

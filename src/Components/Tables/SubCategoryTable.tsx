@@ -157,6 +157,10 @@ export const SubCategoryTable = ({ openDialog }: ISubCategoryTableProps) => {
                 field: "categoryName",
               },
               {
+                label: "Order",
+                field: "order",
+              },
+              {
                 label: "Created",
                 field: "created",
               },
