@@ -61,13 +61,14 @@ export const SubCategoryEditFormController = ({
 
   const onSubmit = async (values: TSubCategoryFormData, dispatch: Dispatch) => {
     try {
-      const { name, categoryId } = values;
+      const { name, categoryId, order } = values;
       await updateSubCategory({
         variables: {
           id: subCategoryId,
           input: {
             name,
             category: categoryId,
+            order: parseInt(order),
           },
         },
       });

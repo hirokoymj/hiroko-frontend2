@@ -97,8 +97,10 @@ export const ReferenceListView = () => {
     return {
       cardTitle: get(ordered[key][0], "subCategory.name", ""),
       topicData: ordered[key],
+      order: get(ordered[key][0], "subCategory.order", 0),
     };
   });
+  mappedData.sort((a, b) => (a.order < b.order ? -1 : 1));
 
   return (
     <DashboardLayout title="Technical References">
