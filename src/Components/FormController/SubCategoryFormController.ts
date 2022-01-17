@@ -51,12 +51,13 @@ export const SubCategoryFormController = ({ children }: Props) => {
 
   const onSubmit = async (values: TSubCategoryFormData, dispatch: Dispatch) => {
     try {
-      const { name, categoryId } = values;
+      const { name, categoryId, order } = values;
       await createSubCategory({
         variables: {
           input: {
             name,
             category: categoryId,
+            order: parseInt(order),
           },
         },
       });
