@@ -9,6 +9,7 @@ import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
+import { FormControl } from "@material-ui/core";
 
 import { SubCategoryFormController } from "Components/FormController/SubCategoryFormController";
 import { FormTextField } from "Components/Forms/FormTextField";
@@ -26,11 +27,20 @@ import { IDeleteSubCategoryVars, ISubCategory } from "Types/api/SubCategory";
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    width: "30%",
+    width: "50%",
     margin: "auto",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
+  },
+  orderField: {
+    width: "40%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+  },
+  formControl: {
+    marginBottom: "0 !important",
   },
 }));
 
@@ -66,15 +76,26 @@ const SubCategoryFormFields = (props: IProps) => {
               variant="outlined"
               label="Sub Category Name"
             />
-            <Button
-              type="submit"
-              variant="contained"
-              color="secondary"
-              disabled={submitting}
-              onClick={handleSubmit}
-              className={classes.button}>
-              {submitting ? "Submitting" : "Submit"}
-            </Button>
+            <Field
+              name="order"
+              component={FormTextField}
+              fullWidth
+              variant="outlined"
+              label="order"
+              type="number"
+              classes={{ root: classes.orderField }}
+            />
+            <FormControl fullWidth classes={{ root: classes.formControl }}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="secondary"
+                disabled={submitting}
+                onClick={handleSubmit}
+                className={classes.button}>
+                {submitting ? "Submitting" : "Submit"}
+              </Button>
+            </FormControl>
           </>
         )}
       </>
