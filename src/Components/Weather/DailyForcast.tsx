@@ -100,7 +100,11 @@ export const DailyForecast = (props: IDailyForcastVars) => {
                 7 days forecast
               </Typography>
             </Grid>
-            <Grid item xs={6} justifyContent="flex-end">
+            <Grid
+              item
+              xs={6}
+              justifyContent="flex-end"
+              style={{ display: "flex" }}>
               <Typography variant="body1" component="span" gutterBottom>
                 Source:{" "}
               </Typography>
