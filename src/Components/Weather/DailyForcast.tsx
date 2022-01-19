@@ -11,6 +11,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
+import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
 
 import { DAILY_FORECAST } from "Queries/Weather";
 import { DailyForecastSkeleton } from "Components/Skeleton/WeatherSkeleton";
@@ -91,9 +93,26 @@ export const DailyForecast = (props: IDailyForcastVars) => {
         <DailyForecastSkeleton />
       ) : (
         <div>
-          <Typography component="h2" variant="h5" gutterBottom>
-            7 days forecast
-          </Typography>
+          <Grid container alignItems="baseline">
+            <Grid item xs={6}>
+              {" "}
+              <Typography component="h2" variant="h5" gutterBottom>
+                7 days forecast
+              </Typography>
+            </Grid>
+            <Grid item xs={6} justifyContent="flex-end">
+              <Typography variant="body1" component="span" gutterBottom>
+                Source:{" "}
+              </Typography>
+              <Link
+                href="https://openweathermap.org/api"
+                variant="body1"
+                target="_blank"
+                rel="noreferrer">
+                OpenWeather
+              </Link>
+            </Grid>
+          </Grid>
           <Paper>
             <List>
               <ListItem dense divider>
