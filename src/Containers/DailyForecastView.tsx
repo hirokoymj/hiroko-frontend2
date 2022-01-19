@@ -203,7 +203,7 @@ export const DailyForecastView = () => {
               </GoogleMap>
             </div>
           </Grid>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12} sm={10}>
             <DailyForecast city={city} />
           </Grid>
         </Grid>
