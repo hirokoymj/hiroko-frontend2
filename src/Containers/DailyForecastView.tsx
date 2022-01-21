@@ -24,6 +24,7 @@ import {
   ICurrentWeather,
 } from "Types/api/CurrentWeather";
 import { TDailyForecasetFormData } from "Types/forms";
+import { WorldClock } from "Components/Clock/WorldClock";
 
 const useStyles = makeStyles((theme) => ({
   searchForm: {
@@ -62,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   weatherInfo: {
-    height: "250px",
+    height: "auto",
   },
 }));
 
@@ -129,32 +130,37 @@ const CurrentWeatherInfo = ({ city }: { city: string }) => {
       ) : (
         <Paper className={classes.weatherInfo}>
           <Grid container justify="flex-start">
-            <Grid item xs={12}>
-              <Typography variant="subtitle1" gutterBottom color="secondary">
-                {formatted}
-              </Typography>
-              <Typography
-                variant="h4"
-                gutterBottom
-                className={classes.cityCountry}>
-                {cityCountry}
-              </Typography>
+            <Grid item xs={6}>
+              <Grid item xs={12}>
+                <Typography variant="subtitle1" gutterBottom color="secondary">
+                  {formatted}
+                </Typography>
+                <Typography
+                  variant="h4"
+                  gutterBottom
+                  className={classes.cityCountry}>
+                  {cityCountry}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <div style={{ display: "flex", marginBottom: "16px" }}>
+                  <img
+                    src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                    width="50"
+                    height="50"
+                    alt=""
+                    className={classes.weatherIcon}
+                  />
+                  <Typography variant="h4">{temp}</Typography>
+                </div>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1">{text}</Typography>
+                <Typography variant="body1">{humidity}</Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <div style={{ display: "flex", marginBottom: "16px" }}>
-                <img
-                  src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
-                  width="50"
-                  height="50"
-                  alt=""
-                  className={classes.weatherIcon}
-                />
-                <Typography variant="h4">{temp}</Typography>
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="body1">{text}</Typography>
-              <Typography variant="body1">{humidity}</Typography>
+            <Grid item xs={6}>
+              <WorldClock />
             </Grid>
           </Grid>
         </Paper>
