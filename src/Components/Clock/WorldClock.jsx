@@ -24,7 +24,7 @@ export const WorldClock = () => {
 
   return (
     <div className={classes.worldClock}>
-      <Clock value={value} renderNumbers="true" />
+      <Clock value={value} renderNumbers={true} />
     </div>
   );
 };
