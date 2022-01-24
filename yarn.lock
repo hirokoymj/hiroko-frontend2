@@ -2374,6 +2374,11 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-clock@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-clock/-/react-clock-3.0.1.tgz#4d8f8736e1ca95d697f2120b5261bd6e45482d48"
+  integrity sha512-lgtqEGV8StA4yTvXqrZGCD4PJFe90RjSMWdgYzPZX7JsIpqZqum9+Dns+UkcnnFOz6jTKXr7e48yNjYREWDe9w==
+
 "@types/react-dom@*", "@types/react-dom@^17.0.11":
   version "17.0.11"
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-17.0.11.tgz"
