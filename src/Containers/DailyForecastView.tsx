@@ -8,7 +8,6 @@ import get from "lodash/get";
 import RoomIcon from "@material-ui/icons/Room";
 import Container from "@material-ui/core/Container";
 import { useQuery } from "@apollo/react-hooks";
-import moment from "moment-timezone";
 import tzlookup from "tz-lookup";
 import Typography from "@material-ui/core/Typography";
 
@@ -110,11 +109,22 @@ const CurrentWeatherInfo = ({ city }: { city: string }) => {
   const { cityInfo, weather } =
     !loading && get(data, "currentWeatherByCity", {});
 
-  const dt = get(weather, "dt");
   const lat = parseFloat(get(cityInfo, "lat", 0));
   const lon = parseFloat(get(cityInfo, "lon", 0));
   const timezone = tzlookup(lat, lon);
-  const formatted = moment.unix(dt).tz(timezone).format("h:mma MMM D");
+  const formattedCityLocalTime = new Date().toLocaleString("en-US", {
+    timeZone: timezone,
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+  const cityLocalTime = new Date().toLocaleString("en-US", {
+    timeZone: timezone,
+  });
   const cityCountry = get(cityInfo, "name") + ", " + get(cityInfo, "country");
   const icon = get(weather, "icon");
   const temp = Math.ceil(get(weather, "temperature.day")) + `${"\u00b0"}C`;
@@ -130,10 +140,10 @@ const CurrentWeatherInfo = ({ city }: { city: string }) => {
       ) : (
         <Paper className={classes.weatherInfo}>
           <Grid container justify="flex-start">
-            <Grid item xs={6}>
+            <Grid item xs={7}>
               <Grid item xs={12}>
                 <Typography variant="subtitle1" gutterBottom color="secondary">
-                  {formatted}
+                  {formattedCityLocalTime}
                 </Typography>
                 <Typography
                   variant="h4"
@@ -159,8 +169,8 @@ const CurrentWeatherInfo = ({ city }: { city: string }) => {
                 <Typography variant="body1">{humidity}</Typography>
               </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <WorldClock />
+            <Grid item xs={5}>
+              <WorldClock localTime={cityLocalTime} />
             </Grid>
           </Grid>
         </Paper>

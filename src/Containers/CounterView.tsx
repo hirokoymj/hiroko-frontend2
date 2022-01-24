@@ -15,7 +15,6 @@ import { setTitle, resetTitle } from "Redux/Title/titleSlice";
 import { setTheme } from "Redux/Theme/themeSlice";
 import Switch from "@material-ui/core/Switch";
 
-import { WorldClock } from "Components/Clock/WorldClock";
 import "react-clock/dist/Clock.css";
 
 export const CounterView = () => {
@@ -38,8 +37,6 @@ export const CounterView = () => {
 
   return (
     <div>
-      <WorldClock />
-
       <Switch checked={checked} onChange={handleSwitchChange} />
       <hr />
 

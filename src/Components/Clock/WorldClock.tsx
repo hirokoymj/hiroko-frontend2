@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Clock from "react-clock";
+import Clock, { ClockValue } from "react-clock";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,20 +11,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const WorldClock = () => {
-  const [value, setValue] = useState(new Date());
+interface IProps {
+  localTime: string;
+}
+
+export const WorldClock = ({ localTime }: IProps) => {
+  const [value, setValue] = useState<ClockValue>(new Date(localTime));
   const classes = useStyles();
 
   useEffect(() => {
-    const interval = setInterval(() => setValue(new Date()), 1000);
+    const interval = setInterval(() => setValue(new Date(localTime)), 1000);
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [localTime]);
 
   return (
     <div className={classes.worldClock}>
-      <Clock value={value} renderNumbers="true" />
+      <Clock value={value} renderNumbers={true} />
     </div>
   );
 };
