@@ -1,6 +1,8 @@
 import { Bar, Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import get from "lodash/get";
+import Link from "@material-ui/core/Link";
+import Typography from "@material-ui/core/Typography";
 
 import { StatesResponseData } from "Types/api/CovidAPI";
 
@@ -28,6 +30,21 @@ const calculateDiff = (array: number[]) => {
     []
   );
   return result;
+};
+
+const ChartSourceLink = () => {
+  return (
+    <div>
+      <Typography variant="caption">Data Source: &nbsp;</Typography>
+      <Link
+        href="https://postman-toolboxes.github.io/covid-19/"
+        variant="caption"
+        target="_blank"
+        rel="noreferrer">
+        Postman COVID-19 API
+      </Link>
+    </div>
+  );
 };
 
 export const NewCasesChart = ({ data, county }: IProps) => {
@@ -67,7 +84,12 @@ export const NewCasesChart = ({ data, county }: IProps) => {
     };
   };
 
-  return <Bar data={getCasesData()} options={options} />;
+  return (
+    <>
+      <Bar data={getCasesData()} options={options} />
+      <ChartSourceLink />
+    </>
+  );
 };
 
 export const DeathsChart = ({ data, county }: IProps) => {
@@ -93,5 +115,10 @@ export const DeathsChart = ({ data, county }: IProps) => {
     };
   };
 
-  return <Line data={getDeathsData()} options={options} />;
+  return (
+    <>
+      <Line data={getDeathsData()} options={options} />
+      <ChartSourceLink />
+    </>
+  );
 };
