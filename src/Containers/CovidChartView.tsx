@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { StatesResponseData } from "Types/api/CovidAPI";
 import { NewCasesChart, DeathsChart } from "Components/Chart/CovidChart";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
+import { CovidChartSkeleton } from "Components/Skeleton/CovidChartSkelton";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -89,7 +90,7 @@ export const CovidChartView = () => {
           </Grid>
         </Grid>
       ) : (
-        <div>loading...</div>
+        <CovidChartSkeleton />
       )}
     </DashboardLayout>
   );
