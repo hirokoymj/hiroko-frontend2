@@ -15,6 +15,7 @@ import { PageFooter } from "Components/Layouts/Footer";
 import { DailyForecastView } from "Containers/DailyForecastView";
 import { PhotoView } from "Containers/PhotoView";
 import { CounterView } from "Containers/CounterView";
+import { CovidChartView } from "Containers/CovidChartView";
 import {
   closeNavigation,
   openNavigation,
@@ -68,6 +69,7 @@ export const DashboardController = () => {
             <Route path="/topicList" component={TopicView} />
             <Route path="/photo" component={PhotoView} />
             <Route path="/test" component={CounterView} />
+            <Route path="/covid19" component={CovidChartView} />
             <Route render={() => <Redirect to="/" />} />
           </Switch>
           <PageFooter />
