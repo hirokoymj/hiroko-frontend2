@@ -11,6 +11,7 @@ import {
   TechNavItems,
   // ResumeListItems,
   PhotoListItems,
+  CovidListItem,
 } from "Components/Lists/NavigationLists";
 import { Logo } from "Components/Layouts/Logo";
 import { RootState } from "Redux/ReduxProvider";
@@ -89,8 +90,9 @@ export const MenuDrawer = () => {
       </List>
       <Divider />
       <List>
-        <PhotoListItems />
+        <CovidListItem />
       </List>
+      <Divider />
     </Drawer>
   );
 };
