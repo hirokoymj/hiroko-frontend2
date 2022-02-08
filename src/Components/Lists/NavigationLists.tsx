@@ -6,7 +6,7 @@ import ViewAgendaOutlinedIcon from "@material-ui/icons/ViewAgendaOutlined";
 import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
 import PictureAsPdfOutlinedIcon from "@material-ui/icons/PictureAsPdfOutlined";
 import PhotoCameraOutlinedIcon from "@material-ui/icons/PhotoCameraOutlined";
-import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
+import LocalHospitalOutlinedIcon from "@material-ui/icons/LocalHospitalOutlined";
 import Link from "@material-ui/core/Link";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -107,6 +107,10 @@ export const PhotoListItems = () => {
 
 export const CovidListItem = () => {
   return (
-    <ListItemLink to="/covid19" text="Covid-19" icon={<LocalHospitalIcon />} />
+    <ListItemLink
+      to="/covid19"
+      text="Covid-19"
+      icon={<LocalHospitalOutlinedIcon />}
+    />
   );
 };

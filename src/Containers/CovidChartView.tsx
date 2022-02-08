@@ -7,10 +7,21 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { startCase } from "lodash";
 import { Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { StatesResponseData } from "Types/api/CovidAPI";
 import { NewCasesChart, DeathsChart } from "Components/Chart/CovidChart";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
+import { CovidChartSkeleton } from "Components/Skeleton/CovidChartSkelton";
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    width: "50%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+  },
+}));
 
 export const CovidChartView = () => {
   const [apiData, setAPIData] = useState<StatesResponseData | undefined>(
@@ -18,6 +29,7 @@ export const CovidChartView = () => {
   );
   const [countyList, setCountyList] = useState<string[]>([]);
   const [county, setCounty] = useState<string>("los angeles");
+  const classes = useStyles();
 
   const fetchCovidData = async () => {
     fetch(
@@ -52,7 +64,7 @@ export const CovidChartView = () => {
           <Grid item xs={12}>
             <Paper>
               <Typography variant="h5">California</Typography>
-              <FormControl style={{ width: "50%" }}>
+              <FormControl className={classes.formControl}>
                 <InputLabel id="county">county</InputLabel>
                 <Select name="county" onChange={handleChange} value={county}>
                   {countyList.map((county) => (
@@ -78,7 +90,7 @@ export const CovidChartView = () => {
           </Grid>
         </Grid>
       ) : (
-        <div>loading...</div>
+        <CovidChartSkeleton />
       )}
     </DashboardLayout>
   );
