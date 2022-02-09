@@ -54,10 +54,10 @@ export const PageFooter = () => {
         icon={<GitHubIcon fontSize="large" />}
         to="https://github.com/hirokoymj/hiroko-frontend"
       />
-      <IconButtonLink
+      {/* <IconButtonLink
         icon={<AssignmentIcon fontSize="large" />}
         to="/Hiroko_Yamaji_Resume.pdf"
-      />
+      /> */}
     </footer>
   );
 };
