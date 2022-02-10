@@ -23,17 +23,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const USCityButton = () => {};
+
 export const CovidChartView = () => {
   const [apiData, setAPIData] = useState<StatesResponseData | undefined>(
     undefined
   );
   const [countyList, setCountyList] = useState<string[]>([]);
   const [county, setCounty] = useState<string>("los angeles");
+  const [state, setState] = useState<string>("california");
+
+  const [statesList, setStatesList] = useState<string[]>([]);
   const classes = useStyles();
 
   const fetchCovidData = async () => {
+    const us_states = await api<string[]>(
+      "https://corona.lmao.ninja/v2/historical/usacounties",
+      {
+        method: "GET",
+        redirect: "follow",
+      }
+    );
     const data = await api<[StatesResponseData]>(
-      "https://corona.lmao.ninja/v2/historical/usacounties/california?lastdays=15",
+      `https://corona.lmao.ninja/v2/historical/usacounties/${state}?lastdays=15`,
       {
         method: "GET",
         redirect: "follow",
@@ -43,11 +55,12 @@ export const CovidChartView = () => {
     const counties = await data.map((d) => d.county);
     setAPIData(chartData);
     setCountyList(counties);
+    setStatesList(us_states);
   };
 
   useEffect(() => {
     fetchCovidData();
-  }, [county]);
+  }, [county, state]);
 
   const handleChange = (
     e: React.ChangeEvent<{ value: unknown; name?: string }>
@@ -62,6 +75,17 @@ export const CovidChartView = () => {
         <Grid container spacing={2} justify="center">
           <Grid item xs={12}>
             <Paper>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="state">US States:</InputLabel>
+                <Select name="state" onChange={handleChange} value={state}>
+                  {statesList.map((state) => (
+                    <MenuItem value={state} key={state}>
+                      {startCase(state)}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
               <Typography variant="h5">California</Typography>
               <FormControl className={classes.formControl}>
                 <InputLabel id="county">county</InputLabel>
