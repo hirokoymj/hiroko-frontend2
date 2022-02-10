@@ -9,7 +9,7 @@ import { Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { StatesResponseData } from "Types/api/CovidAPI";
+import { StatesResponseData, api } from "Types/api/CovidAPI";
 import { NewCasesChart, DeathsChart } from "Components/Chart/CovidChart";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { CovidChartSkeleton } from "Components/Skeleton/CovidChartSkelton";
@@ -32,18 +32,17 @@ export const CovidChartView = () => {
   const classes = useStyles();
 
   const fetchCovidData = async () => {
-    fetch(
-      "https://corona.lmao.ninja/v2/historical/usacounties/california?lastdays=15"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const chartData = data.find(
-          (d: StatesResponseData) => d.county === county
-        );
-        setAPIData(chartData);
-        const counties = data.map((d: StatesResponseData) => d.county);
-        setCountyList(counties);
-      });
+    const data = await api<[StatesResponseData]>(
+      "https://corona.lmao.ninja/v2/historical/usacounties/california?lastdays=15",
+      {
+        method: "GET",
+        redirect: "follow",
+      }
+    );
+    const chartData = await data.find((d) => d.county === county);
+    const counties = await data.map((d) => d.county);
+    setAPIData(chartData);
+    setCountyList(counties);
   };
 
   useEffect(() => {
