@@ -38,3 +38,21 @@ http://localhost:3000/
 2. [CategoryView, SubCategoryView] - Has same issues of 1.
 3. A title when open a drawer. **Fixed**
 4. [Category Filter] - add space between each selected chip.
+
+### TypeScript
+
+https://www.newline.co/@bespoyasov/how-to-use-fetch-with-typescript--a81ac257
+
+### Covid API
+
+GET: Historical Data for all Counties in a Specified State
+
+```js
+https://corona.lmao.ninja/v2/historical/usacounties/:state?lastdays=30
+```
+
+GET: USA states to query /historical/usacounties/{state} endpoint
+
+```js
+https://corona.lmao.ninja/v2/historical/usacounties
+```

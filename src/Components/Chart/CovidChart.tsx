@@ -17,7 +17,7 @@ const options = {
 };
 
 interface IProps {
-  data: StatesResponseData;
+  data: StatesResponseData | undefined;
   county: string;
 }
 
