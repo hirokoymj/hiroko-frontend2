@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useFetch = <R extends any = any>({ method, url }: any) => {
   const [data, setData] = useState<R | null>(null); // set `R` as returned type
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {

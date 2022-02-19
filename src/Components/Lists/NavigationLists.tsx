@@ -107,10 +107,12 @@ export const PhotoListItems = () => {
 
 export const CovidListItem = () => {
   return (
-    <ListItemLink
-      to="/covid19"
-      text="Covid-19"
-      icon={<LocalHospitalOutlinedIcon />}
-    />
+    <>
+      <ListItemLink
+        to="/covid19"
+        text="Covid-19"
+        icon={<LocalHospitalOutlinedIcon />}
+      />
+    </>
   );
 };
