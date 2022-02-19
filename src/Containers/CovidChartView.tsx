@@ -1,84 +1,79 @@
 import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import { startCase } from "lodash";
-import { Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
+import { Switch, Route, Link, Redirect } from "react-router-dom";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import clsx from "clsx";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import { CovidChartCAView } from "Containers/CovidChartCAView";
+import { CovidChartSearchView } from "Containers/CovidChartSearchView";
 
-import { StatesResponseData } from "Types/api/CovidAPI";
-import { NewCasesChart, DeathsChart } from "Components/Chart/CovidChart";
-import { DashboardLayout } from "Components/Layouts/DashboardLayout";
-import { CovidChartSkeleton } from "Components/Skeleton/CovidChartSkelton";
-import { useFetch } from "Hooks/useFetch";
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    width: "50%",
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-    },
+const useStyles = makeStyles((theme: Theme) => ({
+  tabsRoot: {
+    color: "#000",
+    fontWeight: "bold",
+  },
+  indicatorColor: {
+    background: `${theme.palette.secondary.dark}`,
+  },
+  tab: {
+    textTransform: "none",
+    fontSize: "1.1rem",
+  },
+  activeTab: {
+    backgroundImage: `linear-gradient(${theme.palette.secondary.light} 0%,${theme.palette.secondary.dark} 100%)`,
+    color: theme.palette.secondary.contrastText,
   },
 }));
 
 export const CovidChartView = () => {
+  const [activeTab, setActiveTab] = useState<number>(0);
   const classes = useStyles();
-  const [county, setCounty] = useState<string>("los angeles");
-  const { data, loading } = useFetch<[StatesResponseData]>({
-    url: `https://corona.lmao.ninja/v2/historical/usacounties/california?lastdays=15`,
-    method: "get",
-  });
 
-  const chartData = !loading
-    ? data?.find((d) => d.county === county)
-    : undefined;
-  const counties = !loading ? data?.map((d) => d.county) : [];
-
-  const handleChange = (
-    e: React.ChangeEvent<{ value: unknown; name?: string }>
-  ) => {
-    const newVal = e.target.value as string;
-    setCounty(newVal);
+  const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setActiveTab(newValue);
   };
 
   return (
-    <DashboardLayout fullWidth={true} title="Covid-19 Statistics">
-      {!loading ? (
-        <Grid container spacing={2} justify="center">
-          <Grid item xs={12}>
-            <Paper>
-              <Typography variant="h5">California</Typography>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="county">county</InputLabel>
-                <Select name="county" onChange={handleChange} value={county}>
-                  {counties?.map((county) => (
-                    <MenuItem value={county} key={county}>
-                      {startCase(county)}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper>
-              <Typography variant="h6">New Cases:</Typography>
-              <NewCasesChart data={chartData} county={startCase(county)} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper>
-              <Typography variant="h6">Deaths:</Typography>
-              <DeathsChart data={chartData} county={startCase(county)} />
-            </Paper>
-          </Grid>
-        </Grid>
-      ) : (
-        <CovidChartSkeleton />
-      )}
-    </DashboardLayout>
+    <div>
+      <AppBar position="static" color="default">
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          variant="scrollable"
+          scrollButtons="on"
+          aria-label="covidChartTabs"
+          classes={{
+            root: classes.tabsRoot,
+            indicator: classes.indicatorColor,
+          }}>
+          <Tab
+            label="California"
+            component={Link}
+            to="/covid19/ca"
+            value={0}
+            classes={{
+              root: clsx(classes.tab, activeTab === 0 && classes.activeTab),
+            }}
+          />
+          <Tab
+            label="Unites States"
+            component={Link}
+            to="/covid19/search"
+            value={1}
+            classes={{
+              root: clsx(classes.tab, activeTab === 1 && classes.activeTab),
+            }}
+          />
+        </Tabs>
+      </AppBar>
+      <Switch>
+        <Route path="/covid19" exact>
+          <Redirect to="/covid19/ca" />
+        </Route>
+        <Route path="/covid19/ca" component={CovidChartCAView} />
+        <Route path="/covid19/search" component={CovidChartSearchView} />
+      </Switch>
+    </div>
   );
 };

@@ -16,8 +16,6 @@ import { DailyForecastView } from "Containers/DailyForecastView";
 import { PhotoView } from "Containers/PhotoView";
 import { CounterView } from "Containers/CounterView";
 import { CovidChartView } from "Containers/CovidChartView";
-import { CovidChartViewNew } from "Containers/CovidChartViewNew";
-// import { USCovidDataView } from "Containers/USCovidDataView";
 
 import {
   closeNavigation,
@@ -73,7 +71,6 @@ export const DashboardController = () => {
             <Route path="/photo" component={PhotoView} />
             <Route path="/test" component={CounterView} />
             <Route path="/covid19" component={CovidChartView} />
-            <Route path="/covid2" component={CovidChartViewNew} />
             <Route render={() => <Redirect to="/" />} />
           </Switch>
           <PageFooter />

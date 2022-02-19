@@ -56,3 +56,7 @@ GET: USA states to query /historical/usacounties/{state} endpoint
 ```js
 https://corona.lmao.ninja/v2/historical/usacounties
 ```
+
+### History
+
+- 2.18.2022: Creating the axios custom hook for Covid-19 chart page
