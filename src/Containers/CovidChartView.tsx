@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { CovidChartCAView } from "Containers/CovidChartCAView";
 import { CovidChartSearchView } from "Containers/CovidChartSearchView";
+import { ChartTabNames } from "Enums/TabNames";
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabsRoot: {
@@ -48,7 +49,7 @@ export const CovidChartView = () => {
             indicator: classes.indicatorColor,
           }}>
           <Tab
-            label="California"
+            label={ChartTabNames.CA}
             component={Link}
             to="/covid19/ca"
             value={0}
@@ -57,7 +58,7 @@ export const CovidChartView = () => {
             }}
           />
           <Tab
-            label="Unites States"
+            label={ChartTabNames.USA}
             component={Link}
             to="/covid19/search"
             value={1}

@@ -6,6 +6,7 @@ import Tab from "@material-ui/core/Tab";
 import { ReferenceListView } from "Containers/ReferenceListView";
 import clsx from "clsx";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { TabNames } from "Enums/TabNames";
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabsRoot: {
@@ -47,7 +48,7 @@ export const ReferenceView = () => {
             indicator: classes.indicatorColor,
           }}>
           <Tab
-            label="React"
+            label={TabNames.React}
             component={Link}
             to="/tech/react"
             value={0}
@@ -56,7 +57,7 @@ export const ReferenceView = () => {
             }}
           />
           <Tab
-            label="JavaScript"
+            label={TabNames.JavaScript}
             component={Link}
             to="/tech/js"
             value={1}
@@ -65,7 +66,7 @@ export const ReferenceView = () => {
             }}
           />
           <Tab
-            label="GraphQL"
+            label={TabNames.GraphQL}
             component={Link}
             to="/tech/graphQL"
             value={2}
@@ -74,7 +75,7 @@ export const ReferenceView = () => {
             }}
           />
           <Tab
-            label="Git"
+            label={TabNames.Git}
             component={Link}
             to="/tech/git"
             value={3}
@@ -83,7 +84,7 @@ export const ReferenceView = () => {
             }}
           />
           <Tab
-            label="HTML/CSS"
+            label={TabNames.HTMLCSS}
             component={Link}
             to="/tech/html"
             value={4}
