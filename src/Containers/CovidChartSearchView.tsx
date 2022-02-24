@@ -45,6 +45,7 @@ export const CovidChartSearchView = () => {
   const handleChange = (
     e: React.ChangeEvent<{ value: unknown; name?: string }>
   ) => {
+    // const newVal = e.target.value as string;
     const newVal = e.target.value as string;
     const name = e.target.name as string;
     setFormValues({ ...formValues, [name]: newVal });
