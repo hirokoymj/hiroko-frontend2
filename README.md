@@ -26,37 +26,31 @@ yarn dev
 
 http://localhost:3000/
 
-### Screenshot
+### APIs
 
-![](src/Assets/hirokoymj-com-desktop.png)
+**Weather API:**
 
-![](src/Assets/hirokoymj-com-mobile.png)
+- [OpenWeather](https://openweathermap.org/api)
+- Current Weather Data:
 
-**Bug fix**
+```text
+https://api.openweathermap.org/data/2.5/weather?q=tokyo&units=metric&appid={id}
+```
 
-1. [TopicView] The data of the table won't refresh after deleting. Need to check delete mutation. Selected filter options should be added in redux. - Fixed
-2. [CategoryView, SubCategoryView] - Has same issues of 1.
-3. A title when open a drawer. **Fixed**
-4. [Category Filter] - add space between each selected chip.
+- Daily Forecaset 7 days:
 
-### TypeScript
+```text
+https://api.openweathermap.org/data/2.5/forecast/daily?q=tokyo&units=metric&cnt=7&appid={id}
+```
 
-https://www.newline.co/@bespoyasov/how-to-use-fetch-with-typescript--a81ac257
+- Implemented the API in GraphQL as datasource
 
-### Covid API
+**Covid 19 API**
 
-GET: Historical Data for all Counties in a Specified State
+Historical Data for all Counties in a Specified State
 
-```js
+```text
 https://corona.lmao.ninja/v2/historical/usacounties/:state?lastdays=30
 ```
 
-GET: USA states to query /historical/usacounties/{state} endpoint
-
-```js
-https://corona.lmao.ninja/v2/historical/usacounties
-```
-
-### History
-
-- 2.18.2022: Creating the axios custom hook for Covid-19 chart page
+> Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths and cases. Updated each day at 23:59 UTC. Data is updated every 10 minutes.
