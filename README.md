@@ -33,15 +33,15 @@ http://localhost:3000/
 - [OpenWeather](https://openweathermap.org/api)
 - Current Weather Data:
 
-```text
-https://api.openweathermap.org/data/2.5/weather?q=tokyo&units=metric&appid={id}
-```
+  ```text
+  https://api.openweathermap.org/data/2.5/weather?q=tokyo&units=metric&appid={id}
+  ```
 
 - Daily Forecaset 7 days:
 
-```text
-https://api.openweathermap.org/data/2.5/forecast/daily?q=tokyo&units=metric&cnt=7&appid={id}
-```
+  ```text
+  https://api.openweathermap.org/data/2.5/forecast/daily?q=tokyo&units=metric&cnt=7&appid={id}
+  ```
 
 - Implemented the API in GraphQL as datasource
 
@@ -50,6 +50,6 @@ https://api.openweathermap.org/data/2.5/forecast/daily?q=tokyo&units=metric&cnt=
 - [Postman COVID-19 API Resource Center](https://postman-toolboxes.github.io/covid-19/)
 - Historical Data for all Counties in a Specified State
 
-```text
-https://corona.lmao.ninja/v2/historical/usacounties/:state?lastdays=30
-```
+  ```text
+  https://corona.lmao.ninja/v2/historical/usacounties/:state?lastdays=30
+  ```
