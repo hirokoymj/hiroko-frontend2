@@ -47,10 +47,9 @@ https://api.openweathermap.org/data/2.5/forecast/daily?q=tokyo&units=metric&cnt=
 
 **Covid 19 API**
 
-Historical Data for all Counties in a Specified State
+- [Postman COVID-19 API Resource Center](https://postman-toolboxes.github.io/covid-19/)
+- Historical Data for all Counties in a Specified State
 
 ```text
 https://corona.lmao.ninja/v2/historical/usacounties/:state?lastdays=30
 ```
-
-> Get time series info from the JHU CSSE Data Repository. Every date since 1/22/20 has an entry tracking deaths and cases. Updated each day at 23:59 UTC. Data is updated every 10 minutes.
