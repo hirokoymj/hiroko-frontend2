@@ -57,7 +57,7 @@ export const NewCasesChart = ({ data }: IProps) => {
 };
 
 export const DeathsChart = ({ data }: IProps) => {
-  const { chartData, chartLabels, chartLabel, selectedCounty } = data;
+  const { chartData, chartLabels, chartLabel } = data;
 
   const finalData = {
     labels: chartLabels,
