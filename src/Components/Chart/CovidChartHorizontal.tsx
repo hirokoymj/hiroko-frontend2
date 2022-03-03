@@ -39,13 +39,17 @@ export const CovidChartHorizontal = ({ data }: IProps) => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      plugins: [ChartDataLabels],
       datalabels: {
         align: "end" as const,
         anchor: "end" as const,
         formatter: function (value: number) {
           return value.toLocaleString("en-US");
         },
+      },
+    },
+    scales: {
+      x: {
+        max: 10000000,
       },
     },
   };
