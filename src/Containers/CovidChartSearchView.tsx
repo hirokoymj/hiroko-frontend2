@@ -6,7 +6,6 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
-
 import { startCase } from "lodash";
 
 import { StatesResponseData } from "Types/api/CovidAPI";

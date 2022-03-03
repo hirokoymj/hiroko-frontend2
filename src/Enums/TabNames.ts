@@ -8,5 +8,6 @@ export enum TabNames {
 
 export enum ChartTabNames {
   CA = "California",
-  USA = "United States",
+  SEARCH = "Search",
+  TOTALCASES = "Total cases",
 }

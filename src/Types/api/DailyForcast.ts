@@ -1,8 +1,3 @@
-// dailyForecast(city: String!, unit: Units): DailyForecast
-// currentWeatherByCity(city: String!, unit: Units): CurrentWeather
-// dailyForecast(city: String!, unit: Units): DailyForecast
-// cities(city: String!): [City]
-
 export interface IDailyForecast {
   id: string;
   cityInfo: string;
