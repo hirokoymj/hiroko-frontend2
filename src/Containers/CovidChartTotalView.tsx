@@ -3,7 +3,7 @@ import moment from "moment";
 import { useFetch } from "Hooks/useFetch";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { CovidChartHorizontal } from "Components/Chart/CovidChartHorizontal";
-import { ICovidResponse } from "Types/api/CovidAPI";
+import { StateCovidCasesResponse } from "Types/api/CovidAPI";
 
 const exclusiveStates = [
   "United States Virgin Islands",
@@ -23,7 +23,7 @@ export interface IChartMappedData {
 }
 
 export const CovidChartTotalView = () => {
-  const { data, loading } = useFetch<ICovidResponse[]>({
+  const { data, loading } = useFetch<StateCovidCasesResponse[]>({
     url: "https://corona.lmao.ninja/v2/states?sort&yesterday",
     method: "get",
   });
@@ -40,9 +40,6 @@ export const CovidChartTotalView = () => {
       const isExclusiveState = exclusiveStates.find(
         (state) => state === d.state
       );
-      // if (!Boolean(isExclusiveState)) {
-      //   return d.state;
-      // }
       return !Boolean(isExclusiveState) && d.state;
     });
 
@@ -59,7 +56,7 @@ export const CovidChartTotalView = () => {
   };
 
   return (
-    <DashboardLayout title="Total number of Covid-19 cases">
+    <DashboardLayout title="Covid-19 visualizations: Total Cases">
       {loading ? (
         <p>...loading</p>
       ) : (

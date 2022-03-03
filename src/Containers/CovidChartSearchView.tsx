@@ -7,11 +7,14 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import { startCase } from "lodash";
+import get from "lodash/get";
 
 import { StatesResponseData } from "Types/api/CovidAPI";
 import { useFetch } from "Hooks/useFetch";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { NewCasesChart, DeathsChart } from "Components/Chart/CovidChart";
+import { IChartMappedData } from "Containers/CovidChartCAView";
+import { calculateDiff } from "./utils";
 
 interface IFormValue {
   us_state: string;
@@ -28,11 +31,7 @@ export const CovidChartSearchView = () => {
     url: "https://corona.lmao.ninja/v2/historical/usacounties",
     method: "get",
   });
-  const {
-    data: usCountyData,
-    loading: usCountyLoading,
-    refetch,
-  } = useFetch<[StatesResponseData]>({
+  const { data, loading, refetch } = useFetch<[StatesResponseData]>({
     url: `https://corona.lmao.ninja/v2/historical/usacounties/${formValues.us_state}?lastdays=15`,
     method: "get",
   });
@@ -44,19 +43,60 @@ export const CovidChartSearchView = () => {
   const handleChange = (
     e: React.ChangeEvent<{ value: unknown; name?: string }>
   ) => {
-    // const newVal = e.target.value as string;
     const newVal = e.target.value as string;
     const name = e.target.name as string;
     setFormValues({ ...formValues, [name]: newVal });
   };
 
-  const counties = !usStatesLoading ? usCountyData?.map((d) => d.county) : [];
-  const chartData = !usCountyLoading
-    ? usCountyData?.find((d) => d.county === formValues.us_county)
-    : undefined;
+  const counties = !usStatesLoading ? data?.map((d) => d.county) : [];
+
+  const mappedNewCasesData = (): IChartMappedData => {
+    // chart data
+    const selectedData =
+      data?.find((d) => d.county === formValues.us_county) || [];
+    const cases = get(selectedData, "timeline.cases", {});
+    const values = Object.keys(cases).map((key) => cases[key]);
+    const chartData = calculateDiff(values);
+
+    // labels
+    const labels = Object.keys(cases);
+    labels.shift();
+
+    const chartLabel = `New Cases in ${startCase(formValues.us_county)}`;
+    const selectedCounty = startCase(formValues.us_county);
+
+    return {
+      chartLabels: labels,
+      chartData: chartData,
+      chartLabel,
+      selectedCounty,
+    };
+  };
+
+  const mappedDeathsData = (): IChartMappedData => {
+    const selectedData =
+      data?.find((d) => d.county === formValues.us_county) || [];
+    const deaths = get(selectedData, "timeline.deaths", {});
+    const values = Object.keys(deaths).map((key) => deaths[key]);
+    const chartData = calculateDiff(values);
+
+    // labels
+    const labels = Object.keys(deaths);
+    labels.shift();
+
+    const chartLabel = `New Cases in ${startCase(formValues.us_county)}`;
+    const selectedCounty = startCase(formValues.us_county);
+
+    return {
+      chartLabels: labels,
+      chartData: chartData,
+      chartLabel,
+      selectedCounty,
+    };
+  };
 
   return (
-    <DashboardLayout title="Covid-19 Visualizations">
+    <DashboardLayout title="Covid-19 visualizations: Search">
       <Grid container spacing={2} justify="center">
         <Grid item xs={12} md={6}>
           <Paper>
@@ -80,7 +120,7 @@ export const CovidChartSearchView = () => {
                 name="us_county"
                 onChange={handleChange}
                 value={formValues.us_county}
-                disabled={usCountyLoading}>
+                disabled={loading}>
                 {counties?.map((item: any) => (
                   <MenuItem value={item} key={item}>
                     {startCase(item)}
@@ -91,7 +131,7 @@ export const CovidChartSearchView = () => {
           </Paper>
         </Grid>
       </Grid>
-      {usCountyLoading || usStatesLoading ? (
+      {loading || usStatesLoading ? (
         <p>...loading</p>
       ) : (
         <Grid container spacing={2} justify="center">
@@ -105,19 +145,13 @@ export const CovidChartSearchView = () => {
           <Grid item xs={12} md={6}>
             <Paper>
               <Typography variant="h6">New Cases:</Typography>
-              <NewCasesChart
-                data={chartData}
-                county={startCase(formValues.us_county)}
-              />
+              <NewCasesChart data={mappedNewCasesData()} />
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper>
               <Typography variant="h6">Deaths:</Typography>
-              <DeathsChart
-                data={chartData}
-                county={startCase(formValues.us_county)}
-              />
+              <DeathsChart data={mappedDeathsData()} />
             </Paper>
           </Grid>
         </Grid>
