@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import { ChartSourceLink } from "Components/Chart/ChartSourceLink";
 import { IChartMappedData } from "Containers/CovidChartTotalView";
 
-Chart.register(...registerables, ChartDataLabels);
+Chart.register(...registerables);
 
 interface IProps {
   data: IChartMappedData;
@@ -39,6 +39,7 @@ export const CovidChartHorizontal = ({ data }: IProps) => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
+      plugins: [ChartDataLabels],
       datalabels: {
         align: "end" as const,
         anchor: "end" as const,
@@ -54,7 +55,7 @@ export const CovidChartHorizontal = ({ data }: IProps) => {
       <Typography variant="h6" gutterBottom component="div">
         Total number of COVID-19 cases by the U.S. states as of {chartUpdated}
       </Typography>
-      <Bar data={finalData} options={options} />
+      <Bar data={finalData} options={options} plugins={[ChartDataLabels]} />
       <ChartSourceLink />
     </Paper>
   );
