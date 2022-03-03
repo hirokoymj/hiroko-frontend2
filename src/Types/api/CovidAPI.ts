@@ -7,7 +7,7 @@ export type StatesResponseData = {
   };
 };
 
-export type ICovidResponse = {
+export type StateCovidCasesResponse = {
   active: number;
   cases: number;
   casesPerOneMillion: number;
