@@ -1,10 +1,3 @@
-// categories(limit: Int, cursor: String, filter: [String]): CategoryFeed!
-// categoryById(id: ID!): Category!
-// categoryAll: [Category!]
-// createCategory(input: createCategoryInput): Category
-// updateCategory(id: ID!, input: updateCategoryInput!): Category
-// deleteCategory(id: ID!): Category
-
 export interface ICategoriesVars {
   limit: number;
   cursor?: string | null;

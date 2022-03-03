@@ -1,12 +1,3 @@
-export function api<TResponse>(
-  url: string,
-  config: RequestInit = {}
-): Promise<TResponse> {
-  return fetch(url, config)
-    .then((response) => response.json())
-    .then((data) => data as TResponse);
-}
-
 export type StatesResponseData = {
   province: string;
   county: string;
@@ -14,4 +5,20 @@ export type StatesResponseData = {
     cases: {};
     deaths: {};
   };
+};
+
+export type ICovidResponse = {
+  active: number;
+  cases: number;
+  casesPerOneMillion: number;
+  deaths: number;
+  deathsPerOneMillion: number;
+  population: number;
+  recovered: number;
+  state: string;
+  tests: number;
+  testsPerOneMillion: number;
+  todayCases: number;
+  todayDeaths: number;
+  updated: number;
 };

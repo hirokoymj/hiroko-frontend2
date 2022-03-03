@@ -8,6 +8,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { CovidChartCAView } from "Containers/CovidChartCAView";
 import { CovidChartSearchView } from "Containers/CovidChartSearchView";
 import { ChartTabNames } from "Enums/TabNames";
+import { CovidChartTotalView } from "Containers/CovidChartTotalView";
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabsRoot: {
@@ -58,12 +59,21 @@ export const CovidChartView = () => {
             }}
           />
           <Tab
-            label={ChartTabNames.USA}
+            label={ChartTabNames.TOTALCASES}
             component={Link}
-            to="/covid19/search"
+            to="/covid19/total"
             value={1}
             classes={{
               root: clsx(classes.tab, activeTab === 1 && classes.activeTab),
+            }}
+          />
+          <Tab
+            label={ChartTabNames.SEARCH}
+            component={Link}
+            to="/covid19/search"
+            value={2}
+            classes={{
+              root: clsx(classes.tab, activeTab === 2 && classes.activeTab),
             }}
           />
         </Tabs>
@@ -73,6 +83,7 @@ export const CovidChartView = () => {
           <Redirect to="/covid19/ca" />
         </Route>
         <Route path="/covid19/ca" component={CovidChartCAView} />
+        <Route path="/covid19/total" component={CovidChartTotalView} />
         <Route path="/covid19/search" component={CovidChartSearchView} />
       </Switch>
     </div>
