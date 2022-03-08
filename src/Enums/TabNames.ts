@@ -4,6 +4,7 @@ export enum TabNames {
   GraphQL = "GraphQL",
   Git = "Git",
   HTMLCSS = "HTML/CSS",
+  TypeScript = "TypeScript",
 }
 
 export enum ChartTabNames {

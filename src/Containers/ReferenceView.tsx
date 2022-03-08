@@ -57,39 +57,48 @@ export const ReferenceView = () => {
             }}
           />
           <Tab
-            label={TabNames.JavaScript}
+            label={TabNames.TypeScript}
             component={Link}
-            to="/tech/js"
+            to="/tech/ts"
             value={1}
             classes={{
               root: clsx(classes.tab, activeTab === 1 && classes.activeTab),
             }}
           />
           <Tab
-            label={TabNames.GraphQL}
+            label={TabNames.JavaScript}
             component={Link}
-            to="/tech/graphQL"
+            to="/tech/typescript"
             value={2}
             classes={{
               root: clsx(classes.tab, activeTab === 2 && classes.activeTab),
             }}
           />
           <Tab
-            label={TabNames.Git}
+            label={TabNames.GraphQL}
             component={Link}
-            to="/tech/git"
+            to="/tech/graphQL"
             value={3}
             classes={{
               root: clsx(classes.tab, activeTab === 3 && classes.activeTab),
             }}
           />
           <Tab
-            label={TabNames.HTMLCSS}
+            label={TabNames.Git}
             component={Link}
-            to="/tech/html"
+            to="/tech/git"
             value={4}
             classes={{
               root: clsx(classes.tab, activeTab === 4 && classes.activeTab),
+            }}
+          />
+          <Tab
+            label={TabNames.HTMLCSS}
+            component={Link}
+            to="/tech/html"
+            value={5}
+            classes={{
+              root: clsx(classes.tab, activeTab === 5 && classes.activeTab),
             }}
           />
         </Tabs>
