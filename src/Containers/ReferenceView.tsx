@@ -68,7 +68,7 @@ export const ReferenceView = () => {
           <Tab
             label={TabNames.JavaScript}
             component={Link}
-            to="/tech/typescript"
+            to="/tech/js"
             value={2}
             classes={{
               root: clsx(classes.tab, activeTab === 2 && classes.activeTab),
