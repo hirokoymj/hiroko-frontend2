@@ -38,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
   },
+  orderField: {
+    width: "40%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+  },
 }));
 
 interface IProps extends InjectedFormProps<TTopicFormData> {
@@ -101,6 +107,15 @@ const TopicFormFields = (props: IProps) => {
         fullWidth
         variant="outlined"
         label="URL"
+      />
+      <Field
+        name="order"
+        component={FormTextField}
+        fullWidth
+        variant="outlined"
+        label="Order"
+        type="number"
+        classes={{ root: classes.orderField }}
       />
       <Button
         type="submit"

@@ -78,6 +78,16 @@ const TopicEditFormFields = (props: IProps) => {
           label="URL"
           margin="normal"
         />
+        <Field
+          name="order"
+          component={FormTextField}
+          fullWidth
+          variant="outlined"
+          label="Order"
+          margin="normal"
+          type="number"
+          style={{ width: "45%" }}
+        />
       </>
     </DrawerDialog>
   );

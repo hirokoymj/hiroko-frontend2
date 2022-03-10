@@ -54,6 +54,7 @@ export const TopicFormController = ({
         variables: {
           input: {
             ...values,
+            order: parseInt(values.order),
           },
         },
       });

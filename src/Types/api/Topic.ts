@@ -1,11 +1,6 @@
 import { ICategory, IPageInfo } from "Types/api/Category";
 import { ISubCategory } from "Types/api/SubCategory";
 
-// topics(limit: Int, cursor: String, filter: [String]): TopicFeed!
-// topicById(id: ID!): Topic!
-// topicByCategory(categoryId: ID!): [Topic!]
-// topicByCategoryAbbr(abbr: String!): [Topic!]
-
 // Query
 export interface ITopicsVars {
   limit?: number;
@@ -26,6 +21,7 @@ export interface ITopic {
   url: string;
   category: ICategory;
   subCategory: ISubCategory;
+  order: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -37,9 +33,6 @@ export interface ITopicByCategoryAbbrVars {
   abbr: string;
 }
 // Mutation
-// createTopic(input: createTopicInput): Topic
-// deleteTopic(id: ID!): Topic
-// updateTopic(id: ID!, input: updateTopicInput!): Topic
 export interface ICreateTopicVars {
   input: ICreateTopicInput;
 }
@@ -48,6 +41,7 @@ export interface ICreateTopicInput {
   url: string;
   category: string;
   subCategory: string;
+  order: number;
 }
 export interface IDeleteTopicVars {
   id: string;
@@ -61,4 +55,5 @@ export interface IUpdateTopicInput {
   url: string;
   category: string;
   subCategory: string;
+  order: number;
 }

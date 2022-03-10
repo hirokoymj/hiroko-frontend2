@@ -42,6 +42,7 @@ export const UPDATE_TOPIC = gql`
       subCategory {
         ...SubCategoryInfo
       }
+      order
     }
   }
   ${CategoryFragments.categoryInfo}
