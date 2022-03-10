@@ -53,10 +53,11 @@ export const TopicEditFormController = (
   });
 
   const initialValues = !topicLoading && {
-    title: get(topicData, "topicById.title"),
-    url: get(topicData, "topicById.url"),
-    category: get(topicData, "topicById.category.id"),
-    subCategory: get(topicData, "topicById.subCategory.id"),
+    title: get(topicData, "topicById.title", ""),
+    url: get(topicData, "topicById.url", ""),
+    category: get(topicData, "topicById.category.id", ""),
+    subCategory: get(topicData, "topicById.subCategory.id", ""),
+    order: get(topicData, "topicById.order", 0),
   };
 
   const category_options = makeDropdownOptions(
@@ -77,6 +78,7 @@ export const TopicEditFormController = (
           id: topicId,
           input: {
             ...values,
+            order: parseInt(values.order),
           },
         },
       });

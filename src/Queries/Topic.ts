@@ -18,6 +18,7 @@ export const TOPICS = gql`
         }
         createdAt
         updatedAt
+        order
       }
       totalCount
       pageInfo {
@@ -42,6 +43,7 @@ export const TOPIC_BY_ID = gql`
       subCategory {
         ...SubCategoryInfo
       }
+      order
     }
   }
   ${CategoryFragments.categoryInfo}
@@ -60,6 +62,7 @@ export const TOPIC_BY_CATEGORY = gql`
       subCategory {
         ...SubCategoryInfo
       }
+      order
     }
   }
   ${CategoryFragments.categoryInfo}
@@ -78,6 +81,7 @@ export const TOPIC_BY_CATEGORY_ABBR = gql`
       subCategory {
         ...SubCategoryInfo
       }
+      order
     }
   }
   ${CategoryFragments.categoryInfo}

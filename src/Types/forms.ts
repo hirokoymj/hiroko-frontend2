@@ -13,6 +13,7 @@ export type TSubCategoryFormData = Pick<ISubCategory, "name"> & {
 export type TTopicFormData = Pick<ITopic, "url" | "title"> & {
   category: string;
   subCategory: string;
+  order: string; // order param is string.
 };
 
 export type TDailyForecasetFormData = Pick<ICoord, "lat" | "lon"> & {

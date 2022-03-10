@@ -94,6 +94,9 @@ export const TopicTable = ({ openDialog }: ITopicTableProps) => {
   );
 
   const topics = !loading && get(data, "topics.topicFeed", []);
+  if (!loading) {
+    console.log(topics);
+  }
   const pageInfo = !loading && get(data, "topics.pageInfo", {});
   const { isLoadingMore, fetchMoreData, hasNextPage } = useLoadMore(
     loading,
@@ -104,7 +107,16 @@ export const TopicTable = ({ openDialog }: ITopicTableProps) => {
 
   const mappedData = map(
     topics,
-    ({ id, title, url, category, subCategory, createdAt, updatedAt }) => {
+    ({
+      id,
+      title,
+      url,
+      category,
+      subCategory,
+      order,
+      createdAt,
+      updatedAt,
+    }) => {
       const categoryName = get(category, "name", "");
       const subCategoryName = get(subCategory, "name", "");
 
@@ -141,6 +153,7 @@ export const TopicTable = ({ openDialog }: ITopicTableProps) => {
         created,
         updated,
         actions,
+        order,
       };
     }
   );
@@ -175,6 +188,10 @@ export const TopicTable = ({ openDialog }: ITopicTableProps) => {
               {
                 label: "Sub Category",
                 field: "subCategoryName",
+              },
+              {
+                label: "Order",
+                field: "order",
               },
               {
                 label: "Created",
