@@ -5,6 +5,7 @@ export enum TabNames {
   Git = "Git",
   HTMLCSS = "HTML/CSS",
   TypeScript = "TypeScript",
+  Miscellaneous = "Miscellaneous",
 }
 
 export enum ChartTabNames {
