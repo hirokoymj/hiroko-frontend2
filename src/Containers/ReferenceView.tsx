@@ -101,6 +101,15 @@ export const ReferenceView = () => {
               root: clsx(classes.tab, activeTab === 5 && classes.activeTab),
             }}
           />
+          <Tab
+            label={TabNames.Miscellaneous}
+            component={Link}
+            to="/tech/misc"
+            value={5}
+            classes={{
+              root: clsx(classes.tab, activeTab === 6 && classes.activeTab),
+            }}
+          />
         </Tabs>
       </AppBar>
       <Switch>
