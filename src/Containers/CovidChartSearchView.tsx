@@ -84,7 +84,7 @@ export const CovidChartSearchView = () => {
     const labels = Object.keys(deaths);
     labels.shift();
 
-    const chartLabel = `New Cases in ${startCase(formValues.us_county)}`;
+    const chartLabel = `New Deaths in ${startCase(formValues.us_county)}`;
     const selectedCounty = startCase(formValues.us_county);
 
     return {

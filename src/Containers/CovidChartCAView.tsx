@@ -65,7 +65,7 @@ export const CovidChartCAView = () => {
     const labels = Object.keys(deaths);
     labels.shift();
 
-    const chartLabel = `New Cases in ${startCase(county)}`;
+    const chartLabel = `New Deaths in ${startCase(county)}`;
     const selectedCounty = startCase(county);
 
     return {
