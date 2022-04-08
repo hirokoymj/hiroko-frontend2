@@ -1,9 +1,10 @@
 import Grid from "@material-ui/core/Grid";
 import moment from "moment";
-import { useFetch } from "Hooks/useFetch";
+import useAxios from "axios-hooks";
+
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { CovidChartHorizontal } from "Components/Chart/CovidChartHorizontal";
-import { StateCovidCasesResponse } from "Types/api/CovidAPI";
+import { TotalCasesbyState } from "Types/api/CovidAPI";
 
 const exclusiveStates = [
   "United States Virgin Islands",
@@ -23,16 +24,16 @@ export interface IChartMappedData {
 }
 
 export const CovidChartTotalView = () => {
-  const { data, loading } = useFetch<StateCovidCasesResponse[]>({
-    url: "https://corona.lmao.ninja/v2/states?sort&yesterday",
-    method: "get",
+  const [{ data, loading, error }] = useAxios<TotalCasesbyState[]>({
+    url: "/v2/states?sort&yesterday",
+    method: "GET",
   });
 
   const mappedData = (): IChartMappedData => {
     const selectedData =
       data
-        ?.map((d) => {
-          return { state: d.state, cases: d.cases, updated: d.updated };
+        ?.map(({ state, cases, updated }) => {
+          return { state, cases, updated };
         })
         .sort((a, b) => (a.cases < b.cases ? 1 : -1)) || [];
 
@@ -55,8 +56,9 @@ export const CovidChartTotalView = () => {
     };
   };
 
+  if (error) return <p>Error!</p>;
   return (
-    <DashboardLayout title="Covid-19 visualizations: Total Cases">
+    <DashboardLayout title="Total number of COVID-19 cases by the U.S. states">
       {loading ? (
         <p>...loading</p>
       ) : (

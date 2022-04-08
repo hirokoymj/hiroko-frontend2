@@ -8,12 +8,11 @@ import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import { startCase } from "lodash";
 import get from "lodash/get";
+import useAxios from "axios-hooks";
 
-import { StatesResponseData } from "Types/api/CovidAPI";
-import { useFetch } from "Hooks/useFetch";
+import { NewCasesByState, IChartData } from "Types/api/CovidAPI";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { NewCasesChart, DeathsChart } from "Components/Chart/CovidChart";
-import { IChartMappedData } from "Containers/CovidChartCAView";
 import { calculateDiff } from "./utils";
 
 interface IFormValue {
@@ -26,19 +25,20 @@ export const CovidChartSearchView = () => {
     us_state: "hawaii",
     us_county: "honolulu",
   });
-
-  const { data: usStatesData, loading: usStatesLoading } = useFetch<string[]>({
-    url: "https://corona.lmao.ninja/v2/historical/usacounties",
-    method: "get",
-  });
-  const { data, loading, refetch } = useFetch<[StatesResponseData]>({
-    url: `https://corona.lmao.ninja/v2/historical/usacounties/${formValues.us_state}?lastdays=15`,
+  const [{ data: usStatesData, loading: usStatesLoading }] = useAxios<string[]>(
+    {
+      url: "/v2/historical/usacounties",
+      method: "get",
+    }
+  );
+  const [{ data, loading }, refetch] = useAxios<NewCasesByState[]>({
+    url: `/v2/historical/usacounties/${formValues.us_state}?lastdays=15`,
     method: "get",
   });
 
   useEffect(() => {
     refetch();
-  }, [formValues.us_state]);
+  }, [formValues.us_state, refetch]);
 
   const handleChange = (
     e: React.ChangeEvent<{ value: unknown; name?: string }>
@@ -50,7 +50,7 @@ export const CovidChartSearchView = () => {
 
   const counties = !usStatesLoading ? data?.map((d) => d.county) : [];
 
-  const mappedNewCasesData = (): IChartMappedData => {
+  const createNewCasesData = (): IChartData => {
     // chart data
     const selectedData =
       data?.find((d) => d.county === formValues.us_county) || [];
@@ -73,7 +73,7 @@ export const CovidChartSearchView = () => {
     };
   };
 
-  const mappedDeathsData = (): IChartMappedData => {
+  const createDeathsData = (): IChartData => {
     const selectedData =
       data?.find((d) => d.county === formValues.us_county) || [];
     const deaths = get(selectedData, "timeline.deaths", {});
@@ -96,7 +96,7 @@ export const CovidChartSearchView = () => {
   };
 
   return (
-    <DashboardLayout title="Covid-19 visualizations: Search">
+    <DashboardLayout title="Covid-19: Search Your State">
       <Grid container spacing={2} justify="center">
         <Grid item xs={12} md={6}>
           <Paper>
@@ -145,13 +145,13 @@ export const CovidChartSearchView = () => {
           <Grid item xs={12} md={6}>
             <Paper>
               <Typography variant="h6">New Cases:</Typography>
-              <NewCasesChart data={mappedNewCasesData()} />
+              <NewCasesChart data={createNewCasesData()} />
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper>
               <Typography variant="h6">Deaths:</Typography>
-              <DeathsChart data={mappedDeathsData()} />
+              <DeathsChart data={createDeathsData()} />
             </Paper>
           </Grid>
         </Grid>

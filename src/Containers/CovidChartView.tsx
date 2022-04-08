@@ -9,6 +9,15 @@ import { CovidChartCAView } from "Containers/CovidChartCAView";
 import { CovidChartSearchView } from "Containers/CovidChartSearchView";
 import { ChartTabNames } from "Enums/TabNames";
 import { CovidChartTotalView } from "Containers/CovidChartTotalView";
+import { configure } from "axios-hooks";
+import LRU from "lru-cache";
+import Axios from "axios";
+
+const axios = Axios.create({
+  baseURL: "https://corona.lmao.ninja",
+});
+const cache = new LRU({ max: 10 });
+configure({ axios, cache });
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabsRoot: {

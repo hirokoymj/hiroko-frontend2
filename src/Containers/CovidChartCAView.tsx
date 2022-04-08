@@ -8,31 +8,23 @@ import { startCase } from "lodash";
 import { Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import get from "lodash/get";
+import useAxios from "axios-hooks";
 
-import { StatesResponseData } from "Types/api/CovidAPI";
+import { NewCasesByState, IChartData } from "Types/api/CovidAPI";
 import { NewCasesChart, DeathsChart } from "Components/Chart/CovidChart";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { CovidChartSkeleton } from "Components/Skeleton/CovidChartSkelton";
-import { useFetch } from "Hooks/useFetch";
 import { calculateDiff } from "./utils";
-
-export interface IChartMappedData {
-  chartData: number[];
-  chartLabels: string[];
-  chartLabel: string;
-  selectedCounty: string;
-}
 
 export const CovidChartCAView = () => {
   const [county, setCounty] = useState<string>("los angeles");
-  const { data, loading } = useFetch<[StatesResponseData]>({
-    url: `https://corona.lmao.ninja/v2/historical/usacounties/california?lastdays=15`,
-    method: "get",
+  const [{ data, loading, error }] = useAxios<NewCasesByState[]>({
+    url: "/v2/historical/usacounties/california?lastdays=15",
+    method: "GET",
   });
-
   const counties = !loading ? data?.map((d) => d.county) : [];
 
-  const mappedNewCasesData = (): IChartMappedData => {
+  const createNewCasesData = (): IChartData => {
     // chart data
     const selectedData = data?.find((d) => d.county === county) || [];
     const cases = get(selectedData, "timeline.cases", {});
@@ -54,7 +46,7 @@ export const CovidChartCAView = () => {
     };
   };
 
-  const mappedDeathsData = (): IChartMappedData => {
+  const createDeathsData = (): IChartData => {
     // chart data
     const selectedData = data?.find((d) => d.county === county) || [];
     const deaths = get(selectedData, "timeline.deaths", {});
@@ -83,8 +75,10 @@ export const CovidChartCAView = () => {
     setCounty(newVal);
   };
 
+  if (error) return <p>Error!</p>;
+
   return (
-    <DashboardLayout title="Covid-19 visualizations: California">
+    <DashboardLayout title="Covid-19 Data in California">
       {loading ? (
         <CovidChartSkeleton />
       ) : (
@@ -110,13 +104,13 @@ export const CovidChartCAView = () => {
             <Grid item xs={12} md={6}>
               <Paper>
                 <Typography variant="h6">New Cases:</Typography>
-                <NewCasesChart data={mappedNewCasesData()} />
+                <NewCasesChart data={createNewCasesData()} />
               </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
               <Paper>
                 <Typography variant="h6">Deaths:</Typography>
-                <DeathsChart data={mappedDeathsData()} />
+                <DeathsChart data={createDeathsData()} />
               </Paper>
             </Grid>
           </Grid>

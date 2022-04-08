@@ -2,7 +2,7 @@ import { Bar, Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 
 import { ChartSourceLink } from "Components/Chart/ChartSourceLink";
-import { IChartMappedData } from "Containers/CovidChartCAView";
+import { IChartData } from "Types/api/CovidAPI";
 
 Chart.register(...registerables);
 
@@ -15,7 +15,7 @@ const options = {
 };
 
 interface IProps {
-  data: IChartMappedData;
+  data: IChartData;
 }
 
 export const NewCasesChart = ({ data }: IProps) => {

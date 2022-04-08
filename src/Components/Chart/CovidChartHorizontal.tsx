@@ -57,7 +57,7 @@ export const CovidChartHorizontal = ({ data }: IProps) => {
   return (
     <Paper style={{ height: "2200px" }}>
       <Typography variant="h6" gutterBottom component="div">
-        Total number of COVID-19 cases by the U.S. states as of {chartUpdated}
+        As of {chartUpdated}
       </Typography>
       <Bar data={finalData} options={options} plugins={[ChartDataLabels]} />
       <ChartSourceLink />

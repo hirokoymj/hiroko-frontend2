@@ -1,24 +1,35 @@
-export type StatesResponseData = {
+export interface NewCasesByState {
   province: string;
   county: string;
   timeline: {
-    cases: {};
-    deaths: {};
+    cases: {
+      [key: string]: number;
+    };
+    deaths: {
+      [key: string]: number;
+    };
   };
-};
+}
 
-export type StateCovidCasesResponse = {
-  active: number;
-  cases: number;
-  casesPerOneMillion: number;
-  deaths: number;
-  deathsPerOneMillion: number;
-  population: number;
-  recovered: number;
+export interface TotalCasesbyState {
   state: string;
+  updated: number;
+  cases: number;
+  todayCases: number;
+  deaths: number;
+  todayDeaths: number;
+  recovered: number;
+  active: number;
+  casesPerOneMillion: number;
+  deathsPerOneMillion: number;
   tests: number;
   testsPerOneMillion: number;
-  todayCases: number;
-  todayDeaths: number;
-  updated: number;
-};
+  population: number;
+}
+
+export interface IChartData {
+  chartData: number[];
+  chartLabels: string[];
+  chartLabel: string;
+  selectedCounty: string;
+}
