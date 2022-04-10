@@ -1,7 +1,5 @@
-import { destroy } from "redux-form";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useSnackbar } from "notistack";
-import { Dispatch } from "redux";
 import { useSelector } from "react-redux";
 
 import { CREATE_TOPIC } from "Mutations/Topic";
@@ -48,7 +46,7 @@ export const TopicFormController = ({
     loading
   );
 
-  const onSubmit = async (values: TTopicFormData, dispatch: Dispatch) => {
+  const onSubmit = async (values: TTopicFormData) => {
     try {
       await createTopic({
         variables: {
@@ -58,7 +56,6 @@ export const TopicFormController = ({
           },
         },
       });
-      dispatch(destroy("Create_Topic_Form"));
       enqueueSnackbar("New topic has been created!", {
         variant: "success",
       });
@@ -67,19 +64,19 @@ export const TopicFormController = ({
     }
   };
 
-  const validate = (values: TTopicFormData) => {
-    const errors: any = {};
-    if (!values.category) errors.category = "Required";
-    if (!values.subCategory) errors.subCategory = "Required";
-    if (!values.title) errors.title = "Required";
-    if (!values.url) errors.url = "Required";
+  // const validate = (values: TTopicFormData) => {
+  //   const errors: any = {};
+  //   if (!values.category) errors.category = "Required";
+  //   if (!values.subCategory) errors.subCategory = "Required";
+  //   if (!values.title) errors.title = "Required";
+  //   if (!values.url) errors.url = "Required";
 
-    return errors;
-  };
+  //   return errors;
+  // };
 
   return children({
     onSubmit,
-    validate,
+    // validate,
     category_options,
     loading,
   });

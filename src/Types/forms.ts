@@ -11,6 +11,13 @@ export interface ISubCategoryFormFields {
   order: string;
 }
 
+export interface ITopicFormFields {
+  category: string;
+  subCategory: string;
+  title: string;
+  order: string; // <input type=number> type is number but string.
+}
+
 export type TTopicFormData = {
   category: string;
   subCategory: string;

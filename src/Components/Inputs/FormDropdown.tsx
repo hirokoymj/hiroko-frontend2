@@ -18,7 +18,7 @@ interface IFormDropdownFieldProps {
   options: option[];
   disabled?: boolean;
   defaultValue?: any;
-  onChange?: () => void;
+  onChange?: (e: any) => void;
 }
 
 const FormDropdown: FC<IFormDropdownFieldProps> = ({
