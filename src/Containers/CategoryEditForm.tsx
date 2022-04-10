@@ -4,13 +4,17 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
 import FormTextField from "Components/Inputs/FormTextField";
-import { ICategoryFormFields } from "Types/forms";
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
     width: "100%",
   },
 }));
+
+interface ICategoryFormProps {
+  name: string;
+  abbr: string;
+}
 
 const formSchema = yup.object().shape({
   name: yup.string().required(),
@@ -19,13 +23,17 @@ const formSchema = yup.object().shape({
 
 interface IProps {
   onSubmit: () => void;
+  initialValues: any;
 }
-export const CategoryForm = (props: IProps) => {
+export const CategoryEditForm = (props: IProps) => {
   const classes = useStyles();
-  const methods = useForm<ICategoryFormFields>({
+  const methods = useForm<ICategoryFormProps>({
     resolver: yupResolver(formSchema),
+    // defaultValues: { name: "abc", abbr: "abc" },
+    defaultValues: props.initialValues,
   });
 
+  console.log(props.initialValues);
   return (
     <Grid container>
       <FormProvider {...methods}>

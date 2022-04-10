@@ -1,9 +1,11 @@
-import { ICategory } from "Types/api/Category";
 import { ISubCategory } from "Types/api/SubCategory";
 import { ITopic } from "Types/api/Topic";
 import { ICoord } from "Types/api/DailyForcast";
 
-export type ICategoryFormData = Pick<ICategory, "name" | "abbr">;
+export interface ICategoryFormFields {
+  name: string;
+  abbr: string;
+}
 
 export type TSubCategoryFormData = Pick<ISubCategory, "name"> & {
   categoryId: string;

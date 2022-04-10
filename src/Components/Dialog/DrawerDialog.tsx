@@ -53,8 +53,8 @@ type Props = {
   onClose: () => void;
   children: React.ReactNode;
   submitLabel: string;
-  onSubmit: React.MouseEventHandler<HTMLButtonElement> | undefined;
-  submitting: boolean;
+  onSubmit?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  submitting?: boolean;
 };
 
 export const DrawerDialog = ({
@@ -92,7 +92,7 @@ export const DrawerDialog = ({
           type="submit"
           variant="contained"
           color="primary"
-          disabled={submitting}
+          // disabled={submitting}
           onClick={onSubmit}
           className={classes.actionButton}>
           {submitLabel}
