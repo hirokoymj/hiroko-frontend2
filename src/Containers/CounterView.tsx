@@ -14,7 +14,6 @@ import {
 import { setTitle, resetTitle } from "Redux/Title/titleSlice";
 import { setTheme } from "Redux/Theme/themeSlice";
 import Switch from "@material-ui/core/Switch";
-import { TopicFormDemo } from "Containers/TopicFormDemo";
 
 import "react-clock/dist/Clock.css";
 
@@ -79,7 +78,6 @@ export const CounterView = () => {
         Set Title
       </button>
       <button onClick={() => dispatch(resetTitle())}>Reset Title</button>
-      <TopicFormDemo />
     </div>
   );
 };

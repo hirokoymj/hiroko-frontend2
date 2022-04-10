@@ -2,33 +2,24 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Grid, Button } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FormProvider, useForm } from "react-hook-form";
-import * as yup from "yup";
-import FormDropdown from "Components/Inputs/FormDropdown";
-
-import { makeDropdownOptions } from "Components/FormController/common";
 import { useLazyQuery } from "@apollo/react-hooks";
-import { SUB_CATEGORY_BY_CATEGORY } from "Queries/SubCategory";
-import { ITopicFormFields, IFormSelectOptions } from "Types/forms";
-import FormTextField from "Components/Inputs/FormTextField";
 
+import FormDropdown from "Components/Inputs/FormDropdown";
+import { makeDropdownOptions } from "Components/FormController/common";
+import { SUB_CATEGORY_BY_CATEGORY } from "Queries/SubCategory";
+import FormTextField from "Components/Inputs/FormTextField";
 import {
   ISubCategory,
   ISubCategoryByCategoryVars,
 } from "Types/api/SubCategory";
+import { topicFormSchema } from "Containers/validation/formValidations";
+import { ITopicFormFields, IFormSelectOptions } from "Types/forms";
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
     width: "100%",
   },
 }));
-
-const formSchema = yup.object().shape({
-  category: yup.string().required(),
-  subCategory: yup.string().required(),
-  title: yup.string().required(),
-  url: yup.string().required(),
-  order: yup.string().optional(),
-});
 
 interface IProps {
   onSubmit: () => void;
@@ -40,7 +31,7 @@ export const TopicForm = (props: IProps) => {
   const classes = useStyles();
   const { loading, category_options, onSubmit } = props;
   const methods = useForm<ITopicFormFields>({
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(topicFormSchema),
   });
 
   // SubCategory
@@ -61,7 +52,6 @@ export const TopicForm = (props: IProps) => {
     e: React.ChangeEvent<{ value: unknown }>
   ) => {
     const newVal = e.target.value as string;
-    console.log(newVal);
     methods.setValue("category", newVal); // IMPORTANT since getValues("category") won't work.
     await getSubCategoryByCategory({
       variables: { categoryId: newVal },
