@@ -5,11 +5,13 @@ import { useFormContext } from "react-hook-form";
 interface IFormTextFieldProps {
   label: string;
   name: string;
+  type?: string;
 }
 
 const FormTextField: FC<IFormTextFieldProps> = ({
   label,
   name,
+  type,
 }: IFormTextFieldProps) => {
   const {
     register,
@@ -25,6 +27,7 @@ const FormTextField: FC<IFormTextFieldProps> = ({
       fullWidth
       margin="dense"
       defaultValue=""
+      type={type ? type : "text"}
       {...register(name)}
     />
   );

@@ -1,9 +1,7 @@
-import { destroy } from "redux-form";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { useSnackbar } from "notistack";
 import { useHistory } from "react-router-dom";
-import { Dispatch } from "redux";
 
 import { UPDATE_SUB_CATEGORY } from "Mutations/SubCategory";
 import { SUB_CATEGORY_BY_ID } from "Queries/SubCategory";
@@ -14,7 +12,7 @@ import {
   IUpdateSubCategoryVars,
   ISubCategoryByIdVars,
 } from "Types/api/SubCategory";
-import { TSubCategoryFormData } from "Types/forms";
+import { ISubCategoryFormFields } from "Types/forms";
 import { IDropdownOption } from "Types/common";
 
 type Props = {
@@ -59,7 +57,7 @@ export const SubCategoryEditFormController = ({
       };
     });
 
-  const onSubmit = async (values: TSubCategoryFormData, dispatch: Dispatch) => {
+  const onSubmit = async (values: ISubCategoryFormFields) => {
     try {
       const { name, categoryId, order } = values;
       await updateSubCategory({
@@ -72,7 +70,6 @@ export const SubCategoryEditFormController = ({
           },
         },
       });
-      dispatch(destroy("Sub_Category_Edit_Form"));
       enqueueSnackbar("Sub Category successfully updated!", {
         variant: "success",
       });
@@ -85,17 +82,8 @@ export const SubCategoryEditFormController = ({
     }
   };
 
-  const validate = (values: TSubCategoryFormData) => {
-    const errors: any = {};
-    if (!values.name) errors.name = "Required";
-    if (!values.categoryId) errors.categoryId = "Required";
-
-    return errors;
-  };
-
   return children({
     onSubmit,
-    validate,
     category_options,
     initialValues,
     loading: loading || loading_sub_category,

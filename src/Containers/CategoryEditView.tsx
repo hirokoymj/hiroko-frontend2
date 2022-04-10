@@ -26,16 +26,10 @@ export const CategoryEditView = () => {
           <CategoryEditFormController categoryId={id}>
             {(props: any) =>
               !props.loading && (
-                <DrawerDialog
-                  open={open}
-                  title="Edit Category"
-                  onClose={onClose}
-                  submitLabel="Edit">
-                  <CategoryEditForm
-                    onSubmit={props.onSubmit}
-                    initialValues={props.initialValues}
-                  />
-                </DrawerDialog>
+                <CategoryEditForm
+                  onSubmit={props.onSubmit}
+                  initialValues={props.initialValues}
+                />
               )
             }
           </CategoryEditFormController>
