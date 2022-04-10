@@ -5,7 +5,6 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 
 import { SubCategoryFormController } from "Components/FormController/SubCategoryFormController";

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 import { SubCategoryEditFormController } from "Components/FormController/SubCategoryEditFormController";
-import { DrawerDialog } from "Components/Dialog/DrawerDialog";
+import { SimpleDrawer } from "Components/Dialog/SimpleDrawer";
 import { SubCategoryEditForm } from "./SubCategoryEditForm";
 
 export const SubCategoryEditView = () => {
@@ -16,7 +16,7 @@ export const SubCategoryEditView = () => {
   };
 
   return (
-    <DrawerDialog
+    <SimpleDrawer
       open={open}
       title="Edit Sub Category"
       onClose={onClose}
@@ -26,6 +26,6 @@ export const SubCategoryEditView = () => {
           {(props: any) => !props.loading && <SubCategoryEditForm {...props} />}
         </SubCategoryEditFormController>
       }
-    </DrawerDialog>
+    </SimpleDrawer>
   );
 };

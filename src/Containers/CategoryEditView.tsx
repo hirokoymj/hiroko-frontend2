@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
 import { CategoryEditFormController } from "Components/FormController/CategoryEditFormController";
-import { DrawerDialog } from "Components/Dialog/DrawerDialog";
+import { SimpleDrawer } from "Components/Dialog/SimpleDrawer";
 import { CategoryEditForm } from "./CategoryEditForm";
 
 export const CategoryEditView = () => {
@@ -17,7 +17,7 @@ export const CategoryEditView = () => {
 
   return (
     <div>
-      <DrawerDialog
+      <SimpleDrawer
         open={open}
         title="Edit Category"
         onClose={onClose}
@@ -34,7 +34,7 @@ export const CategoryEditView = () => {
             }
           </CategoryEditFormController>
         }
-      </DrawerDialog>
+      </SimpleDrawer>
     </div>
   );
 };

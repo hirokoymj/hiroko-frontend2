@@ -1,5 +1,3 @@
-import { ISubCategory } from "Types/api/SubCategory";
-import { ITopic } from "Types/api/Topic";
 import { ICoord } from "Types/api/DailyForcast";
 
 export interface ICategoryFormFields {
@@ -13,9 +11,11 @@ export interface ISubCategoryFormFields {
   order: string;
 }
 
-export type TTopicFormData = Pick<ITopic, "url" | "title"> & {
+export type TTopicFormData = {
   category: string;
   subCategory: string;
+  url: string;
+  title: string;
   order: string; // order param is string.
 };
 

@@ -18,6 +18,7 @@ interface IFormDropdownFieldProps {
   options: option[];
   disabled?: boolean;
   defaultValue?: any;
+  onChange?: () => void;
 }
 
 const FormDropdown: FC<IFormDropdownFieldProps> = ({
@@ -25,6 +26,7 @@ const FormDropdown: FC<IFormDropdownFieldProps> = ({
   name,
   options,
   disabled,
+  onChange,
 }: IFormDropdownFieldProps) => {
   const {
     register,
@@ -33,8 +35,6 @@ const FormDropdown: FC<IFormDropdownFieldProps> = ({
   } = useFormContext();
 
   const selected = getValues(name);
-  console.log("FormDropdown");
-  console.log(selected);
 
   return (
     <FormControl variant="outlined" fullWidth error={!!errors[name]}>
@@ -42,7 +42,8 @@ const FormDropdown: FC<IFormDropdownFieldProps> = ({
       <Select
         {...register(name)}
         disabled={disabled && disabled}
-        defaultValue={selected}>
+        defaultValue={selected}
+        onChange={onChange && onChange}>
         {/* <MenuItem key="0" value="">
           Select menu
         </MenuItem> */}
