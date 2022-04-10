@@ -1,7 +1,5 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, Theme } from "@material-ui/core/styles";
@@ -53,19 +51,9 @@ type Props = {
   onClose: () => void;
   children: React.ReactNode;
   submitLabel: string;
-  onSubmit?: React.MouseEventHandler<HTMLButtonElement> | undefined;
-  submitting?: boolean;
 };
 
-export const DrawerDialog = ({
-  open,
-  title,
-  onClose,
-  children,
-  submitLabel,
-  onSubmit,
-  submitting,
-}: Props) => {
+export const SimpleDrawer = ({ open, title, onClose, children }: Props) => {
   const classes = useStyles();
 
   return (
@@ -80,24 +68,6 @@ export const DrawerDialog = ({
         </IconButton>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
-      <DialogActions classes={{ root: classes.actionsRoot }}>
-        <Button
-          color="primary"
-          variant="outlined"
-          className={classes.cancelBtn}
-          onClick={onClose}>
-          Cancel
-        </Button>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          // disabled={submitting}
-          onClick={onSubmit}
-          className={classes.actionButton}>
-          {submitLabel}
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 };

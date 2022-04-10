@@ -1,71 +1,9 @@
 import React, { useState } from "react";
-import { Field, reduxForm, InjectedFormProps } from "redux-form";
 import { useParams, useHistory } from "react-router-dom";
 
 import { SubCategoryEditFormController } from "Components/FormController/SubCategoryEditFormController";
-import { FormTextField } from "Components/Forms/FormTextField";
-import { FormSelect } from "Components/Forms/FormSelect";
-import { FormSkeleton } from "Components/Skeleton/FormSkeleton";
-import { DrawerDialog } from "Components/Dialog/DrawerDialog";
-import { TSubCategoryFormData } from "Types/forms";
-
-interface IProps extends InjectedFormProps<TSubCategoryFormData> {
-  loading: boolean;
-  open: boolean;
-  onClose: any;
-  category_options: [];
-}
-const SubCategoryEditFormDrawer = reduxForm<TSubCategoryFormData, IProps>({
-  form: "Sub_Category_Edit_Form",
-})((props: IProps) => {
-  const { handleSubmit, submitting, category_options, loading, open, onClose } =
-    props;
-
-  return (
-    <DrawerDialog
-      open={open}
-      title="Edit Sub Category"
-      onClose={onClose}
-      onSubmit={handleSubmit}
-      submitting={submitting}
-      submitLabel="Edit">
-      {loading ? (
-        <FormSkeleton fieldCount={3} />
-      ) : (
-        <>
-          <Field
-            name="categoryId"
-            component={FormSelect}
-            fullWidth
-            variant="outlined"
-            label="Category"
-            placeholder="Select Category"
-            options={category_options}
-            margin="normal"
-          />
-          <Field
-            name="name"
-            component={FormTextField}
-            fullWidth
-            variant="outlined"
-            label="Sub Category Name"
-            margin="normal"
-          />
-          <Field
-            name="order"
-            component={FormTextField}
-            fullWidth
-            variant="outlined"
-            label="Order"
-            margin="normal"
-            type="number"
-            style={{ width: "45%" }}
-          />
-        </>
-      )}
-    </DrawerDialog>
-  );
-});
+import { SimpleDrawer } from "Components/Dialog/SimpleDrawer";
+import { SubCategoryEditForm } from "./SubCategoryEditForm";
 
 export const SubCategoryEditView = () => {
   const { id } = useParams<{ id: string }>();
@@ -78,12 +16,16 @@ export const SubCategoryEditView = () => {
   };
 
   return (
-    <div>
-      <SubCategoryEditFormController subCategoryId={id}>
-        {(props: any) => (
-          <SubCategoryEditFormDrawer {...props} open={open} onClose={onClose} />
-        )}
-      </SubCategoryEditFormController>
-    </div>
+    <SimpleDrawer
+      open={open}
+      title="Edit Sub Category"
+      onClose={onClose}
+      submitLabel="Edit">
+      {
+        <SubCategoryEditFormController subCategoryId={id}>
+          {(props: any) => !props.loading && <SubCategoryEditForm {...props} />}
+        </SubCategoryEditFormController>
+      }
+    </SimpleDrawer>
   );
 };

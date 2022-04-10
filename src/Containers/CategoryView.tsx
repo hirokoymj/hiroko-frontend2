@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import { Field, reduxForm, InjectedFormProps } from "redux-form";
 import { useMutation } from "@apollo/react-hooks";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 
 import { CategoryFormController } from "Components/FormController/CategoryFormController";
-import { FormTextField } from "Components/Forms/FormTextField";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { CategoryTable } from "Components/Tables/CategoryTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
@@ -19,59 +15,9 @@ import { DELETE_CATEGORY } from "Mutations/Category";
 import { CATEGORIES } from "Queries/Category";
 import { Title } from "Components/Titles/Title";
 import { CategoryEditView } from "Containers/CategoryEditView";
-import { ICategoryFormData } from "Types/forms";
 import { RootState } from "Redux/ReduxProvider";
 import { IDeleteCategoryVars, ICategory } from "Types/api/Category";
-
-const useStyles = makeStyles((theme) => ({
-  button: {
-    width: "30%",
-    margin: "auto",
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-    },
-  },
-}));
-
-type CategoryFormFieldsProps = InjectedFormProps<ICategoryFormData>;
-
-const CategoryFormFields = (props: CategoryFormFieldsProps) => {
-  const classes = useStyles();
-  const { handleSubmit, submitting } = props;
-
-  return (
-    <>
-      <Field
-        name="name"
-        component={FormTextField}
-        fullWidth
-        variant="outlined"
-        label="Category Name"
-      />
-      <Field
-        name="abbr"
-        component={FormTextField}
-        type="text"
-        fullWidth
-        variant="outlined"
-        label="Abbreviation"
-      />
-      <Button
-        type="submit"
-        variant="contained"
-        color="secondary"
-        disabled={submitting}
-        onClick={handleSubmit}
-        className={classes.button}>
-        {submitting ? "Submitting" : "Submit"}
-      </Button>
-    </>
-  );
-};
-
-const CategoryForm = reduxForm<ICategoryFormData>({
-  form: "Category_Form",
-})(CategoryFormFields);
+import { CategoryForm } from "./CategoryForm";
 
 export const CategoryView = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -133,7 +79,7 @@ export const CategoryView = () => {
             <Paper>
               <Title text="Create Category" />
               <CategoryFormController>
-                {(props: any) => <CategoryForm {...props} />}
+                {(props: any) => <CategoryForm onSubmit={props.onSubmit} />}
               </CategoryFormController>
             </Paper>
           </Grid>

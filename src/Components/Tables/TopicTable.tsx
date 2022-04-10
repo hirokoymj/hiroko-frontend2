@@ -94,9 +94,6 @@ export const TopicTable = ({ openDialog }: ITopicTableProps) => {
   );
 
   const topics = !loading && get(data, "topics.topicFeed", []);
-  if (!loading) {
-    console.log(topics);
-  }
   const pageInfo = !loading && get(data, "topics.pageInfo", {});
   const { isLoadingMore, fetchMoreData, hasNextPage } = useLoadMore(
     loading,

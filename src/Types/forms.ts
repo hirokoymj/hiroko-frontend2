@@ -1,18 +1,21 @@
-import { ICategory } from "Types/api/Category";
-import { ISubCategory } from "Types/api/SubCategory";
-import { ITopic } from "Types/api/Topic";
 import { ICoord } from "Types/api/DailyForcast";
 
-export type ICategoryFormData = Pick<ICategory, "name" | "abbr">;
+export interface ICategoryFormFields {
+  name: string;
+  abbr: string;
+}
 
-export type TSubCategoryFormData = Pick<ISubCategory, "name"> & {
+export interface ISubCategoryFormFields {
   categoryId: string;
+  name: string;
   order: string;
-};
+}
 
-export type TTopicFormData = Pick<ITopic, "url" | "title"> & {
+export type TTopicFormData = {
   category: string;
   subCategory: string;
+  url: string;
+  title: string;
   order: string; // order param is string.
 };
 

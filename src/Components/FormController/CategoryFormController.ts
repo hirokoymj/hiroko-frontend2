@@ -1,13 +1,11 @@
-import { destroy } from "redux-form";
 import { useMutation } from "@apollo/react-hooks";
 import { useSnackbar } from "notistack";
-import { Dispatch } from "redux";
 import { useSelector } from "react-redux";
 
 import { CREATE_CATEGORY } from "Mutations/Category";
 import { CATEGORIES } from "Queries/Category";
 import { ICreateCategoryVars, ICategory } from "Types/api/Category";
-import { ICategoryFormData } from "Types/forms";
+import { ICategoryFormFields } from "Types/forms";
 import { RootState } from "Redux/ReduxProvider";
 
 type Props = {
@@ -38,7 +36,7 @@ export const CategoryFormController = ({ children }: Props) => {
     }
   );
 
-  const onSubmit = async (values: ICategoryFormData, dispatch: Dispatch) => {
+  const onSubmit = async (values: ICategoryFormFields) => {
     try {
       await createCategory({
         variables: {
@@ -47,7 +45,6 @@ export const CategoryFormController = ({ children }: Props) => {
           },
         },
       });
-      dispatch(destroy("Category_Form"));
       enqueueSnackbar("New category has been created!", {
         variant: "success",
       });
@@ -56,16 +53,7 @@ export const CategoryFormController = ({ children }: Props) => {
     }
   };
 
-  const validate = (values: ICategoryFormData) => {
-    const errors: { name?: string; abbr?: string } = {};
-    if (!values.name) errors.name = "Required";
-    if (!values.abbr) errors.abbr = "Required";
-
-    return errors;
-  };
-
   return children({
     onSubmit,
-    validate,
   });
 };
