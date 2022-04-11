@@ -1,4 +1,3 @@
-import { destroy } from "redux-form";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { useHistory } from "react-router-dom";
@@ -83,7 +82,6 @@ export const TopicEditFormController = (
         },
       });
       console.log("Success");
-      dispatch(destroy("Topic_Edit_Form"));
       enqueueSnackbar("Topic successfully updated!", {
         variant: "success",
       });
@@ -96,19 +94,8 @@ export const TopicEditFormController = (
     }
   };
 
-  const validate = (values: TTopicFormData) => {
-    const errors: any = {};
-    if (!values.category) errors.category = "Required";
-    if (!values.subCategory) errors.subCategory = "Required";
-    if (!values.title) errors.title = "Required";
-    if (!values.url) errors.url = "Required";
-
-    return errors;
-  };
-
   return children({
     onSubmit,
-    validate,
     category_options,
     subCategory_options,
     initialValues,

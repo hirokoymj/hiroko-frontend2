@@ -29,11 +29,9 @@ export const CategoryEditForm = (props: IProps) => {
   const classes = useStyles();
   const methods = useForm<ICategoryFormProps>({
     resolver: yupResolver(formSchema),
-    // defaultValues: { name: "abc", abbr: "abc" },
     defaultValues: props.initialValues,
   });
 
-  console.log(props.initialValues);
   return (
     <Grid container>
       <FormProvider {...methods}>

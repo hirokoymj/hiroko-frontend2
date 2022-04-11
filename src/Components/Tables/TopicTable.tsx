@@ -116,6 +116,7 @@ export const TopicTable = ({ openDialog }: ITopicTableProps) => {
     }) => {
       const categoryName = get(category, "name", "");
       const subCategoryName = get(subCategory, "name", "");
+      const categoryId = get(category, "id", "");
 
       const titleLink = (
         <Link
@@ -131,7 +132,7 @@ export const TopicTable = ({ openDialog }: ITopicTableProps) => {
       const actions = (
         <>
           <ActionRouterButton
-            to={`/topicList/${id}`}
+            to={`/topicList/${id}/${categoryId}`}
             title="Edit Topic"
             icon="edit"
           />

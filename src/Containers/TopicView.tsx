@@ -70,7 +70,10 @@ export const TopicView = () => {
   return (
     <>
       <Switch>
-        <Route path={`/topicList/:id`} component={TopicEditView} />
+        <Route
+          path={`/topicList/:topicId/:categoryId`}
+          component={TopicEditView}
+        />
       </Switch>
       <DashboardLayout title="Technical Topics">
         <Grid container spacing={3} justify="center">
