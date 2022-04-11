@@ -10,7 +10,7 @@
 
 - React v17
 - React Hooks
-- Redux Toolkits - This is a the newest version of Redux. https://redux-toolkit.js.org/
+- Redux Toolkits - This is the newest version of Redux. https://redux-toolkit.js.org/
 - React Router Dom (version 5.x)
 - Form - [React Hook Form](https://react-hook-form.com/)
 - Form validation: [Yup](https://react-hook-form.com/get-started#SchemaValidation) (schema-based form validation).
@@ -20,16 +20,18 @@
 
 ## APIs
 
+hirokoymj.com is used two external APIs - Weather API and Covid 19 API. I used OpenWeatherMap API in the previous company and it is one of my comfortable apis. For Covid 19 API, I recently added it in my site to show a data visualization and also get to know the daily US covid-19 situation.
+
 **Weather API:**
 
 - [OpenWeather](https://openweathermap.org/api)
-- Current Weather Data:
+- Get current weather infomation:
 
   ```text
   https://api.openweathermap.org/data/2.5/weather?q=tokyo&units=metric&appid={id}
   ```
 
-- Daily Forecaset 7 days:
+- Get daily forecaset for 7 days:
 
   ```text
   https://api.openweathermap.org/data/2.5/forecast/daily?q=tokyo&units=metric&cnt=7&appid={id}
