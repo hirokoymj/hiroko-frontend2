@@ -2,14 +2,13 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { useHistory } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import { Dispatch } from "redux";
 
 import { UPDATE_TOPIC } from "Mutations/Topic";
 import { CATEGORIES } from "Queries/Category";
 import { TOPIC_BY_ID } from "Queries/Topic";
 import { ICategoryFeed, ICategoriesVars } from "Types/api/Category";
 import { IUpdateTopicVars, ITopic, ITopicByIdVars } from "Types/api/Topic";
-import { TTopicFormData } from "Types/forms";
+import { ITopicFormFields } from "Types/forms";
 import { SUB_CATEGORY_BY_CATEGORY } from "Queries/SubCategory";
 import {
   ISubCategory,
@@ -70,7 +69,7 @@ export const TopicEditFormController = (
     subCategoryLoading
   );
 
-  const onSubmit = async (values: TTopicFormData, dispatch: Dispatch) => {
+  const onSubmit = async (values: ITopicFormFields) => {
     try {
       await updateTopic({
         variables: {
