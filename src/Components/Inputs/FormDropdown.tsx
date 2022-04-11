@@ -18,7 +18,8 @@ interface IFormDropdownFieldProps {
   options: option[];
   disabled?: boolean;
   defaultValue?: any;
-  onChange?: () => void;
+  onChange?: (e: any) => void;
+  readOnly?: boolean;
 }
 
 const FormDropdown: FC<IFormDropdownFieldProps> = ({
@@ -27,6 +28,7 @@ const FormDropdown: FC<IFormDropdownFieldProps> = ({
   options,
   disabled,
   onChange,
+  readOnly,
 }: IFormDropdownFieldProps) => {
   const {
     register,
@@ -43,10 +45,8 @@ const FormDropdown: FC<IFormDropdownFieldProps> = ({
         {...register(name)}
         disabled={disabled && disabled}
         defaultValue={selected}
+        readOnly={readOnly}
         onChange={onChange && onChange}>
-        {/* <MenuItem key="0" value="">
-          Select menu
-        </MenuItem> */}
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}

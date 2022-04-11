@@ -11,13 +11,13 @@ export interface ISubCategoryFormFields {
   order: string;
 }
 
-export type TTopicFormData = {
+export interface ITopicFormFields {
   category: string;
   subCategory: string;
   url: string;
   title: string;
-  order: string; // order param is string.
-};
+  order: string; // <input type=number> type is number but string.
+}
 
 export type TDailyForecasetFormData = Pick<ICoord, "lat" | "lon"> & {
   myCity: string;
