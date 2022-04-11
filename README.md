@@ -24,7 +24,7 @@
 - Creating **Custom Hooks** if there are many local states in a component.
 
 ```js
-// A table states and a filter states are separated by  a custom hook.
+// Table states and filter states are separated by Custom Hooks.
 export const CategoryTable = () => {
   const {
     category_loading,
