@@ -50,16 +50,9 @@ hirokoymj.com is used two external APIs - Weather API and Covid 19 API. I used O
 **Weather API:**
 
 - [OpenWeather](https://openweathermap.org/api)
-- Get current weather infomation:
 
   ```text
   https://api.openweathermap.org/data/2.5/weather?q=tokyo&units=metric&appid={id}
-  ```
-
-- Get daily forecaset for 7 days:
-
-  ```text
-  https://api.openweathermap.org/data/2.5/forecast/daily?q=tokyo&units=metric&cnt=7&appid={id}
   ```
 
 - Implemented the API in GraphQL as datasource
@@ -67,7 +60,6 @@ hirokoymj.com is used two external APIs - Weather API and Covid 19 API. I used O
 **Covid 19 API**
 
 - [Postman COVID-19 API Resource Center](https://postman-toolboxes.github.io/covid-19/)
-- Historical Data for all Counties in a Specified State
 
   ```text
   https://corona.lmao.ninja/v2/historical/usacounties/:state?lastdays=30
