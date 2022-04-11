@@ -41,7 +41,7 @@ export const CategoryTable = () => {
   <CategoryFormController>
   ```
 
-- When you create a new page, start using `<PageLayout></PageLayout>` in render(). The PageLayout manages some Redux states so the page keeps consistency the functions and design.
+- When you create a new page, start using `<PageLayout></PageLayout>` in render(). The component manages some UI Redux states so the app keeps functions and design consisntent.
 
 ## APIs
 
