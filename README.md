@@ -1,32 +1,24 @@
 # hirokoymj.com
 
-- URL: https://www.hirokoymj.com
+- Live URL: https://www.hirokoymj.com
 - GraphQL API: https://hirokoymj-backend.herokuapp.com/
 - GraphQL API repo: https://github.com/hirokoymj/hirokoymj-backend
 - Database: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- Cloud Server: [Heroku](https://dashboard.heroku.com/apps)
+- Deployment Server: [Heroku](https://dashboard.heroku.com/apps)
 
-### UI Structure
+## Core packages
 
-- **Container**: A Container component is to make a page view. Each router calls a container component.
+- React v17
+- React Hooks
+- Redux Toolkits - This is a the newest version of Redux. https://redux-toolkit.js.org/
+- React Router Dom (version 5.x)
+- Form - [React Hook Form](https://react-hook-form.com/)
+- Form validation: [Yup](https://react-hook-form.com/get-started#SchemaValidation) (schema-based form validation).
+- For GraphQL APIs - Using `useQuery`, `useMutation` and `useLazyQuery` from React Apollo client.
+- For REST APIs - Using `useAxios` from [Axios-hooks](https://github.com/simoneb/axios-hooks).
+- Material UI (version 4.x) - [UI library](https://v4.mui.com/) will helpful to build re-usuable components and also we can remove css files in React app repository.
 
-- **Component**: A component is a piece of UI such as a button and form that is customized by Material UI.
-
-- **Material UI**: Material UI is the UI library to build an own designed web application faster.
-
-- **Redux**: Redux is to provide global variables to be directly accessible from any components.
-
-- **Apollo Client**: Enable to get data from database using GraphQL.
-
-### Run localhost
-
-```js
-yarn dev
-```
-
-http://localhost:3000/
-
-### APIs
+## APIs
 
 **Weather API:**
 
@@ -53,3 +45,11 @@ http://localhost:3000/
   ```text
   https://corona.lmao.ninja/v2/historical/usacounties/:state?lastdays=30
   ```
+
+## Run localhost
+
+```js
+yarn dev
+```
+
+http://localhost:3000/
