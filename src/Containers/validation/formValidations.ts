@@ -7,3 +7,8 @@ export const topicFormSchema = yup.object().shape({
   url: yup.string().required(),
   order: yup.string().optional(),
 });
+
+export const categoryFormSchema = yup.object().shape({
+  name: yup.string().required("Category name is required."),
+  abbr: yup.string().required("Abbreviation is required."),
+});

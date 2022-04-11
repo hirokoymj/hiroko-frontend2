@@ -2,9 +2,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { FormProvider, useForm } from "react-hook-form";
-import * as yup from "yup";
+
 import FormTextField from "Components/Inputs/FormTextField";
 import { ICategoryFormFields } from "Types/forms";
+import { categoryFormSchema } from "./validation/formValidations";
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -12,25 +13,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const formSchema = yup.object().shape({
-  name: yup.string().required(),
-  abbr: yup.string().required(),
-});
-
 interface IProps {
   onSubmit: () => void;
 }
 export const CategoryForm = (props: IProps) => {
+  const { onSubmit } = props;
   const classes = useStyles();
   const methods = useForm<ICategoryFormFields>({
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(categoryFormSchema),
   });
 
   return (
     <Grid container>
       <FormProvider {...methods}>
         <form
-          onSubmit={methods.handleSubmit(props.onSubmit)}
+          onSubmit={methods.handleSubmit(onSubmit)}
           style={{ width: "100%" }}>
           <Grid item xs={12}>
             <FormTextField label="Name" name="name" />
