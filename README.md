@@ -14,8 +14,8 @@
 - React Router Dom (version 5.x)
 - Form - [React Hook Form](https://react-hook-form.com/)
 - Form validation: [Yup](https://react-hook-form.com/get-started#SchemaValidation) (schema-based form validation).
-- For GraphQL APIs - Using `useQuery`, `useMutation` and `useLazyQuery` from React Apollo client.
-- For REST APIs - Using `useAxios` from [Axios-hooks](https://github.com/simoneb/axios-hooks).
+- GraphQL APIs - Using `useQuery`, `useMutation` and `useLazyQuery` in React Apollo client.
+- REST APIs - Using `useAxios` from [Axios-hooks](https://github.com/simoneb/axios-hooks).
 - Material UI (version 4.x) - [UI library](https://v4.mui.com/) will helpful to build re-usuable components and also we can remove css files in React app repository.
 
 ## Ideas to be scalable an existing react app
