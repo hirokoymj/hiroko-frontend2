@@ -10,7 +10,7 @@
 
 - React v17
 - React Hooks
-- Redux Toolkits - This is the newest version of Redux. https://redux-toolkit.js.org/
+- Redux Toolkits - This is the newest Redux version. https://redux-toolkit.js.org/
 - React Router Dom (version 5.x)
 - Form - [React Hook Form](https://react-hook-form.com/)
 - Form validation: [Yup](https://react-hook-form.com/get-started#SchemaValidation) (schema-based form validation).
