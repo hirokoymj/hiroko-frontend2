@@ -155,7 +155,7 @@ const CurrentWeatherInfo = ({ city }: { city: string }) => {
               <Grid item xs={12}>
                 <div style={{ display: "flex", marginBottom: "16px" }}>
                   <img
-                    src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                    src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
                     width="50"
                     height="50"
                     alt=""
