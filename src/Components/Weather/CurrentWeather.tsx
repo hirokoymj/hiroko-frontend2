@@ -63,7 +63,7 @@ export const CurrentWeather = ({ city, unit }: ICurrentWeatherByCityVars) => {
           <div className={classes.row}>
             {icon && (
               <img
-                src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
                 width="50"
                 height="50"
                 alt={condition}

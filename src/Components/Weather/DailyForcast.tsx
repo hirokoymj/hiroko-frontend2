@@ -141,7 +141,7 @@ export const DailyForecast = (props: IDailyForcastVars) => {
                       <ListItemText className={classes.weather}>
                         {icon && (
                           <img
-                            src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+                            src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
                             width="50"
                             height="50"
                             alt={condition}
