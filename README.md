@@ -71,4 +71,5 @@ hirokoymj.com is used two external APIs - Weather API and Covid 19 API. I used O
 yarn dev
 ```
 
-http://localhost:3000/
+- Open your browser and check below URL.
+  http://localhost:3000/
