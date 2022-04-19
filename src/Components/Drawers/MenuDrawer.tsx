@@ -9,8 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   TechNavItems,
-  // ResumeListItems,
   CovidListItem,
+  LoginListItem,
 } from "Components/Lists/NavigationLists";
 import { Logo } from "Components/Layouts/Logo";
 import { RootState } from "Redux/ReduxProvider";
@@ -90,6 +90,9 @@ export const MenuDrawer = () => {
       <Divider />
       <List>
         <CovidListItem />
+      </List>
+      <List>
+        <LoginListItem />
       </List>
       <Divider />
     </Drawer>

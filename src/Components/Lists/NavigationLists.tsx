@@ -116,3 +116,20 @@ export const CovidListItem = () => {
     </>
   );
 };
+
+export const LoginListItem = () => {
+  return (
+    <>
+      <ListItemLink
+        to="/register"
+        text="Register"
+        icon={<LocalHospitalOutlinedIcon />}
+      />
+      <ListItemLink
+        to="/login"
+        text="Login"
+        icon={<LocalHospitalOutlinedIcon />}
+      />
+    </>
+  );
+};

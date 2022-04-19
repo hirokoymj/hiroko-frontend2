@@ -19,6 +19,17 @@ export interface ITopicFormFields {
   order: string; // <input type=number> type is number but string.
 }
 
+export interface ILoginFormFields {
+  email: string;
+  password: string;
+}
+
+export interface IRegisterFormFields {
+  username: string;
+  email: string;
+  password: string;
+}
+
 export type TDailyForecasetFormData = Pick<ICoord, "lat" | "lon"> & {
   myCity: string;
 };
