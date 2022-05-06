@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   titleRoot: {
     borderBottom: `1px solid ${theme.palette.grey[400]}`,
     textAlign: "center",
+    marginBottom: theme.spacing(2),
   },
   closeButton: {
     position: "absolute",

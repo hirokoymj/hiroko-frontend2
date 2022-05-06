@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import DescriptionOutlinedIcon from "@material-ui/icons/DescriptionOutlined";
 import LibraryBooksOutlinedIcon from "@material-ui/icons/LibraryBooksOutlined";
 import AccountTreeOutlinedIcon from "@material-ui/icons/AccountTreeOutlined";
@@ -13,6 +13,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
 import { ListItemLink } from "Components/Lists/ListItemLink";
+import { AuthContext } from "Context/authContext";
 
 const useStyles = makeStyles((theme: Theme) => ({
   icon: {
@@ -118,6 +119,10 @@ export const CovidListItem = () => {
 };
 
 export const LoginListItem = () => {
+  console.log("LoginListItem");
+  const { user, logout } = useContext(AuthContext);
+  console.log(user);
+
   return (
     <>
       <ListItemLink
@@ -125,11 +130,15 @@ export const LoginListItem = () => {
         text="Register"
         icon={<LocalHospitalOutlinedIcon />}
       />
-      <ListItemLink
-        to="/login"
-        text="Login"
-        icon={<LocalHospitalOutlinedIcon />}
-      />
+      {user ? (
+        <button onClick={() => logout()}>Logout</button>
+      ) : (
+        <ListItemLink
+          to="/login"
+          text="Login"
+          icon={<LocalHospitalOutlinedIcon />}
+        />
+      )}
     </>
   );
 };

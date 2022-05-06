@@ -10,6 +10,7 @@ import { IRegisterFormFields } from "Types/forms";
 import { registerFormSchema } from "./validation/formValidations";
 import { REGISTER_USER } from "Mutations/Login";
 import { IRegisterVars, IUser } from "Types/api/Login";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -23,7 +24,10 @@ export const RegisterForm = () => {
     resolver: yupResolver(registerFormSchema),
   });
   const { enqueueSnackbar } = useSnackbar();
-  const [registerUser] = useMutation<IUser, IRegisterVars>(REGISTER_USER);
+  const [registerUser, { data, error, loading }] = useMutation<
+    IUser,
+    IRegisterVars
+  >(REGISTER_USER);
 
   const onSubmit = async (values: IRegisterFormFields) => {
     try {
@@ -43,12 +47,13 @@ export const RegisterForm = () => {
     }
   };
 
+  if (error) {
+    console.log(error);
+  }
   return (
     <Grid container>
       <FormProvider {...methods}>
-        <form
-          onSubmit={methods.handleSubmit(onSubmit)}
-          style={{ width: "100%" }}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} style={{ flexGrow: 1 }}>
           <Grid item xs={12}>
             <FormTextField label="username" name="username" />
           </Grid>
@@ -69,6 +74,13 @@ export const RegisterForm = () => {
           </Grid>
         </form>
       </FormProvider>
+      <Grid item xs={12}>
+        {error && (
+          <Alert severity="error" style={{ marginTop: "8px" }}>
+            {error.message}
+          </Alert>
+        )}
+      </Grid>
     </Grid>
   );
 };

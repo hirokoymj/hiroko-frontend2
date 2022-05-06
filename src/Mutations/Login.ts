@@ -5,8 +5,8 @@ export const LOGIN_USER = gql`
     loginUser(loginInput: $loginInput) {
       username
       email
-      password
       token
+      # password
     }
   }
 `;
@@ -16,7 +16,8 @@ export const REGISTER_USER = gql`
     registerUser(registerInput: $registerInput) {
       username
       email
-      password
+      token
+      # password
     }
   }
 `;

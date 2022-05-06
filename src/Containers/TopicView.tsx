@@ -79,9 +79,10 @@ export const TopicView = () => {
         <Grid container spacing={3} justify="center">
           <Grid item xs={12} md={6}>
             <Paper>
-              <TopicFormController>
+              {/* <TopicFormController>
                 {(props: any) => <TopicForm {...props} />}
-              </TopicFormController>
+              </TopicFormController> */}
+              <TopicForm />
             </Paper>
           </Grid>
           <Grid item xs={12}>

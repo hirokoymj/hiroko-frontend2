@@ -7,7 +7,6 @@ import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { CategoryFormController } from "Components/FormController/CategoryFormController";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { CategoryTable } from "Components/Tables/CategoryTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
@@ -78,9 +77,7 @@ export const CategoryView = () => {
           <Grid item xs={12} md={5}>
             <Paper>
               <Title text="Create Category" />
-              <CategoryFormController>
-                {(props: any) => <CategoryForm onSubmit={props.onSubmit} />}
-              </CategoryFormController>
+              <CategoryForm />
             </Paper>
           </Grid>
           <Grid item xs={12}>
