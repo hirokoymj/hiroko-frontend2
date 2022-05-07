@@ -91,9 +91,9 @@ export const MenuDrawer = () => {
       <List>
         <CovidListItem />
       </List>
-      <List>
+      {/* <List>
         <LoginListItem />
-      </List>
+      </List> */}
       <Divider />
     </Drawer>
   );

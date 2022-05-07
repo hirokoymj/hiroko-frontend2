@@ -19,6 +19,10 @@ import { useTopicForm } from "Hooks/useTopicForm";
 import { FormInputText } from "Components/FormComponents-new/FormInputText";
 import { FormInputDropdown } from "Components/FormComponents-new/FormInputDropdown";
 
+import { useSelector, useDispatch } from "react-redux";
+import { setCategory, resetCategory } from "Redux/ReactHookForm/categorySlice";
+import { RootState } from "Redux/ReduxProvider";
+
 export const TopicForm = () => {
   const methods = useForm<ITopicFormFields>({
     resolver: yupResolver(topicFormSchema),
@@ -27,38 +31,32 @@ export const TopicForm = () => {
     handleSubmit,
     reset,
     formState: { isSubmitSuccessful },
-    getValues,
-    watch,
   } = methods;
-  const { loading, category_options, onSubmit } = useTopicForm();
+  const selectedCategory = useSelector(
+    (state: RootState) => state.category.value
+  );
+  const dispatch = useDispatch();
+  console.log(selectedCategory);
+  const {
+    loading,
+    category_options,
+    onSubmit,
+    subCategory_options,
+    defaultValues,
+  } = useTopicForm(selectedCategory);
 
-  // useEffect(() => {
-  //   if (isSubmitSuccessful) reset();
-  // }, [isSubmitSuccessful, reset]);
+  useEffect(() => {
+    if (isSubmitSuccessful) reset({ ...defaultValues });
+    dispatch(resetCategory());
+  }, [isSubmitSuccessful, reset]);
 
-  // SubCategory
-  // const [
-  //   getSubCategoryByCategory,
-  //   { data: subCategoryData, loading: subCategoryLoading },
-  // ] = useLazyQuery<ISubCategory, ISubCategoryByCategoryVars>(
-  //   SUB_CATEGORY_BY_CATEGORY
-  // );
-  // // SubCategory dropdown!!
-  // const subCategory_options = makeDropdownOptions(
-  //   subCategoryData,
-  //   "subCategoryByCategory",
-  //   subCategoryLoading
-  // );
-
-  // const handleCategoryChange = async (
-  //   e: React.ChangeEvent<{ value: unknown }>
-  // ) => {
-  //   const newVal = e.target.value as string;
-  //   methods.setValue("category", newVal); // IMPORTANT since getValues("category") won't work.
-  //   await getSubCategoryByCategory({
-  //     variables: { categoryId: newVal },
-  //   });
-  // };
+  const handleCategoryChange = (
+    event: React.ChangeEvent<{ value: unknown; name?: string }>
+  ) => {
+    const newVal = event.target.value as string;
+    dispatch(setCategory(newVal));
+    return newVal;
+  };
 
   return (
     <>
@@ -68,28 +66,20 @@ export const TopicForm = () => {
         <Grid container direction="column">
           <FormProvider {...methods}>
             <Grid item>
-              {/* <FormDropdown
-                name="category"
-                label="Category"
-                options={category_options}
-                onChange={handleCategoryChange}
-                disabled={loading || subCategoryLoading}
-              /> */}
               <FormInputDropdown
                 name="category"
                 label="Category"
                 options={category_options}
+                handleChange={handleCategoryChange}
+                disabled={loading}
+              />
+              <FormInputDropdown
+                name="subCategory"
+                label="Sub Category"
+                options={subCategory_options}
                 disabled={loading}
               />
             </Grid>
-            {/* <Grid item>
-              <FormDropdown
-                name="subCategory"
-                label="Sub Category"
-                disabled={loading || subCategoryLoading}
-                options={subCategory_options}
-              />
-            </Grid> */}
             <Grid item>
               <FormInputText label="Title" name="title" />
             </Grid>
@@ -104,7 +94,8 @@ export const TopicForm = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
-                onClick={methods.handleSubmit(onSubmit)}>
+                fullWidth
+                onClick={handleSubmit(onSubmit)}>
                 Submit
               </Button>
             </Grid>

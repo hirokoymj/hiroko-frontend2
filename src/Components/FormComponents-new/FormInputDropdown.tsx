@@ -18,7 +18,7 @@ interface FormInputProps {
   label: string;
   options: option[];
   disabled?: boolean;
-  handleChange?: () => any;
+  handleChange?: (value: any) => void;
 }
 
 export const FormInputDropdown: React.FC<FormInputProps> = ({
@@ -37,10 +37,14 @@ export const FormInputDropdown: React.FC<FormInputProps> = ({
     <FormControl error={errors && !!errors[name]} fullWidth>
       <InputLabel id={name}>{label}</InputLabel>
       <Controller
-        render={({ field: { onChange, value } }) => (
+        render={({ field }) => (
           <Select
-            onChange={() => (handleChange ? handleChange() : onChange())}
-            value={value}
+            {...field}
+            onChange={(e) => {
+              field.onChange(e);
+              handleChange && handleChange(e);
+            }}
+            value={field.value}
             labelId={name}
             variant="outlined"
             disabled={disabled}>

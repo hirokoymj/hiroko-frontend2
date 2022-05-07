@@ -7,7 +7,6 @@ import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { TopicFormController } from "Components/FormController/TopicFormController";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { TopicTable } from "Components/Tables/TopicTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";

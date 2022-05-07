@@ -11,6 +11,9 @@ import { FormInputDate } from "Components/FormComponents-new/FormInputDate";
 import { FormInputRadio } from "Components/FormComponents-new/FormInputRadio";
 import { FormInputCheckbox } from "Components/FormComponents-new/FormInputCheckbox";
 
+import { useSelector, useDispatch } from "react-redux";
+import { setCategory, resetCategory } from "Redux/ReactHookForm/categorySlice";
+
 interface IFormInput {
   firstName: string;
   gender: string;
@@ -19,6 +22,7 @@ interface IFormInput {
   dateValue: Date;
   sliderValue: number;
   acceptTerms: boolean;
+  days: string;
 }
 
 const defaultValues = {
@@ -29,6 +33,7 @@ const defaultValues = {
   dateValue: new Date(),
   sliderValue: 0,
   acceptTerms: false,
+  days: "",
 };
 
 // Test if defaultValues works in an each component
@@ -64,6 +69,20 @@ const options = [
     value: "red",
   },
 ];
+const days = [
+  {
+    label: "Monday",
+    value: "mon",
+  },
+  {
+    label: "Tuesday",
+    value: "tue",
+  },
+  {
+    label: "Wednesday",
+    value: "wed",
+  },
+];
 const radioOptions = [
   {
     label: "Male",
@@ -95,28 +114,24 @@ export const FormDemo = () => {
     reset,
     formState: { isSubmitSuccessful, isDirty },
   } = methods;
-  const onSubmit = (data: IFormInput) => console.log(data);
+  const dispatch = useDispatch();
+  const onSubmit = (data: IFormInput) => {
+    console.log(data);
+  };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({ ...defaultValues });
+      dispatch(resetCategory());
     }
   }, [isSubmitSuccessful, reset]);
 
-  console.log("isDirty", isDirty);
-
-  const handleChange = () => {
-    const myOptions = [
-      {
-        label: "green",
-        value: "green",
-      },
-      {
-        label: "pink",
-        value: "pink",
-      },
-    ];
-    return myOptions;
+  const handleCategoryChange = (
+    event: React.ChangeEvent<{ value: unknown; name?: string }>
+  ) => {
+    const newVal = event.target.value as string;
+    dispatch(setCategory(newVal));
+    return newVal;
   };
 
   return (
@@ -139,7 +154,9 @@ export const FormDemo = () => {
             name="color"
             label="Select color"
             options={options}
+            handleChange={handleCategoryChange}
           />
+          <FormInputDropdown name="days" label="Select days" options={days} />
           <FormInputMultiCheckbox
             name={"drinks"}
             label={"Your favorite drinks"}
