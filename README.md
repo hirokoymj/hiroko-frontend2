@@ -33,13 +33,20 @@ export const CategoryTable = () => {
   } = useCategoryFilterState();
 ```
 
-- A Form needs many functions to manipulate ex. submitting data or ,loading dropdown so each form has a `FormController` in which necessary functions are defined and pass them down in a form with props
+- A Form was built with React Hook Form and a validation is used schema-based validation called `YUP`. All necessary functions for a form are defined in a custom hook so that Form component gets simple.
 
-  ```js
-  <CategoryFormController>
-    {(props) => <CategoryForm {...props} />}
-  <CategoryFormController>
-  ```
+**CategoryForm and useCategoryForm**
+
+```js
+export const CategoryForm = () => {
+const methods = useForm<ICategoryFormFields>({
+  resolver: yupResolver(categoryFormSchema),
+  defaultValues,
+});
+const { onSubmit, defaultValue } = useCategoryForm(); //
+...
+}
+```
 
 - When you create a new page, start using `<PageLayout></PageLayout>` in render(). The component manages some UI Redux states so the app keeps functions and design consisntent.
 
