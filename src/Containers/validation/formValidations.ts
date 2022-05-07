@@ -18,3 +18,14 @@ export const subCategoryFormSchema = yup.object().shape({
   name: yup.string().required("Sub Category name is required field."),
   order: yup.string().optional(),
 });
+
+export const loginFormSchema = yup.object().shape({
+  email: yup.string().required(),
+  password: yup.string().required(),
+});
+
+export const registerFormSchema = yup.object().shape({
+  username: yup.string().required(),
+  email: yup.string().required(),
+  password: yup.string().required(),
+});

@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 
-import { CategoryEditFormController } from "Components/FormController/CategoryEditFormController";
 import { SimpleDrawer } from "Components/Dialog/SimpleDrawer";
 import { CategoryEditForm } from "./CategoryEditForm";
+import { useCategoryEditForm } from "Hooks/useCategoryEditForm";
 
 export const CategoryEditView = () => {
   const { id } = useParams<{ id: string }>();
   const [open, setOpen] = useState<boolean>(true);
   const history = useHistory();
+  const { onSubmit, initialValues, loading } = useCategoryEditForm(id);
 
   const onClose = () => {
     setOpen(false);
@@ -17,24 +18,21 @@ export const CategoryEditView = () => {
 
   return (
     <div>
-      <SimpleDrawer
-        open={open}
-        title="Edit Category"
-        onClose={onClose}
-        submitLabel="Edit">
-        {
-          <CategoryEditFormController categoryId={id}>
-            {(props: any) =>
-              !props.loading && (
-                <CategoryEditForm
-                  onSubmit={props.onSubmit}
-                  initialValues={props.initialValues}
-                />
-              )
-            }
-          </CategoryEditFormController>
-        }
-      </SimpleDrawer>
+      {loading ? (
+        <p>...loading</p>
+      ) : (
+        <SimpleDrawer
+          open={open}
+          title="Edit Category"
+          onClose={onClose}
+          submitLabel="Edit">
+          <CategoryEditForm
+            onSubmit={onSubmit}
+            initialValues={initialValues}
+            loading={loading}
+          />
+        </SimpleDrawer>
+      )}
     </div>
   );
 };

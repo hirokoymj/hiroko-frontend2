@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Grid, Button } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
@@ -14,95 +15,93 @@ import {
 } from "Types/api/SubCategory";
 import { topicFormSchema } from "Containers/validation/formValidations";
 import { ITopicFormFields, IFormSelectOptions } from "Types/forms";
+import { useTopicForm } from "Hooks/useTopicForm";
+import { FormInputText } from "Components/FormComponents-new/FormInputText";
+import { FormInputDropdown } from "Components/FormComponents-new/FormInputDropdown";
 
-const useStyles = makeStyles((theme: Theme) => ({
-  button: {
-    width: "100%",
-  },
-}));
+import { useSelector, useDispatch } from "react-redux";
+import { setCategory, resetCategory } from "Redux/ReactHookForm/categorySlice";
+import { RootState } from "Redux/ReduxProvider";
 
-interface IProps {
-  onSubmit: () => void;
-  loading: boolean;
-  category_options: IFormSelectOptions[] | [];
-}
-
-export const TopicForm = (props: IProps) => {
-  const classes = useStyles();
-  const { loading, category_options, onSubmit } = props;
+export const TopicForm = () => {
   const methods = useForm<ITopicFormFields>({
     resolver: yupResolver(topicFormSchema),
   });
-
-  // SubCategory
-  const [
-    getSubCategoryByCategory,
-    { data: subCategoryData, loading: subCategoryLoading },
-  ] = useLazyQuery<ISubCategory, ISubCategoryByCategoryVars>(
-    SUB_CATEGORY_BY_CATEGORY
+  const {
+    handleSubmit,
+    reset,
+    formState: { isSubmitSuccessful },
+  } = methods;
+  const selectedCategory = useSelector(
+    (state: RootState) => state.category.value
   );
-  // SubCategory dropdown!!
-  const subCategory_options = makeDropdownOptions(
-    subCategoryData,
-    "subCategoryByCategory",
-    subCategoryLoading
-  );
+  const dispatch = useDispatch();
+  console.log(selectedCategory);
+  const {
+    loading,
+    category_options,
+    onSubmit,
+    subCategory_options,
+    defaultValues,
+  } = useTopicForm(selectedCategory);
 
-  const handleCategoryChange = async (
-    e: React.ChangeEvent<{ value: unknown }>
+  useEffect(() => {
+    if (isSubmitSuccessful) reset({ ...defaultValues });
+    dispatch(resetCategory());
+  }, [isSubmitSuccessful, reset]);
+
+  const handleCategoryChange = (
+    event: React.ChangeEvent<{ value: unknown; name?: string }>
   ) => {
-    const newVal = e.target.value as string;
-    methods.setValue("category", newVal); // IMPORTANT since getValues("category") won't work.
-    await getSubCategoryByCategory({
-      variables: { categoryId: newVal },
-    });
+    const newVal = event.target.value as string;
+    dispatch(setCategory(newVal));
+    return newVal;
   };
 
   return (
     <>
-      <Grid container>
-        <FormProvider {...methods}>
-          <form
-            onSubmit={methods.handleSubmit(onSubmit)}
-            style={{ width: "100%" }}>
+      {loading ? (
+        <p>...loading</p>
+      ) : (
+        <Grid container direction="column">
+          <FormProvider {...methods}>
             <Grid item>
-              <FormDropdown
+              <FormInputDropdown
                 name="category"
                 label="Category"
                 options={category_options}
-                onChange={handleCategoryChange}
-                disabled={loading || subCategoryLoading}
+                handleChange={handleCategoryChange}
+                disabled={loading}
               />
-            </Grid>
-            <Grid item>
-              <FormDropdown
+              <FormInputDropdown
                 name="subCategory"
                 label="Sub Category"
-                disabled={loading || subCategoryLoading}
                 options={subCategory_options}
+                disabled={loading}
               />
             </Grid>
             <Grid item>
-              <FormTextField label="Title" name="title" />
+              <FormInputText label="Title" name="title" />
             </Grid>
             <Grid item>
-              <FormTextField label="URL" name="url" />
+              <FormInputText label="URL" name="url" />
             </Grid>
             <Grid item>
-              <FormTextField label="order" name="order" type="number" />
+              <FormInputText label="order" name="order" type="number" />
             </Grid>
             <Grid item>
               <Button
                 type="submit"
                 variant="contained"
                 color="primary"
-                className={classes.button}>
+                fullWidth
+                onClick={handleSubmit(onSubmit)}>
                 Submit
               </Button>
             </Grid>
-          </form>
-        </FormProvider>
-      </Grid>
+          </FormProvider>
+        </Grid>
+      )}
     </>
   );
 };

@@ -7,7 +7,6 @@ import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { TopicFormController } from "Components/FormController/TopicFormController";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { TopicTable } from "Components/Tables/TopicTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
@@ -79,9 +78,10 @@ export const TopicView = () => {
         <Grid container spacing={3} justify="center">
           <Grid item xs={12} md={6}>
             <Paper>
-              <TopicFormController>
+              {/* <TopicFormController>
                 {(props: any) => <TopicForm {...props} />}
-              </TopicFormController>
+              </TopicFormController> */}
+              <TopicForm />
             </Paper>
           </Grid>
           <Grid item xs={12}>

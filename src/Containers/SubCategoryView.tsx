@@ -7,7 +7,6 @@ import { useSnackbar } from "notistack";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { SubCategoryFormController } from "Components/FormController/SubCategoryFormController";
 import { DashboardLayout } from "Components/Layouts/DashboardLayout";
 import { SubCategoryTable } from "Components/Tables/SubCategoryTable";
 import { AlertDialog } from "Components/Dialog/AlertDialog";
@@ -78,11 +77,7 @@ export const SubCategoryView = () => {
         <Grid container spacing={3} justify="center">
           <Grid item xs={12} md={5}>
             <Paper>
-              <SubCategoryFormController>
-                {(props: any) =>
-                  !props.loading && <SubCategoryForm {...props} />
-                }
-              </SubCategoryFormController>
+              <SubCategoryForm />
             </Paper>
           </Grid>
           <Grid item xs={12}>
