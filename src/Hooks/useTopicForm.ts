@@ -1,16 +1,16 @@
-import { useQuery, useMutation, useLazyQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useSnackbar } from "notistack";
 import { useSelector } from "react-redux";
 
 import { CREATE_TOPIC } from "Mutations/Topic";
 import { CATEGORIES } from "Queries/Category";
 import { TOPICS } from "Queries/Topic";
+import { SUB_CATEGORY_BY_CATEGORY } from "Queries/SubCategory";
 import { ICategoryFeed, ICategoriesVars } from "Types/api/Category";
 import { ICreateTopicVars, ITopic } from "Types/api/Topic";
 import { ITopicFormFields } from "Types/forms";
 import { makeDropdownOptions } from "Components/FormController/common";
 import { RootState } from "Redux/ReduxProvider";
-import { SUB_CATEGORY_BY_CATEGORY } from "Queries/SubCategory";
 import {
   ISubCategory,
   ISubCategoryByCategoryVars,
@@ -60,10 +60,6 @@ export const useTopicForm = (categoryId: string) => {
       categoryId: categoryId,
     },
   });
-
-  if (!subCategoryLoading) {
-    console.log(subCategoryData);
-  }
 
   // Make dropdown
   const subCategory_options = makeDropdownOptions(
