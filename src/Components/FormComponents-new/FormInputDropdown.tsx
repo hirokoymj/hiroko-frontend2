@@ -19,6 +19,7 @@ interface FormInputProps {
   options: option[];
   disabled?: boolean;
   handleChange?: (value: any) => void;
+  readOnly?: boolean;
 }
 
 export const FormInputDropdown: React.FC<FormInputProps> = ({
@@ -27,6 +28,7 @@ export const FormInputDropdown: React.FC<FormInputProps> = ({
   options,
   disabled,
   handleChange,
+  readOnly,
 }) => {
   const {
     control,
@@ -34,8 +36,8 @@ export const FormInputDropdown: React.FC<FormInputProps> = ({
   } = useFormContext();
 
   return (
-    <FormControl error={errors && !!errors[name]} fullWidth>
-      <InputLabel id={name}>{label}</InputLabel>
+    <FormControl error={errors && !!errors[name]}>
+      <InputLabel id="select-label">{label}</InputLabel>
       <Controller
         render={({ field }) => (
           <Select
@@ -47,14 +49,13 @@ export const FormInputDropdown: React.FC<FormInputProps> = ({
             value={field.value}
             labelId={name}
             variant="outlined"
-            disabled={disabled}>
-            {options.map((option) => {
-              return (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              );
-            })}
+            disabled={disabled}
+            inputProps={{ readOnly: readOnly ? true : false }}>
+            {options.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
           </Select>
         )}
         control={control}
