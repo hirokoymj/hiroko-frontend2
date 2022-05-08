@@ -28,8 +28,8 @@
 - Each Form has a Custom Hook function where all necessary form logic such as `onSubmit` is defined. Form usually gets complecated when connecting to back-end API. With Custom Hook, we can separate Form logic from Form UI.
 
 ```text
-`CategoryForm` contains UI only.
-`useCategoryForm` hook contains a form logic.
+CategoryForm contains UI only.
+useCategoryForm hook contains a form logic.
 ```
 
 **Page Wrapper component**
