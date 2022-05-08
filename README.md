@@ -1,54 +1,36 @@
 # hirokoymj.com
 
-- Live URL: https://www.hirokoymj.com
-- GraphQL API: https://hirokoymj-backend.herokuapp.com/
-- GraphQL API repo: https://github.com/hirokoymj/hirokoymj-backend
+- Live Frontend URL: https://www.hirokoymj.com
+- Live GraphQL API: https://hirokoymj-backend.herokuapp.com/
 - Database: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 - Deployment Server: [Heroku](https://dashboard.heroku.com/apps)
 
 ## Core packages
 
-- React v17
+- React (version 17.x)
 - React Hooks
-- Redux Toolkits - This is the newest Redux version. https://redux-toolkit.js.org/
-- React Router Dom (version 5.x)
+- Redux
+- React Router (version 5.x)
 - Form - [React Hook Form](https://react-hook-form.com/)
-- Form validation: [Yup](https://react-hook-form.com/get-started#SchemaValidation) (schema-based form validation).
-- GraphQL APIs - Using `useQuery`, `useMutation` and `useLazyQuery` in React Apollo client.
-- REST APIs - Using `useAxios` from [Axios-hooks](https://github.com/simoneb/axios-hooks).
-- Material UI (version 4.x) - [UI library](https://v4.mui.com/) will helpful to build re-usuable components and also we can remove css files in React app repository.
+- Form validation: [Yup](https://react-hook-form.com/get-started#SchemaValidation)
+- GraphQL: [Apollo Client](https://www.apollographql.com/docs/react)
+- REST API - [Axios-hooks](https://github.com/simoneb/axios-hooks).
+- UI library: [Material UI vesion 4](https://v4.mui.com/)
 
-## Ideas to be scalable an existing react app
+## Architecture and coding rules
 
-- Create reuseable components using `children` props or passing down data in child component so that `render()` gets simple and easy to read.
-- Creating **Custom Hooks** if there are many local states in a component.
+1. Trying to get render function clean and simple
 
-```js
-// Table states and filter states are separated by Custom Hooks.
-export const CategoryTable = () => {
-  const {
-    category_loading,
-    selectedFilters,
-    filters,
-  } = useCategoryFilterState();
-```
+- Created reuable components with `children` props in React. Button, Dialog and Link are the reusable components and they are used globally in the site.
 
-- A Form was built with React Hook Form and a validation is used schema-based validation called `YUP`. All necessary functions for a form are defined in a custom hook so that Form component gets simple.
+- Form was built with **React Hook Form** and schema-based form validation called **yup**. I used to use Redux-Form a lot in the site but won't be use any more. React Hook Form is better than Redux-Form because it is simple to use and provides a good documentation.
 
-**CategoryForm and useCategoryForm**
+- Each Form has a Custom Hook function where all necessary form logic such as `onSubmit` is defined. Form usually gets complecated when connecting to back-end API. With Custom Hook, we can separate Form logic from Form UI.
 
-```js
-export const CategoryForm = () => {
-const methods = useForm<ICategoryFormFields>({
-  resolver: yupResolver(categoryFormSchema),
-  defaultValues,
-});
-const { onSubmit, defaultValue } = useCategoryForm(); //
-...
-}
-```
+> `CategoryForm` contains UI only.
+> `useCategoryForm` hook - contains a form logic.
 
-- When you create a new page, start using `<PageLayout></PageLayout>` in render(). The component manages some UI Redux states so the app keeps functions and design consisntent.
+1. Page Wrapper component - Every view page stars with Page Wrappter component called `<PageLayout></PageLayout>`. This makes all view pages keep consisntency functionally and visually.
 
 ## APIs
 
@@ -80,3 +62,12 @@ yarn dev
 
 - Open your browser and check below URL.
   http://localhost:3000/
+
+## Deploy with Heroku
+
+- https://devcenter.heroku.com/articles/upgrading-to-the-latest-stack
+- https://stackoverflow.com/questions/31527442/fatal-failed-to-read-object-objectid-interrupted-system-call
+
+```js
+% git push heroku master --quiet
+```
