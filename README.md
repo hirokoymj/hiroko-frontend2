@@ -19,7 +19,7 @@
 
 ## Architecture and coding rules
 
-1. Trying to get render function clean and simple
+**Trying to get render function clean and simple**
 
 - Created reuable components with `children` props in React. Button, Dialog and Link are the reusable components and they are used globally in the site.
 
@@ -30,7 +30,9 @@
 > `CategoryForm` contains UI only.
 > `useCategoryForm` hook - contains a form logic.
 
-1. Page Wrapper component - Every view page stars with Page Wrappter component called `<PageLayout></PageLayout>`. This makes all view pages keep consisntency functionally and visually.
+**Page Wrapper component**
+
+- Every view page stars with Page Wrappter component called `<PageLayout></PageLayout>`. This makes all view pages keep consisntency functionally and visually.
 
 ## APIs
 
