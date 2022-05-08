@@ -36,7 +36,7 @@ export const FormInputDropdown: React.FC<FormInputProps> = ({
   } = useFormContext();
 
   return (
-    <FormControl error={errors && !!errors[name]}>
+    <FormControl error={errors && !!errors[name]} fullWidth>
       <InputLabel id="select-label">{label}</InputLabel>
       <Controller
         render={({ field }) => (
