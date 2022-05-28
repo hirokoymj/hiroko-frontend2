@@ -1,4 +1,4 @@
-# hirokoymj.coaaa
+# hirokoymj.com
 
 - Live Frontend URL: https://www.hirokoymj.com
 - Live GraphQL API: https://hirokoymj-backend.herokuapp.com/
