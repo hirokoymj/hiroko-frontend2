@@ -1,6 +1,6 @@
 # hirokoymj.com
 
-AAA
+AAA hiroo hiroko
 
 - Live Frontend URL: https://www.hirokoymj.com
 - Live GraphQL API: https://hirokoymj-backend.herokuapp.com/
